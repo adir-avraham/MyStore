@@ -7,18 +7,23 @@ const mongoose = require('mongoose');
 
 
 //define routes
-
+const register = require('./auth/register');
+const login = require('./auth/login');
 
 app.use(cors());
 app.use(bodyParser.json());
 
 //index routes
+app.use('/register', register);
+app.use('/login', login);
 
 
 
 mongoose.connect(`${process.env.MONGO_DB_URL}/${process.env.DB_NAME}`, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false
 }, ()=>{
     console.log("Connected to DB")
 });
