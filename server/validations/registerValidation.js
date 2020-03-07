@@ -3,11 +3,11 @@ const User = require('../models/User');
 
 
 function registerValidationFirstStep(payload) {
-    const { idNumber, userName } = payload;
+    const { id, userName } = payload;
     const user = new User({
-        idNumber: idNumber,
+        id: id,
         userName: userName,
-    },['idNumber', 'userName']);
+    },['id', 'userName']);
 
     return new Promise((resolve, reject) => {
         user.validate(err => {
@@ -18,8 +18,8 @@ function registerValidationFirstStep(payload) {
 };
 
 
-function checkPasswordMatch(password, passwordConfirm) {
-    console.log(password, passwordConfirm)
+function validatePassword(password, passwordConfirm) {
+    if (!password || !passwordConfirm) return false;
     if (password === passwordConfirm) {
         return true;
     } else {
@@ -28,4 +28,4 @@ function checkPasswordMatch(password, passwordConfirm) {
 };
 
 
-module.exports = {registerValidationFirstStep, checkPasswordMatch};
+module.exports = {registerValidationFirstStep, validatePassword};

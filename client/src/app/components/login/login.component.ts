@@ -9,7 +9,6 @@ interface loginRes {
 }
 
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

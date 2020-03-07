@@ -13,10 +13,10 @@ router.post('/firstStep' , async (req, res) => {
         const user = await isUserExist(userName);
         if (user) return res.json({message: "User is already exist", status: false});
         
-        const {registerValidationFirstStep, checkPasswordMatch} = validationFirstStep;
+        const {registerValidationFirstStep, validatePassword} = validationFirstStep;
         
-        const isPasswordMatch = checkPasswordMatch(password, passwordConfirm);
-        if (!isPasswordMatch) return res.json({message: "Password is not confirmed", status: false})
+        const isPasswordValid = validatePassword(password, passwordConfirm);
+        if (!isPasswordValid) return res.json({message: "Password is not confirmed", status: false});
         
         const isValid = await registerValidationFirstStep(req.body);
         return res.json(isValid);
@@ -38,12 +38,10 @@ router.post('/secondStep', async (req, res) => {
         const user = await isUserExist(userName);
         if (user) return res.json({message: "User already exist", status: false});
      
-        const {checkPasswordMatch} = validationFirstStep;
+        const { validatePassword } = validationFirstStep;
 
-        if (!password && !passwordConfirm ) return res.json({message: "Password is not confirmed", status: false});
-        const isPasswordMatch = checkPasswordMatch(password, passwordConfirm);
-        
-        if (!isPasswordMatch) return res.json({message: "Password is not confirmed", status: false});
+        const isPasswordValid = validatePassword(password, passwordConfirm);
+        if (!isPasswordValid) return res.json({message: "Password is not confirmed", status: false});
         
         const savedUser = await saveUser(req.body);
         if (savedUser) return res.json({message: "Registration completed successfully!", status: true, savedUser: savedUser })
