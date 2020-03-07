@@ -1,0 +1,74 @@
+{
+  "products": [
+    {
+      "title": "Organic Rye Bread",
+      "price": 2.79,
+      "image": "",
+      "category": ""
+    },
+    {
+      "title": " Organic Sauvignon Blanc Airen Wine",
+      "price": 9.15,
+      "image": "",
+      "category": ""
+    },
+    {
+      "title": "Organic Yellow Pepper",
+      "price": 3.39,
+      "image": "",
+      "category": ""
+    },
+    { "title": "Black Tea", "price": 1.54, "image": "", "category": "" },
+    {
+      "title": " Organic Sauvignon Blanc Airen Wine",
+      "price": 3.16,
+      "image": "",
+      "category": ""
+    },
+    {
+      "title": "Organic Carmenere Red Wine",
+      "price": 3.66,
+      "image": "",
+      "category": ""
+    },
+    {
+      "title": "Organic Rye Bread Sprouted Vegan",
+      "price": 5.63,
+      "image": "",
+      "category": ""
+    },
+    {
+      "title": "Organic Yellow Pepper",
+      "price": 4.35,
+      "image": "",
+      "category": ""
+    },
+    { "title": "Almond Milk", "price": 4.41, "image": "", "category": "" },
+    {
+      "title": "Cinnamon Apple Cake Vegan",
+      "price": 6.21,
+      "image": "",
+      "category": ""
+    },
+    { "title": "Coffee Beans", "price": 5.91, "image": "", "category": "" },
+    {
+      "title": "Organic Camino Tempranillo Red Wine",
+      "price": 1.94,
+      "image": "",
+      "category": ""
+    },
+    { "title": "Organic Banana", "price": 7.47, "image": "", "category": "" },
+    { "title": "Herb Teas", "price": 9.51, "image": "", "category": "" },
+    { "title": "Organic Rye Bread", "price": 4.7, "image": "", "category": "" },
+    { "title": "Soya Drink", "price": 9.19, "image": "", "category": "" },
+    {
+      "title": " Organic Gala Apples",
+      "price": 6.15,
+      "image": "",
+      "category": ""
+    },
+    { "title": "Cashew Nut Drink", "price": 4.54, "image": "", "category": "" },
+    { "title": "Green Tea", "price": 6.22, "image": "", "category": "" },
+    { "title": "Organic Carrots", "price": 6.04, "image": "", "category": "" }
+  ]
+}
