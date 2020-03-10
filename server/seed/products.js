@@ -36,7 +36,7 @@ function Product(_itemTitle) {
     this.title = _itemTitle;
     this.price = Math.floor(Math.random() * (1000 - 100) + 100) / 100;
     this.image = "";
-    this.category = "";
+    this.category_id = "";
 }
 
 seedProducts(20).then(res => {

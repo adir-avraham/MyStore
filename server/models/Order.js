@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-
+require('./User');
+require('./Cart');
 
 const OrderSchema = new mongoose.Schema({
     finalPrice: {
@@ -26,11 +27,11 @@ const OrderSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    user: {
+    user_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     },
-    cart: {
+    cart_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'cart'
     },
