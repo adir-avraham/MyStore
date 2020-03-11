@@ -33,9 +33,9 @@ async function seedProducts(NOF) {
 }
 
 function Product(_itemTitle) {
-    this.title = _itemTitle;
+    this.name = _itemTitle;
     this.price = Math.floor(Math.random() * (1000 - 100) + 100) / 100;
-    this.image = "";
+    this.image = "https://picsum.photos/200";
     this.category_id = "";
 }
 

@@ -1,103 +1,118 @@
 {
   "products": [
-    { "title": "Black Tea", "price": 3.73, "image": "", "category_id": "" },
-    {
-      "title": "Cinnamon Apple Cake Vegan",
-      "price": 5.7,
-      "image": "",
-      "category_id": ""
-    },
-    {
-      "title": "Organic Sauvignon Blanc Airen Wine",
-      "price": 3.2,
-      "image": "",
-      "category_id": ""
-    },
-    { "price": 3.89, "image": "", "category_id": "" },
-    { "title": "Green Tea", "price": 4.34, "image": "", "category_id": "" },
     {
       "title": "Organic Rye Bread Sprouted Vegan",
-      "price": 8.65,
-      "image": "",
+      "price": 9.23,
+      "image": "https://picsum.photos/200",
       "category_id": ""
     },
     {
-      "title": "Cinnamon Apple Cake Vegan",
-      "price": 2.08,
-      "image": "",
+      "title": "White Tea",
+      "price": 7.69,
+      "image": "https://picsum.photos/200",
+      "category_id": ""
+    },
+    {
+      "title": "Coconut Milk",
+      "price": 4.5,
+      "image": "https://picsum.photos/200",
+      "category_id": ""
+    },
+    {
+      "title": "Organic Camino Tempranillo Red Wine",
+      "price": 1.96,
+      "image": "https://picsum.photos/200",
       "category_id": ""
     },
     {
       "title": "Organic Rye Bread",
-      "price": 3.01,
-      "image": "",
+      "price": 4.54,
+      "image": "https://picsum.photos/200",
       "category_id": ""
     },
     {
-      "title": "Organic Carrots",
-      "price": 6.58,
-      "image": "",
+      "title": "Organic Camino Tempranillo Red Wine",
+      "price": 3.67,
+      "image": "https://picsum.photos/200",
       "category_id": ""
     },
     {
-      "title": "Organic Vitality Rye Bread",
-      "price": 3.24,
-      "image": "",
+      "title": "Organic Sauvignon Blanc Airen Wine",
+      "price": 4.14,
+      "image": "https://picsum.photos/200",
       "category_id": ""
     },
     {
       "title": "Organic Yellow Pepper",
-      "price": 5.92,
-      "image": "",
+      "price": 8.74,
+      "image": "https://picsum.photos/200",
+      "category_id": ""
+    },
+    {
+      "title": "Organic Banana",
+      "price": 6.57,
+      "image": "https://picsum.photos/200",
+      "category_id": ""
+    },
+    {
+      "title": "Organic Camino Tempranillo Red Wine",
+      "price": 3.45,
+      "image": "https://picsum.photos/200",
+      "category_id": ""
+    },
+    {
+      "title": "Organic Rye Bread Sprouted Vegan",
+      "price": 4.86,
+      "image": "https://picsum.photos/200",
+      "category_id": ""
+    },
+    {
+      "title": "Cinnamon Apple Cake Vegan",
+      "price": 6.88,
+      "image": "https://picsum.photos/200",
+      "category_id": ""
+    },
+    {
+      "title": "Herb Teas",
+      "price": 9.84,
+      "image": "https://picsum.photos/200",
+      "category_id": ""
+    },
+    {
+      "title": "Organic Fresh Ginger",
+      "price": 9.36,
+      "image": "https://picsum.photos/200",
+      "category_id": ""
+    },
+    { "price": 8.61, "image": "https://picsum.photos/200", "category_id": "" },
+    {
+      "title": "Organic Sauvignon Blanc Airen Wine",
+      "price": 8.32,
+      "image": "https://picsum.photos/200",
       "category_id": ""
     },
     {
       "title": "Organic Rye Bread",
-      "price": 3.51,
-      "image": "",
+      "price": 9.36,
+      "image": "https://picsum.photos/200",
       "category_id": ""
     },
     {
-      "title": "Organic Banana",
-      "price": 6.41,
-      "image": "",
+      "title": "Organic Carmenere Red Wine",
+      "price": 3.67,
+      "image": "https://picsum.photos/200",
       "category_id": ""
     },
     {
-      "title": "Cinnamon Apple Cake Vegan",
-      "price": 4,
-      "image": "",
-      "category_id": ""
-    },
-    { "title": "Green Tea", "price": 2.26, "image": "", "category_id": "" },
-    {
-      "title": "Free Range Eggs",
-      "price": 6.22,
-      "image": "",
+      "title": "Coconut Milk",
+      "price": 3.69,
+      "image": "https://picsum.photos/200",
       "category_id": ""
     },
     {
-      "title": "Organic Banana",
-      "price": 2.22,
-      "image": "",
-      "category_id": ""
-    },
-    {
-      "title": "Organic Sauvignon Blanc Airen Wine",
-      "price": 6,
-      "image": "",
-      "category_id": ""
-    },
-    {
-      "title": "Cinnamon Apple Cake Vegan",
-      "price": 3.75,
-      "image": "",
-      "category_id": ""
-    },
-    {
-      "title": "Organic Gala Apples",
-      "price": 2.51,
-      "image": "",
+      "title": "Organic Hass Avocado",
+      "price": 7.03,
+      "image": "https://picsum.photos/200",
       "category_id": ""
     }
   ]
