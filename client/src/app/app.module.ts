@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -13,6 +13,8 @@ import { InformationComponent } from './components/information/information.compo
 import { RegisterComponent } from './components/register/register.component';
 import { ShoppingPageComponent } from './components/shopping-page/shopping-page.component';
 import { NavbarCategoriesComponent } from './components/navbar-categories/navbar-categories.component';
+import { SearchProductComponent } from './components/search-product/search-product.component';
+
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { NavbarCategoriesComponent } from './components/navbar-categories/navbar
     InformationComponent,
     RegisterComponent,
     ShoppingPageComponent,
-    NavbarCategoriesComponent
+    NavbarCategoriesComponent,
+    SearchProductComponent,
   ],
   imports: [
     BrowserModule,

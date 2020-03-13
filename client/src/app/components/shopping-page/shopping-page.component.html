@@ -1,11 +1,12 @@
 <div class="container">
 
-       
-      <app-navbar-categories (productsByCategory)="getProductsByCategory($event)"></app-navbar-categories>
+        <p *ngIf="noSearchResults">Sorry! No products found...</p>    
+  
+      <app-navbar-categories (productsByCategory)="getProductsByCategory($event)" *ngIf="!noSearchResults"></app-navbar-categories>
         
 
-      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4">
-        <div class="col mb-4" *ngFor="let product of products" >
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4" *ngIf="!noSearchResults">
+        <div class="col mb-4" *ngFor="let product of products">
           <div class="card h-100" style="min-width: 18rem;">
             <img [src]="product.image" class="card-img-top mx-auto d-block" alt="image" style="max-width: 10rem;">
             <div class="card-body">
