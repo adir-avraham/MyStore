@@ -13,6 +13,9 @@
               <p class="card-title">{{ product.name }}</p>
               <h6 class="card-text">${{ product.price }}</h6>
             </div>
+            <div class="card-footer text-right">
+              <button type="button" class="btn btn-sm btn-primary" (click)="addProductToCart(product)">Add</button>
+            </div>
           </div>
         </div>
 

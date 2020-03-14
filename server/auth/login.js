@@ -17,7 +17,8 @@ router.post('/', async (req, res) => {
         const user = await getUserLogin(userName, bcrypt.hashSync(password, salt)); 
         if (!user) return res.json({message: "Incorrect password / username", status: false});
         const jwtToken = await getJwt({...user});
-        res.json({message: "User logged in successfully!", user: user, token: jwtToken, status: true});  
+        const userData = { firstName: user.firstName, role: user.role, _id: user._id, token: jwtToken }
+        res.json({message: "User logged in successfully!", userData: userData, status: true});  
     } catch (error) {
         res.json({error: error.message, status: false});
     }

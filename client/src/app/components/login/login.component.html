@@ -1,5 +1,7 @@
 <div class="card">
     <div class="card-body shadow-lg bg-light">
+      <button class="card-title btn btn-primary btn-lg btn-block" [disabled]="!isAuthenticated" (click)="goToShoppingPage()">
+         {{ !isAuthenticated ? 'Please login...' : 'Start Shopping' }}</button>
         <h5 class="card-title">Resitered?</h5>
         <form [formGroup]="loginForm">
           <div class="form-row">
@@ -15,7 +17,9 @@
           <div *ngIf="!loginStatus" class="alert alert-danger" role="alert">
             {{errorMessage}}
           </div>
-              <button type="button" class="btn btn-primary px-5" (click)="login()">Login</button>
+              <button type="button" class="btn btn-primary px-5 " (click)="login()">Login
+                <span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
+              </button>
               <a routerLink="/register" routerLinkActive="router-link-active"  class="link ml-3">Register</a>
         </form>
       </div>

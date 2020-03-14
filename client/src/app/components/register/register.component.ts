@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { Router } from '@angular/router';
 
 interface Response {
   status?: boolean;
@@ -20,7 +21,7 @@ export class RegisterComponent implements OnInit {
   public isFirstStepValid = false;
 
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService) { 
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) { 
     this.registerForm1 = this.formBuilder.group({
       id: [null, [Validators.required, Validators.min(1000)]],
       userName: [null, [Validators.required, Validators.email]],
@@ -92,6 +93,7 @@ export class RegisterComponent implements OnInit {
         this.registerForm1.reset();
         this.registerForm2.reset();
         this.isFirstStepValid = false; 
+        this.router.navigate(['/home']);
       } 
 
     }, error => {

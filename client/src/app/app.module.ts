@@ -14,6 +14,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { ShoppingPageComponent } from './components/shopping-page/shopping-page.component';
 import { NavbarCategoriesComponent } from './components/navbar-categories/navbar-categories.component';
 import { SearchProductComponent } from './components/search-product/search-product.component';
+import { ModalComponent } from './components/modal/modal.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { SearchProductComponent } from './components/search-product/search-produ
     ShoppingPageComponent,
     NavbarCategoriesComponent,
     SearchProductComponent,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,

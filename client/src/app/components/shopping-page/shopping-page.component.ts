@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Category } from '../navbar-categories/navbar-categories.component';
 import { ProductsService } from 'src/app/services/products/products.service';
 import { Subscription } from 'rxjs';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalComponent } from '../modal/modal.component';
 
 interface SearchResult {
   product: Array<Product>;
@@ -38,7 +40,7 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
     _id: "5e5ae45a82745acbeca9e635",
     category : "Milk & Eggs"
   } 
-  constructor(private productsService: ProductsService) { }
+  constructor(private productsService: ProductsService, private _modalService: NgbModal) { }
 
 
   ngOnInit(): void {
@@ -76,6 +78,12 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
     });
   };
   
+  addProductToCart(product: Product) {
+    console.log(product)
+    this._modalService.open(ModalComponent)
+  }
+
+
   ngOnDestroy() {
     this.unsubscribeSearchTextChanges.unsubscribe();
   };
