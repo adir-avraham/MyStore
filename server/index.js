@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 //define routes
 const register = require('./auth/register');
 const login = require('./auth/login');
+const verifyToken = require('./auth/verifyToken');
 const getCategories = require('./routes/getCategories');
 const getProductByName = require('./routes/getProductByName');
 const getProductsByCategory = require('./routes/getProductsByCategory');
@@ -22,6 +23,9 @@ app.use(bodyParser.json());
 //index routes
 app.use('/register', register);
 app.use('/login', login);
+
+
+app.use('/',verifyToken);
 app.use('/getCategories', getCategories);
 app.use('/getProductByName', getProductByName);
 app.use('/getProductsByCategory', getProductsByCategory);

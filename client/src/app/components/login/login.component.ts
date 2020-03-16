@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
         this.isLoading = false;
         this.isAuthenticated = true;
         this.loginStatus = true;
-        alert("login success..")
+        alert("login success!!")
       }
       console.log(loginRes)
       if (message && !status) {
