@@ -8,7 +8,7 @@ async function getProductByName(name) {
 
 
 async function getProductsByCategory(category_id) {
-    const products = await Product.find({ category_id: category_id }).populate('category'); 
+    const products = await Product.find({ category_id: category_id });
     return products;
 }
 

@@ -13,7 +13,7 @@ const verifyToken = require('./auth/verifyToken');
 const getCategories = require('./routes/getCategories');
 const getProductByName = require('./routes/getProductByName');
 const getProductsByCategory = require('./routes/getProductsByCategory');
-const createCart = require('./routes/createCart');
+const getCart = require('./routes/getCart');
 const addCartItem = require('./routes/addCartItem');
 const deleteCartItem = require('./routes/deleteCartItem');
 
@@ -29,7 +29,7 @@ app.use('/',verifyToken);
 app.use('/getCategories', getCategories);
 app.use('/getProductByName', getProductByName);
 app.use('/getProductsByCategory', getProductsByCategory);
-app.use('/createCart', createCart);
+app.use('/getCart', getCart);
 app.use('/addCartItem', addCartItem);
 app.use('/deleteCartItem', deleteCartItem);
 

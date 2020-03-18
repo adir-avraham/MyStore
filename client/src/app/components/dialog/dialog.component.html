@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Add to Cart</h2>
+
+<mat-dialog-content>More than one {{ passedData.name }}? Get 10% off!</mat-dialog-content>
+<mat-dialog-content>
+
+    <mat-form-field >
+        
+        <input matInput type="number" [(ngModel)]="quantity">
+
+    </mat-form-field>
+</mat-dialog-content>
+
+
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close={{quantity}}>Add</button>
+    <button mat-button [mat-dialog-close]="false">No thanks</button>
+</mat-dialog-actions>

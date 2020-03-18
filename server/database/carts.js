@@ -3,24 +3,75 @@ const Cart = require('../models/Cart');
 products = require('./products');
 
 
-async function createCart(user_id) {
-    const cart = new Cart({
-        user_id: user_id
-    })
-
-    const createdCart = await cart.save();
-
-    return createdCart;
+class CartItemObj {
+    constructor(_id, name, quantity, price, cart_id, product_id, image) {
+        this._id = _id;
+        this.name = name;
+        this.quantity = quantity;
+        this.price = price;
+        this.cart_id = cart_id; 
+        this.product_id = product_id;
+        this.image = image;
+    }
 }
+
+
+
+async function getCart(user_id) {
+    
+    const hasCart = await Cart.findOne({user_id: user_id})
+    
+    if (hasCart) {
+        return getCartItems(hasCart);
+        
+    } else {
+        
+        const cart = new Cart({
+            user_id: user_id
+        })
+
+        const createdCart = await cart.save();
+        
+        return createdCart;
+    }
+  
+};
+
+async function getCartItems(hasCart) {
+    
+    const { _id } = hasCart;
+
+    let cartItems = await CartItem.find({cart_id: _id}).populate('product_id');
+    if (!cartItems.length) {
+        const cartItem = new CartItemObj(null, null, null, null, _id, null, null )
+        cartItems.push(cartItem)
+         
+    } else {
+        const newArray = cartItems.map(item => {
+            return new CartItemObj(
+                item._id,
+                item.product_id.name,
+                item.quantity,
+                item.price, 
+                item.cart_id,
+                item.product_id._id,
+                item.product_id.image
+                )
+          })
+        cartItems = newArray;
+    }
+    
+    return cartItems;
+};
 
 
 async function addCartItem(payload) {
 
     const { product_id, quantity, cart_id } = payload;
     const { getProductPrice } = products;
-
+    if (quantity < 1) return;
+    
     const productPrice = await getProductPrice(product_id);
-    //if (!productPrice) return;
     
     const cartItem = new CartItem ({
         quantity: quantity, 
@@ -40,4 +91,4 @@ async function deleteCartItem(item_id) {
 };
 
 
-module.exports = { createCart, addCartItem, deleteCartItem };
+module.exports = { getCart, addCartItem, deleteCartItem };

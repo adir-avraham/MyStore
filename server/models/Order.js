@@ -29,11 +29,13 @@ const OrderSchema = new mongoose.Schema({
     },
     user_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'user'
+        ref: 'user',
+        required: true
     },
     cart_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'cart'
+        ref: 'cart',
+        required: true
     },
 });
 

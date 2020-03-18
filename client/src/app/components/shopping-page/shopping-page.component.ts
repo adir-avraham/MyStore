@@ -2,8 +2,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Category } from '../navbar-categories/navbar-categories.component';
 import { ProductsService } from 'src/app/services/products/products.service';
 import { Subscription } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ModalComponent } from '../modal/modal.component';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
+import { CartService } from 'src/app/services/cart/cart.service';
+
+
 
 interface SearchResult {
   product: Array<Product>;
@@ -32,7 +35,7 @@ interface ProductsResult {
 
 export class ShoppingPageComponent implements OnInit, OnDestroy {
 
-  public products: Array<Product>
+  public products: Array<Product>;
   public searchText: string;
   public unsubscribeSearchTextChanges: Subscription;
   public noSearchResults: boolean = false;
@@ -40,13 +43,15 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
     _id: "5e5ae45a82745acbeca9e635",
     category : "Milk & Eggs"
   } 
-  constructor(private productsService: ProductsService, private _modalService: NgbModal) { }
+
+
+
+  constructor(private productsService: ProductsService, private dialog: MatDialog, private cartService: CartService) { }
 
 
   ngOnInit(): void {
 
-    this.getProductsByCategory(this.initCategory)
-
+    this.getProductsByCategory(this.initCategory);
 
 
      this.unsubscribeSearchTextChanges = this.productsService.searchTextChanges.subscribe((newValue: string) =>{
@@ -78,10 +83,19 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
     });
   };
   
+
   addProductToCart(product: Product) {
-    console.log(product)
-    this._modalService.open(ModalComponent)
-  }
+
+    const dialogRef = this.dialog.open(DialogComponent, {data: {
+      name: product.name
+    }})
+    
+    dialogRef.afterClosed().subscribe((quantity: number) => {
+      const selectedProduct = {quantity: quantity, product_id: product._id };
+      this.cartService.selectedProduct.next(selectedProduct);
+
+    })
+  };
 
 
   ngOnDestroy() {

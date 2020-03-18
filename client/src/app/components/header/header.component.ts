@@ -10,9 +10,10 @@ import { User } from 'src/app/models/user.model';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
+
+
 export class HeaderComponent implements OnInit, OnDestroy {
-  faPhoneAlt = faPhoneAlt;
-  faEnvelope = faEnvelope;
+
   isAuthenticated = false;
   userConnected = null;
   private userSubscription: Subscription;
@@ -26,11 +27,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
         const { firstName } = user;
         this.userConnected = firstName;
       } else {
-
         this.isAuthenticated = false;
+        this.userConnected = null;
       }
-      console.log(user)
     })
+  }
+
+  logout() {
+    this.authService.logout();
+    this.userConnected = null;
   }
 
   ngOnDestroy() {
