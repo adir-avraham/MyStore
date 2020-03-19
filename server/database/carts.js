@@ -16,7 +16,6 @@ class CartItemObj {
 }
 
 
-
 async function getCart(user_id) {
     
     const hasCart = await Cart.findOne({user_id: user_id})
@@ -85,10 +84,22 @@ async function addCartItem(payload) {
     return addedCartItem;
 };
 
+
 async function deleteCartItem(item_id) {
     const deletedItem = await CartItem.findByIdAndRemove({_id: item_id});
     return deletedItem;
 };
 
 
-module.exports = { getCart, addCartItem, deleteCartItem };
+async function empmtyCart(cart_id) {
+    const result = await CartItem.deleteMany({ cart_id: cart_id });
+    return result;
+}
+
+
+async function getCartByCartId(cart_id) {
+    const cartItems = await CartItem.find({cart_id: cart_id});
+    return cartItems;
+}
+
+module.exports = { getCart, addCartItem, deleteCartItem, empmtyCart, getCartByCartId };

@@ -6,7 +6,7 @@ import { SelectedProduct } from '../../services/cart/cart.service';
 
 interface Result {
   cart: Array<CartItem>;
-  stauts: boolean;
+  status: boolean;
 }
 
 
@@ -81,7 +81,8 @@ export class CartComponent implements OnInit, OnDestroy {
   deleteCartItem(item_id: string) {
 
     this.cartService.deleteCartItem(item_id).subscribe((result: Result) => {
-      const { cart } = result
+      const { cart, status } = result
+      if (!status) return;
       this.cartItems = cart;
   }, error =>{
     console.log(error.message);
@@ -90,7 +91,14 @@ export class CartComponent implements OnInit, OnDestroy {
 }
 
 emptyCart(cart_id: string) {
-  console.log(cart_id)
+  this.cartService.emptyCart(cart_id).subscribe((result: Result) =>{
+    const { cart, status} = result;
+    if (!status) return;
+    this.cartItems = cart;
+
+  }, error =>{
+    console.log(error.message);
+  })
 }
 
   ngOnDestroy() {

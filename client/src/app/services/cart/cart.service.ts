@@ -19,6 +19,7 @@ export class CartService {
   public getCartUrl = `${basedUrl}/getCart`;
   public addToCartUrl = `${basedUrl}/addCartItem`;
   public deleteCartItemUrl = `${basedUrl}/deleteCartItem`;
+  public emptyCartUrl = `${basedUrl}/emptyCart`;
 
   selectedProduct = new Subject<SelectedProduct>();
 
@@ -34,5 +35,9 @@ export class CartService {
 
   deleteCartItem(item_id: string) {
     return this.httpClient.delete(`${this.deleteCartItemUrl}/${item_id}`);
+  }
+
+  emptyCart(cart_id: string) {
+    return this.httpClient.delete(`${this.emptyCartUrl}/${cart_id}`);
   }
 }

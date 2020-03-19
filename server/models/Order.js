@@ -3,7 +3,7 @@ require('./User');
 require('./Cart');
 
 const OrderSchema = new mongoose.Schema({
-    finalPrice: {
+    totalPrice: {
         type: Number,
         required: true
     },
@@ -23,7 +23,7 @@ const OrderSchema = new mongoose.Schema({
         type: Date,
         default: Date.now 
     },
-    creditCard_4digits: {
+    creditCard: {
         type: Number,
         required: true
     },

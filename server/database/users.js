@@ -32,23 +32,28 @@ async function saveUser(payload) {
 
 
 async function getUserSalt(userName) {
-    try {
+
         const {salt} = await User.findOne({ userName: userName }, { salt: 1, _id: 0 });
         return salt;
-    } catch (error) {
-        console.log(error.message);
-    };
-}; 
+
+};
+
 
 
 async function getUserLogin(userName, password) {
-    try {
         const user = await User.findOne({ userName: userName, password: password }); 
         return user;
-    } catch (error) {
-        console.log(error.message);
-    };
 }; 
+
+async function getUserCity(_id) {
+    const city = await User.findById({_id: _id}, { city: 1, _id: 0 });
+    return city; 
+};
+
+async function getUserStreet(_id) {
+    const street = await User.findById({_id: _id}, { street: 1, _id: 0 });
+    return street;
+};
 
 
 function getJwt(p) {
@@ -61,4 +66,5 @@ function getJwt(p) {
 };
 
 
-module.exports = { isUserExist, saveUser, getUserSalt, getUserLogin, getJwt };
+module.exports = { isUserExist, saveUser, getUserSalt, 
+    getUserLogin, getJwt, getUserCity, getUserStreet };

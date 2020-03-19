@@ -16,6 +16,10 @@ const getProductsByCategory = require('./routes/getProductsByCategory');
 const getCart = require('./routes/getCart');
 const addCartItem = require('./routes/addCartItem');
 const deleteCartItem = require('./routes/deleteCartItem');
+const emptyCart = require('./routes/emptyCart');
+const saveNewOrder = require('./routes/saveNewOrder');
+const getUserDetails = require('./routes/getUserDetails');
+const getUnavailableDates = require('./routes/getUnavailableDates');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -32,7 +36,10 @@ app.use('/getProductsByCategory', getProductsByCategory);
 app.use('/getCart', getCart);
 app.use('/addCartItem', addCartItem);
 app.use('/deleteCartItem', deleteCartItem);
-
+app.use('/emptyCart', emptyCart);
+app.use('/saveNewOrder', saveNewOrder);
+app.use('/getUserDetails', getUserDetails);
+app.use('/getUnavailableDates', getUnavailableDates);
 
 mongoose.connect(`${process.env.MONGO_DB_URL}/${process.env.DB_NAME}`, {
     useNewUrlParser: true,
