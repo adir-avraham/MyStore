@@ -1,0 +1,34 @@
+table {
+    width: 100%;
+  }
+  
+  tr.mat-footer-row {
+    font-weight: bold;
+  }
+
+
+.cart {
+    width: 440px;
+}
+
+
+@media only screen and (max-width: 800px) {
+    .cart {
+        width: 100%;
+
+    }
+}
+
+img {
+  width: 30px;
+}
+
+mat-icon {
+  color: gray;
+  cursor: pointer;
+}
+
+.tableContainer {
+  height: 340px;
+  overflow: auto;
+}

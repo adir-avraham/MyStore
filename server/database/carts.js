@@ -18,23 +18,27 @@ class CartItemObj {
 
 async function getCart(user_id) {
     
-    const hasCart = await Cart.findOne({user_id: user_id})
-    
+    const hasCart = await Cart.findOne({user_id: user_id, open: true})
     if (hasCart) {
+        
         return getCartItems(hasCart);
-        
+    
     } else {
-        
+    
         const cart = new Cart({
             user_id: user_id
         })
-
         const createdCart = await cart.save();
         
-        return createdCart;
+        return await getCartItems(createdCart);
     }
   
 };
+
+async function closeCart(cart_id) {
+    const updateCart = await Cart.findByIdAndUpdate(cart_id, {open: false});
+    return updateCart;
+}
 
 async function getCartItems(hasCart) {
     
@@ -102,4 +106,4 @@ async function getCartByCartId(cart_id) {
     return cartItems;
 }
 
-module.exports = { getCart, addCartItem, deleteCartItem, empmtyCart, getCartByCartId };
+module.exports = { getCart, addCartItem, deleteCartItem, empmtyCart, getCartByCartId, closeCart };

@@ -1,0 +1,50 @@
+<mat-card class="h-100">
+
+    <mat-card-subtitle fxLayoutAlign="start center">
+        <mat-icon>local_shipping</mat-icon>&nbsp; Order
+    </mat-card-subtitle>
+      
+    <mat-card-content>
+      <form [formGroup]="orderForm" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+        
+        <mat-form-field>
+            <input type="text" placeholder="City" matInput formControlName="deliveryCity"
+            (dblclick)="getUserCity()" [matAutocomplete]="auto" matTooltip="Dblclick to fill your city">
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let deliveryCity of deliveryCities" [value]="deliveryCity">
+                {{deliveryCity}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matTooltip="Dblclick to fill your street" matInput formControlName="deliveryStreet" 
+          (dblclick)="getUserStreet()" type="deliveryStreet" placeholder="Street">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Delivery Date</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="deliveryDate" 
+            [min]="minDate" [matDatepickerFilter]="myFilter">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker touchUi #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput formControlName="creditCard" type="creditCard" placeholder="Credit Card">
+        </mat-form-field>
+        
+        <!-- <div *ngIf="!loginStatus" class="error">
+          {{errorMessage}}
+        </div> -->
+
+      </form>
+    </mat-card-content>
+    
+    <mat-card-actions fxLayoutAlign="center center">              
+      <button type="button" mat-raised-button color="primary" (click)="saveNewOrder()">
+        Order<span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
+      </button>
+    </mat-card-actions>
+  
+</mat-card>

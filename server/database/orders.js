@@ -4,7 +4,12 @@ const carts = require('../database/carts');
 
 async function saveNewOrder(_id, payload) {
 
-    const { deliveryCity, deliveryStreet, deliveryDate, creditCard, cart_id } = payload;
+    const { deliveryCity, deliveryStreet, deliveryDate, creditCard } = payload;
+    
+    const { getCart } = carts;
+    const cart = await getCart(_id);
+    const cart_id = cart[0].cart_id;
+    if (!cart[0]._id) return;
 
     const order = new Order ({
 
@@ -18,9 +23,13 @@ async function saveNewOrder(_id, payload) {
     })
 
     const savedOrder = await order.save();
+    if (savedOrder) {
+        const { closeCart } = carts;
+        const updatedCart = await closeCart(cart_id);
+        if (!updatedCart) return;
+    }
 
     return savedOrder;
-
 };
 
 

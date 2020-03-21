@@ -20,6 +20,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AuthInterceptorService } from './services/auth/auth-interceptor.service';
 import { CartComponent } from './components/cart/cart.component';
 import { DialogComponent } from './components/dialog/dialog.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { ReceiptComponent } from './components/receipt/receipt.component';
+import { OrderComponent } from './components/order/order.component';
+import { OrderFeedbackComponent } from './components/order-feedback/order-feedback.component';
 
 
 @NgModule({
@@ -35,6 +39,10 @@ import { DialogComponent } from './components/dialog/dialog.component';
     SearchProductComponent,
     CartComponent,
     DialogComponent,
+    CheckoutComponent,
+    ReceiptComponent,
+    OrderComponent,
+    OrderFeedbackComponent
   ],
   imports: [
     BrowserModule,
@@ -51,6 +59,6 @@ import { DialogComponent } from './components/dialog/dialog.component';
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}
   ],
   bootstrap: [AppComponent],
-  entryComponents: [DialogComponent]
+  entryComponents: [DialogComponent, OrderFeedbackComponent]
 })
 export class AppModule { }

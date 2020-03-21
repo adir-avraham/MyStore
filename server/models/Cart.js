@@ -11,6 +11,10 @@ const CartSchema = new mongoose.Schema({
         ref: 'user',
         required: true
     },
+    open: {
+        type: Boolean,
+        default: true
+    }
 })
 
 const CartModel = mongoose.model('cart', CartSchema)

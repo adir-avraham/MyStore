@@ -1,0 +1,126 @@
+<mat-card class="h-100">  
+<div class="cart">
+    
+    <mat-card-subtitle fxLayoutAlign="space-between center">
+        <span>Your Shopping Cart</span>
+        <button type="button" mat-button routerLink="/shopping-page">
+            
+            <mat-icon>arrow_back</mat-icon>
+            Back to shop
+        </button>
+    </mat-card-subtitle>
+    <mat-card-subtitle>
+    
+        <mat-form-field>
+            <input matInput type="text" (keyup)="applyFilter($event)" placeholder="Search product">
+        </mat-form-field>
+    </mat-card-subtitle>
+    <div class="tableContainer">
+
+        <table mat-table [dataSource]="dataSource">
+                  
+          <!-- Picture Column -->
+          <ng-container matColumnDef="image">
+            <th mat-header-cell *matHeaderCellDef> Picture </th>
+            <td *matCellDef="let cartItem"> <img [src]="cartItem.image"> </td>
+            <td mat-footer-cell *matFooterCellDef> Total </td>
+          </ng-container>
+  
+          <!-- Item Column -->
+          <ng-container matColumnDef="item">
+            <th mat-header-cell *matHeaderCellDef> Item </th>
+            <td *matCellDef="let cartItem"> {{cartItem.name}} </td>
+            <td mat-footer-cell *matFooterCellDef></td>
+          </ng-container>
+  
+          <!-- Quantity Column -->
+          <ng-container matColumnDef="quantity">
+            <th mat-header-cell *matHeaderCellDef> Quantity </th>
+            <td *matCellDef="let cartItem"> {{cartItem.quantity | number}} </td>
+            <td mat-footer-cell *matFooterCellDef></td>
+          </ng-container>
+        
+          <!-- Cost Column -->
+          <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef> Price </th>
+            <td *matCellDef="let cartItem"> {{cartItem.price | currency}} </td>
+            <td mat-footer-cell *matFooterCellDef> {{getTotalCost() | currency}} </td>
+          </ng-container>
+  
+
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+        </table>
+
+      </div>
+      
+</div>
+</mat-card>
+
+
+<!-- 
+<mat-icon fontSet="material-icons-outlined">shopping_cart</mat-icon> -->
+
+
+<!--
+
+<mat-card class="h-100">  
+    <div class="cart">
+        
+        <mat-card-subtitle>
+            <button type="button" mat-button routerLink="/shopping-page">
+                
+                <mat-icon>arrow_back</mat-icon>
+                Back to shop
+            </button>
+        </mat-card-subtitle>
+        <mat-card-subtitle>
+        
+            <mat-form-field>
+                <input matInput type="text" (keyup)="applyFilter($event)" placeholder="Search product">
+            </mat-form-field>
+        </mat-card-subtitle>
+            <table mat-table [dataSource]="dataSource">
+                      
+         
+              <ng-container matColumnDef="image">
+                <th mat-header-cell *matHeaderCellDef> Picture </th>
+                <td mat-cell *matCellDef="let cartItem"> <img [src]="cartItem.image"> </td>
+                <td mat-footer-cell *matFooterCellDef> Total </td>
+              </ng-container>
+      
+          
+              <ng-container matColumnDef="item">
+                <th mat-header-cell *matHeaderCellDef> Item </th>
+                <td mat-cell *matCellDef="let cartItem"> {{cartItem.name}} </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+              </ng-container>
+      
+          
+              <ng-container matColumnDef="quantity">
+                <th mat-header-cell *matHeaderCellDef> Quantity </th>
+                <td mat-cell *matCellDef="let cartItem"> {{cartItem.quantity | number}} </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+              </ng-container>
+            
+         
+              <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef> Price </th>
+                <td mat-cell *matCellDef="let cartItem"> {{cartItem.price | currency}} </td>
+                <td mat-footer-cell *matFooterCellDef> {{getTotalCost() | currency}} </td>
+              </ng-container>
+      
+    
+            
+              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+            </table>
+    
+          
+    </div>
+    </mat-card>
+    
+-->

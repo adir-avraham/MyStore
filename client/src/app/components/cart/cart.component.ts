@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { Subscription } from 'rxjs';
 import { SelectedProduct } from '../../services/cart/cart.service';
+import { Router } from '@angular/router';
 
 
 interface Result {
@@ -10,7 +11,7 @@ interface Result {
 }
 
 
-interface CartItem {
+export interface CartItem {
   _id?: string;
   name?: string;
   quantity?: number;
@@ -39,7 +40,7 @@ export class CartComponent implements OnInit, OnDestroy {
   cartItems: Array<CartItem> = [];
   selectedProductSub: Subscription;
  
-  constructor(private cartService: CartService) { }
+  constructor(private cartService: CartService, private router: Router) { }
 
 
   ngOnInit(): void {
@@ -99,6 +100,10 @@ emptyCart(cart_id: string) {
   }, error =>{
     console.log(error.message);
   })
+}
+
+checkout() {
+  this.router.navigate(['/checkout']);
 }
 
   ngOnDestroy() {
