@@ -13,8 +13,8 @@ router.use('/', (req, res, next) =>{
             req.decoded = decoded;
             next()
         });
-    } catch {
-        res.json({ error: "error from verification", status: false })
+    } catch (error){
+        res.json({ error: error.message, status: false });
     }
 });
 

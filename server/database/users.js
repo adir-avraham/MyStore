@@ -13,7 +13,7 @@ async function saveUser(payload) {
     
     const { firstName, lastName, userName, password, id, city, street } = payload;
     const salt = bcrypt.genSaltSync(10);
-
+    
     const user = new User({
         firstName: firstName,
         lastName: lastName,
@@ -24,31 +24,30 @@ async function saveUser(payload) {
         city: city,
         street: street
     });
-
+    
     const savedUser = await user.save();
-
+    
     return savedUser;
 };
 
 
 async function getUserSalt(userName) {
-
-        const {salt} = await User.findOne({ userName: userName }, { salt: 1, _id: 0 });
-        return salt;
-
+    const {salt} = await User.findOne({ userName: userName }, { salt: 1, _id: 0 });
+    return salt;
 };
 
 
-
 async function getUserLogin(userName, password) {
-        const user = await User.findOne({ userName: userName, password: password }); 
-        return user;
+    const user = await User.findOne({ userName: userName, password: password }); 
+    return user;
 }; 
+
 
 async function getUserCity(_id) {
     const city = await User.findById({_id: _id}, { city: 1, _id: 0 });
     return city; 
 };
+
 
 async function getUserStreet(_id) {
     const street = await User.findById({_id: _id}, { street: 1, _id: 0 });

@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const users = require('../database/users');
 
 
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
     
     try {
         const { getUserSalt, getUserLogin, getJwt, isUserExist } = users;
@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
         const user = await getUserLogin(userName, bcrypt.hashSync(password, salt)); 
         if (!user) return res.json({message: "Incorrect password / username", status: false});
         const jwtToken = await getJwt({...user});
-        const userData = { firstName: user.firstName, role: user.role, _id: user._id, token: jwtToken }
+        const userData = { firstName: user.firstName, role: user.role, _id: user._id, token: jwtToken };
         res.json({message: "User logged in successfully!", userData: userData, status: true});  
     } catch (error) {
         res.json({error: error.message, status: false});

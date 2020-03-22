@@ -44,12 +44,11 @@ router.post('/secondStep', async (req, res) => {
         if (!isPasswordValid) return res.json({message: "Password is not confirmed", status: false});
         
         const savedUser = await saveUser(req.body);
-        if (savedUser) return res.json({message: "Registration completed successfully!", status: true, savedUser: savedUser })
+        if (savedUser) return res.json({message: "Registration completed successfully!", status: true, savedUser: savedUser });
         res.json({message: "Register error!", status: false});
     } catch (error) {
         res.json({error: error.message , status: false});
     }
-
 });
 
 

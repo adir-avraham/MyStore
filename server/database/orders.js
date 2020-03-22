@@ -2,6 +2,7 @@ const Order = require('../models/Order');
 const carts = require('../database/carts');
 
 
+
 async function saveNewOrder(_id, payload) {
 
     const { deliveryCity, deliveryStreet, deliveryDate, creditCard } = payload;
@@ -12,8 +13,7 @@ async function saveNewOrder(_id, payload) {
     if (!cart[0]._id) return;
 
     const order = new Order ({
-
-        totalPrice: await getTotalPrice(cart_id),
+        totalPrice: await calculateTotalPrice(cart_id),
         deliveryCity: deliveryCity,
         deliveryStreet: deliveryStreet,
         deliveryDate: deliveryDate,
@@ -23,6 +23,7 @@ async function saveNewOrder(_id, payload) {
     })
 
     const savedOrder = await order.save();
+    
     if (savedOrder) {
         const { closeCart } = carts;
         const updatedCart = await closeCart(cart_id);
@@ -33,18 +34,19 @@ async function saveNewOrder(_id, payload) {
 };
 
 
-async function getTotalPrice(cart_id) {
+async function calculateTotalPrice(cart_id) {
     const { getCartByCartId } = carts;
     const cartItems = await getCartByCartId(cart_id);
     const totalPrice = cartItems.map(item => item.price).reduce((acc, value) => acc + value, 0);
     return Math.floor(totalPrice * 100) / 100;
-}
+};
 
 
 function getFourDigits(creditCard) {
     const lastFourDigits = parseInt(creditCard.toString().slice(12));
     return lastFourDigits;
-}
+};
+
 
 async function getUnavailableDates() {
     const unavailableDates = await Order.aggregate([
@@ -65,4 +67,16 @@ async function getUnavailableDates() {
 };
 
 
-module.exports = { saveNewOrder, getUnavailableDates };
+async function getNumOfOrders() {
+    const numOfOrders = Order.estimatedDocumentCount();
+    return numOfOrders;
+};
+
+
+async function getTotalPriceOrder(orderId) {
+    const totalPrice = Order.findById({_id: orderId}, {totalPrice: 1, _id: 0});
+    return totalPrice;
+};
+
+
+module.exports = { saveNewOrder, getUnavailableDates, getNumOfOrders, getTotalPriceOrder };

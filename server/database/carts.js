@@ -2,7 +2,6 @@ const CartItem = require('../models/CartItem');
 const Cart = require('../models/Cart');
 products = require('./products');
 
-
 class CartItemObj {
     constructor(_id, name, quantity, price, cart_id, product_id, image) {
         this._id = _id;
@@ -13,40 +12,42 @@ class CartItemObj {
         this.product_id = product_id;
         this.image = image;
     }
-}
+};
 
 
 async function getCart(user_id) {
     
     const hasCart = await Cart.findOne({user_id: user_id, open: true})
-    if (hasCart) {
+    
+    if (hasCart) {    
         
         return getCartItems(hasCart);
     
     } else {
-    
-        const cart = new Cart({
-            user_id: user_id
-        })
+        
+        const cart = new Cart({user_id: user_id});
+        
         const createdCart = await cart.save();
         
         return await getCartItems(createdCart);
-    }
-  
+    };
 };
+
 
 async function closeCart(cart_id) {
     const updateCart = await Cart.findByIdAndUpdate(cart_id, {open: false});
     return updateCart;
-}
+};
+
 
 async function getCartItems(hasCart) {
     
     const { _id } = hasCart;
 
     let cartItems = await CartItem.find({cart_id: _id}).populate('product_id');
+    
     if (!cartItems.length) {
-        const cartItem = new CartItemObj(null, null, null, null, _id, null, null )
+        const cartItem = new CartItemObj(null, null, null, null, _id, null, null);
         cartItems.push(cartItem)
          
     } else {
@@ -59,10 +60,10 @@ async function getCartItems(hasCart) {
                 item.cart_id,
                 item.product_id._id,
                 item.product_id.image
-                )
-          })
+            )
+        })
         cartItems = newArray;
-    }
+    };
     
     return cartItems;
 };
@@ -90,7 +91,7 @@ async function addCartItem(payload) {
 
 
 async function deleteCartItem(item_id) {
-    const deletedItem = await CartItem.findByIdAndRemove({_id: item_id});
+    const deletedItem = await CartItem.findByIdAndRemove({ _id: item_id });
     return deletedItem;
 };
 
@@ -98,12 +99,21 @@ async function deleteCartItem(item_id) {
 async function empmtyCart(cart_id) {
     const result = await CartItem.deleteMany({ cart_id: cart_id });
     return result;
-}
+};
 
 
 async function getCartByCartId(cart_id) {
     const cartItems = await CartItem.find({cart_id: cart_id});
     return cartItems;
-}
+};
 
-module.exports = { getCart, addCartItem, deleteCartItem, empmtyCart, getCartByCartId, closeCart };
+
+async function getCartItemsList(cartId) {
+    const cartItemsList = await CartItem.find({cart_id: cartId}, 
+        {price: 1, quantity: 1, _id: 0 }).populate('product_id', 'name');
+    return cartItemsList;
+};
+
+
+module.exports = { getCart, addCartItem, deleteCartItem, empmtyCart,
+    getCartByCartId, closeCart, getCartItemsList };

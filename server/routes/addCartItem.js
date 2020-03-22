@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const carts = require('../database/carts');
 
+
 router.post('/', async (req, res, next) => {
 
     try {
@@ -14,7 +15,6 @@ router.post('/', async (req, res, next) => {
     } catch (error) {
         res.json({error: error.message, message: "An error occurred", status: false});
     }
-
 });
 
 module.exports = router;

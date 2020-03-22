@@ -3,6 +3,7 @@ const router = express.Router();
 const carts = require('../database/carts');
 
 
+
 router.delete('/:item_id', async (req, res, next) => {
 
     try {
@@ -18,6 +19,5 @@ router.delete('/:item_id', async (req, res, next) => {
         res.json({error: error.message, status: false});
     }
 });
-
 
 module.exports = router;

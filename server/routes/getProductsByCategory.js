@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const productsData = require('../database/products');
 
+
 router.get('/:_id', async (req, res, next) => {
     
     try {
@@ -13,7 +14,6 @@ router.get('/:_id', async (req, res, next) => {
     } catch (error) {
         res.json({error: error.message, message: "An error occurred..", status: false});
     }
-
 });
 
 

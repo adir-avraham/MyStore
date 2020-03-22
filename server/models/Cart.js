@@ -15,7 +15,7 @@ const CartSchema = new mongoose.Schema({
         type: Boolean,
         default: true
     }
-})
+});
 
 const CartModel = mongoose.model('cart', CartSchema)
 

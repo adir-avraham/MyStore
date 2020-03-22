@@ -27,9 +27,7 @@ router.get('/street', async (req, res, next) => {
     } catch (error) {
         res.json({error: error.message, status: false});
     }
-
 });
-
 
 
 module.exports = router;

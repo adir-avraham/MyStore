@@ -6,10 +6,10 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 
 
-//define routes
 const register = require('./auth/register');
 const login = require('./auth/login');
 const verifyToken = require('./auth/verifyToken');
+const getStoreStatistics = require('./routes/getStoreStatistics');
 const getCategories = require('./routes/getCategories');
 const getProductByName = require('./routes/getProductByName');
 const getProductsByCategory = require('./routes/getProductsByCategory');
@@ -20,15 +20,14 @@ const emptyCart = require('./routes/emptyCart');
 const saveNewOrder = require('./routes/saveNewOrder');
 const getUserDetails = require('./routes/getUserDetails');
 const getUnavailableDates = require('./routes/getUnavailableDates');
+const downloadReceipt = require('./routes/downloadReceipt');
+
 
 app.use(cors());
 app.use(bodyParser.json());
-
-//index routes
+app.use('/getStoreStatistics', getStoreStatistics);
 app.use('/register', register);
 app.use('/login', login);
-
-
 app.use('/',verifyToken);
 app.use('/getCategories', getCategories);
 app.use('/getProductByName', getProductByName);
@@ -40,6 +39,7 @@ app.use('/emptyCart', emptyCart);
 app.use('/saveNewOrder', saveNewOrder);
 app.use('/getUserDetails', getUserDetails);
 app.use('/getUnavailableDates', getUnavailableDates);
+app.use('/downloadReceipt', downloadReceipt);
 
 mongoose.connect(`${process.env.MONGO_DB_URL}/${process.env.DB_NAME}`, {
     useNewUrlParser: true,
@@ -53,6 +53,3 @@ mongoose.connect(`${process.env.MONGO_DB_URL}/${process.env.DB_NAME}`, {
 app.listen(process.env.PORT, () => {
     console.log(`Server is listening to port: ${process.env.PORT}`)
 });
-
-
-

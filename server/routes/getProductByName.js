@@ -3,6 +3,7 @@ const router = express.Router();
 const productsData = require('../database/products');
 
 
+
 router.get('/:name', async (req, res, next) => {
 
     try {
@@ -14,8 +15,6 @@ router.get('/:name', async (req, res, next) => {
     } catch (error) {
         res.json({error: error.message, message: "An error occurred..", status: false});
     }
-
 });
-
 
 module.exports = router;
