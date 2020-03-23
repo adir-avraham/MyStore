@@ -21,7 +21,8 @@ const saveNewOrder = require('./routes/saveNewOrder');
 const getUserDetails = require('./routes/getUserDetails');
 const getUnavailableDates = require('./routes/getUnavailableDates');
 const downloadReceipt = require('./routes/downloadReceipt');
-
+const createProduct = require('./routes/createProduct');
+const updateProduct = require('./routes/updateProduct');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -40,6 +41,8 @@ app.use('/saveNewOrder', saveNewOrder);
 app.use('/getUserDetails', getUserDetails);
 app.use('/getUnavailableDates', getUnavailableDates);
 app.use('/downloadReceipt', downloadReceipt);
+app.use('/createProduct', createProduct);
+app.use('/updateProduct', updateProduct);
 
 mongoose.connect(`${process.env.MONGO_DB_URL}/${process.env.DB_NAME}`, {
     useNewUrlParser: true,

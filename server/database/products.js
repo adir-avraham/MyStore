@@ -27,4 +27,38 @@ async function getNumOfProducts() {
 }''
 
 
-module.exports = { getProductByName, getProductsByCategory, getProductPrice, getNumOfProducts };
+async function createProduct(payload) {
+
+    const { name, price, image, category_id } = payload;
+
+    const product = new Product ({
+        name: name,
+        price: price,
+        image: image,
+        category_id: category_id
+    })
+
+    const createdProduct = await product.save();
+
+    return createdProduct;
+};
+
+
+async function updateProduct(payload) {
+
+    const { name, price, image, category_id, product_id } = payload;
+    
+    const updatedProduct = await Product.findOneAndUpdate({ _id: product_id }, {
+        name: name,
+        price: price,
+        image: image,
+        category_id: category_id
+    }, { runValidators: true }) 
+    
+    return updatedProduct;
+
+};
+
+
+module.exports = { getProductByName, getProductsByCategory, getProductPrice, getNumOfProducts, 
+    createProduct, updateProduct };
