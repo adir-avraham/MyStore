@@ -7,10 +7,10 @@ interface SearchResult {
   status: boolean;
 }
 
-
 @Pipe({
   name: 'search'
 })
+
 export class SearchPipe implements PipeTransform {
 
   constructor(private productsService: ProductsService) {}
@@ -20,13 +20,10 @@ export class SearchPipe implements PipeTransform {
     if (!Array.isArray(items)) return [];
     
     return this.productsService.getProductByName(searchText).subscribe((result: SearchResult) =>{
-      const { product } = result;
-      console.log(product)
-      
+      const { product } = result;      
       if (!Array.isArray(product)) return [];
-
       return product;
     })
   }
 
-}
+};

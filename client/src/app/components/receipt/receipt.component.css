@@ -2,9 +2,9 @@ table {
     width: 100%;
   }
   
-  tr.mat-footer-row {
-    font-weight: bold;
-  }
+tr.mat-footer-row {
+  font-weight: bold;
+}
 
 
 .cart {
@@ -15,7 +15,6 @@ table {
 @media only screen and (max-width: 800px) {
     .cart {
         width: 100%;
-
     }
 }
 

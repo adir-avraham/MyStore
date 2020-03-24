@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { AddedProduct } from '../../components/cart/cart.component'
+import { basedUrl } from 'src/app/sharing-url/sharing.url';
 
-const basedUrl = "http://localhost:4000";
+
 
 export interface SelectedProduct {
   quantity: number;

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { OrderService } from 'src/app/services/order/order.service';
+import { OrdersService } from 'src/app/services/orders/orders.service';
 import { MatDialog } from '@angular/material/dialog';
 import { OrderFeedbackComponent } from '../order-feedback/order-feedback.component';
 import { Router } from '@angular/router';
+import moment from 'moment/src/moment';
 
 
 interface UserDetailsRes {
@@ -29,6 +30,12 @@ interface NewOrder {
 interface NewOrderRes {
   message: string;
   status: false;
+  savedOrderIds: SavedOrderIds;
+}
+
+export interface SavedOrderIds {
+  cartId: string;
+  orderId: string;
 }
 
 @Component({
@@ -44,7 +51,7 @@ export class OrderComponent implements OnInit {
   minDate: Date;
   unavailableDates = [];
 
-  constructor(private formBuilder: FormBuilder, private orderService: OrderService, 
+  constructor(private formBuilder: FormBuilder, private ordersService: OrdersService, 
     private dialog: MatDialog, private router: Router) { 
     this.orderForm = this.formBuilder.group({
       deliveryCity: null,
@@ -57,20 +64,21 @@ export class OrderComponent implements OnInit {
   ngOnInit(): void {
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() + 1);
-    this.orderService.getUnavailableDates().subscribe((unavailableDatesRes: any)=>{
-      this.unavailableDates = unavailableDatesRes.unavailableDates
+    this.ordersService.getUnavailableDates().subscribe((unavailableDatesRes: any)=>{
+      this.unavailableDates = unavailableDatesRes.unavailableDates;
       console.log(this.unavailableDates);
     })
   }
 
   myFilter = (d: Date | null): boolean => {
-   const time = d.getTime();
+   const time = moment(d).format('YYYY-MM-DD');
+   if (!this.unavailableDates) return true;
    return !this.unavailableDates.find(date => {
-    return new Date (date._id.deliveryDate).getTime() === time})    
+    return moment(date._id.deliveryDate).format("YYYY-MM-DD") === time})    
   }
 
   getUserCity() {
-    this.orderService.getUserCity().subscribe((userDetailsRes: UserDetailsRes) => {
+    this.ordersService.getUserCity().subscribe((userDetailsRes: UserDetailsRes) => {
       const { city } = userDetailsRes.city;
       console.log(city)
       this.orderForm.get('deliveryCity').setValue(city); 
@@ -80,7 +88,7 @@ export class OrderComponent implements OnInit {
   };
 
   getUserStreet() {
-    this.orderService.getUserStreet().subscribe((userDetailsRes: UserDetailsRes) => {
+    this.ordersService.getUserStreet().subscribe((userDetailsRes: UserDetailsRes) => {
       const { street } = userDetailsRes.street;
       this.orderForm.get('deliveryStreet').setValue(street); 
     }, error =>{
@@ -93,29 +101,30 @@ export class OrderComponent implements OnInit {
     const newOrder: NewOrder = {
       deliveryCity: this.orderForm.get('deliveryCity').value,
       deliveryStreet: this.orderForm.get('deliveryStreet').value,
-      deliveryDate: this.orderForm.get('deliveryDate').value,
+      deliveryDate: moment(this.orderForm.get('deliveryDate').value).format("YYYY-MM-DD"),
       creditCard: this.orderForm.get('creditCard').value
     }
-    this.orderService.saveNewOrder(newOrder).subscribe((newOrderRes: NewOrderRes) => {
-      const { message, status } = newOrderRes;
+
+    this.ordersService.saveNewOrder(newOrder).subscribe((newOrderRes: NewOrderRes) => {
+      const { message, status, savedOrderIds } = newOrderRes;
       
      
         const dialogRef = this.dialog.open(OrderFeedbackComponent, {
           data: {
             status: status,
-            message: message
+            message: message,
+            savedOrderIds: savedOrderIds
           }
         });
 
         dialogRef.afterClosed().subscribe(result => {
-          console.log(result)
+
           if (result) {
             this.router.navigate(['/home'])
           }
         })
 
       
-      console.log(newOrderRes)
     })
   }
 

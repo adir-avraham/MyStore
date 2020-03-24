@@ -5,6 +5,7 @@ import { tap, catchError } from 'rxjs/operators';
 import { User } from 'src/app/models/user.model';
 import { Router } from '@angular/router';
 import * as jwtDecode from 'jwt-decode'; 
+import { basedUrl } from 'src/app/sharing-url/sharing.url';
 
 
 interface newUser {
@@ -26,7 +27,6 @@ interface ResLogin {
 interface UserData {
   firstName: string;
   role: string;
-  _id: string;
   _token: string;
   _tokenExpirationDate: string;
 }
@@ -41,9 +41,9 @@ interface Decoded {
 })
 export class AuthService {
 
-  public registerFirstStepUrl = "http://localhost:4000/register/firstStep";
-  public registerUrl = "http://localhost:4000/register/secondStep";
-  public loginUrl = "http://localhost:4000/login";
+  public registerFirstStepUrl = `${basedUrl}/register/firstStep`;
+  public registerUrl = `${basedUrl}/register/secondStep`;
+  public loginUrl = `${basedUrl}/login`;
 
   user = new BehaviorSubject<User>(null);
   private tokenExpirationTimer: any;
@@ -56,15 +56,16 @@ export class AuthService {
     if (!userData) {
       return;
     }
-    const { firstName, role, _id, _token, _tokenExpirationDate } = userData;
-    const loadedUser = new User(firstName, role, _id, _token, new Date(_tokenExpirationDate)); 
+    const { firstName, role, _token, _tokenExpirationDate } = userData;
+    const loadedUser = new User(firstName, role, _token, new Date(_tokenExpirationDate)); 
     
     if (loadedUser.token) {
       this.user.next(loadedUser);
       const decoded: Decoded = jwtDecode(loadedUser.token);        
-      const { iat, exp } = decoded;
-      const expirationTime = (exp - iat) * 1000; 
+      const { exp } = decoded;
+      const expirationTime = exp * 1000; 
       const expirationDuration = expirationTime - new Date().getTime();
+      console.log({expirationDuration})
       this.autoLogout(expirationDuration);
     }
   }
@@ -74,12 +75,12 @@ export class AuthService {
     return this.httpClient.post(this.loginUrl, {userName, password}).pipe(tap((resLogin: ResLogin)=>{
       const { status } = resLogin;
       if (status) {
-        const { firstName, role, _id, token } = resLogin.userData
+        const { firstName, role, token } = resLogin.userData;
         const decoded: Decoded = jwtDecode(token);
         const { iat, exp } = decoded;
         const expirationTime = (exp - iat) * 1000; 
         const expirationDate = new Date(new Date().getTime() + expirationTime);
-        const user = new User(firstName, role, _id, token, expirationDate);
+        const user = new User(firstName, role, token, expirationDate);
         this.user.next(user);
         this.autoLogout(expirationTime)
         localStorage.setItem('userData', JSON.stringify(user));

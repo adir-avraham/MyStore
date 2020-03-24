@@ -9,7 +9,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
-import { InformationComponent } from './components/information/information.component';
+import { StatisticsComponent } from './components/statistics/statistics.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ShoppingPageComponent } from './components/shopping-page/shopping-page.component';
 import { NavbarCategoriesComponent } from './components/navbar-categories/navbar-categories.component';
@@ -24,6 +24,7 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ReceiptComponent } from './components/receipt/receipt.component';
 import { OrderComponent } from './components/order/order.component';
 import { OrderFeedbackComponent } from './components/order-feedback/order-feedback.component';
+import { AboutComponent } from './components/about/about.component';
 
 
 @NgModule({
@@ -32,7 +33,7 @@ import { OrderFeedbackComponent } from './components/order-feedback/order-feedba
     HeaderComponent,
     HomeComponent,
     LoginComponent,
-    InformationComponent,
+    StatisticsComponent,
     RegisterComponent,
     ShoppingPageComponent,
     NavbarCategoriesComponent,
@@ -42,7 +43,8 @@ import { OrderFeedbackComponent } from './components/order-feedback/order-feedba
     CheckoutComponent,
     ReceiptComponent,
     OrderComponent,
-    OrderFeedbackComponent
+    OrderFeedbackComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
