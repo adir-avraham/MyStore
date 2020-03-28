@@ -7,7 +7,7 @@ export interface Category {
   category: string;
 }
 
-interface Result {
+export interface CategoriesRes {
   categories: Array<Category>;
   stauts: boolean;
 }
@@ -30,7 +30,7 @@ export class NavbarCategoriesComponent implements OnInit {
 
   ngOnInit() {
      
-    this.categoriesService.getCategories().subscribe((result: Result) => {
+    this.categoriesService.getCategories().subscribe((result: CategoriesRes) => {
       const { categories } = result
       this.categories = categories; 
     }, error =>{

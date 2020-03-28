@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OrdersService } from 'src/app/services/orders/orders.service';
 import { MatDialog } from '@angular/material/dialog';
 import { OrderFeedbackComponent } from '../order-feedback/order-feedback.component';
@@ -47,17 +47,18 @@ export class OrderComponent implements OnInit {
 
   orderForm: FormGroup;
   isLoading = false;
-  deliveryCities = ["London","Birmingham", "Leicester", "Southampton"];
+  deliveryCities = ["London","Birmingham", "Leicester", "Southampton", "Leeds", "Manchester", "Liverpool"];
   minDate: Date;
   unavailableDates = [];
+  requiredMsg = "Field is required."
 
   constructor(private formBuilder: FormBuilder, private ordersService: OrdersService, 
     private dialog: MatDialog, private router: Router) { 
     this.orderForm = this.formBuilder.group({
-      deliveryCity: null,
-      deliveryStreet: null,
-      deliveryDate: null,
-      creditCard: null
+      deliveryCity: [null, Validators.required],
+      deliveryStreet: [null, Validators.required],
+      deliveryDate: [null, Validators.required],
+      creditCard: [null, [Validators.required, Validators.min(1000000000000000), Validators.max(9999999999999999)]]
     })
   }
 
@@ -66,7 +67,6 @@ export class OrderComponent implements OnInit {
     this.minDate.setDate(this.minDate.getDate() + 1);
     this.ordersService.getUnavailableDates().subscribe((unavailableDatesRes: any)=>{
       this.unavailableDates = unavailableDatesRes.unavailableDates;
-      console.log(this.unavailableDates);
     })
   }
 
@@ -80,7 +80,6 @@ export class OrderComponent implements OnInit {
   getUserCity() {
     this.ordersService.getUserCity().subscribe((userDetailsRes: UserDetailsRes) => {
       const { city } = userDetailsRes.city;
-      console.log(city)
       this.orderForm.get('deliveryCity').setValue(city); 
     }, error =>{
       console.log(error.message);
@@ -108,7 +107,8 @@ export class OrderComponent implements OnInit {
     this.ordersService.saveNewOrder(newOrder).subscribe((newOrderRes: NewOrderRes) => {
       const { message, status, savedOrderIds } = newOrderRes;
       
-     
+      if (!status) return;
+
         const dialogRef = this.dialog.open(OrderFeedbackComponent, {
           data: {
             status: status,
@@ -125,7 +125,14 @@ export class OrderComponent implements OnInit {
         })
 
       
+    }, error => {
+      console.log(error.message);
     })
   }
+
+  requiredValidation(field: string) {
+    return this.orderForm.get(field).errors?.required;
+  }
+
 
 }

@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 const register = require('./auth/register');
 const login = require('./auth/login');
 const verifyToken = require('./auth/verifyToken');
+const verifyUser = require('./auth/verifyUser');
 const getStoreStatistics = require('./routes/getStoreStatistics');
 const getCategories = require('./routes/getCategories');
 const getProductByName = require('./routes/getProductByName');
@@ -21,8 +22,10 @@ const saveNewOrder = require('./routes/saveNewOrder');
 const getUserDetails = require('./routes/getUserDetails');
 const getUnavailableDates = require('./routes/getUnavailableDates');
 const downloadReceipt = require('./routes/downloadReceipt');
+const verifyAdmin = require('./auth/verifyAdmin');
 const createProduct = require('./routes/createProduct');
-const updateProduct = require('./routes/updateProduct');
+const editProduct = require('./routes/editProduct');
+
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -33,16 +36,18 @@ app.use('/',verifyToken);
 app.use('/getCategories', getCategories);
 app.use('/getProductByName', getProductByName);
 app.use('/getProductsByCategory', getProductsByCategory);
+app.use('/admin', verifyAdmin);
+app.use('/admin/createProduct', createProduct);
+app.use('/admin/editProduct', editProduct);
+app.use('/',verifyUser);
+app.use('/getUserDetails', getUserDetails);
 app.use('/getCart', getCart);
 app.use('/addCartItem', addCartItem);
 app.use('/deleteCartItem', deleteCartItem);
 app.use('/emptyCart', emptyCart);
-app.use('/saveNewOrder', saveNewOrder);
-app.use('/getUserDetails', getUserDetails);
 app.use('/getUnavailableDates', getUnavailableDates);
+app.use('/saveNewOrder', saveNewOrder);
 app.use('/downloadReceipt', downloadReceipt);
-app.use('/createProduct', createProduct);
-app.use('/updateProduct', updateProduct);
 
 mongoose.connect(`${process.env.MONGO_DB_URL}/${process.env.DB_NAME}`, {
     useNewUrlParser: true,

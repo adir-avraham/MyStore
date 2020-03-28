@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const users = require('../database/users');
-
+const carts = require('../database/carts');
 
 router.get('/city', async (req, res, next) => {
 
@@ -29,5 +29,17 @@ router.get('/street', async (req, res, next) => {
     }
 });
 
+
+router.get('/shopping', async (req, res, next) => {
+
+    try {
+        const { _id } = req.decoded._doc;
+        const { getShoppingDetails } = carts;
+        const shoppingDetails = await getShoppingDetails(_id);
+        res.json({ shoppingDetails: shoppingDetails, status: true });
+    } catch (error) {
+        res.json({error: error.message, status: false});
+    }
+});
 
 module.exports = router;

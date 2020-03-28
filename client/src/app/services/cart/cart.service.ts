@@ -17,6 +17,7 @@ export interface SelectedProduct {
 })
 export class CartService {
 
+  public getShoppingDetailsUrl = `${basedUrl}/getUserDetails/shopping`;
   public getCartUrl = `${basedUrl}/getCart`;
   public addToCartUrl = `${basedUrl}/addCartItem`;
   public deleteCartItemUrl = `${basedUrl}/deleteCartItem`;
@@ -26,6 +27,10 @@ export class CartService {
 
   constructor(private httpClient: HttpClient ) { }
 
+  getShoppingDetails() {
+    return this.httpClient.get(this.getShoppingDetailsUrl);
+  }  
+  
   getCart() {
     return this.httpClient.get(this.getCartUrl);
   }

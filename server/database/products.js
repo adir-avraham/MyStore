@@ -44,21 +44,21 @@ async function createProduct(payload) {
 };
 
 
-async function updateProduct(payload) {
+async function editProduct(payload) {
 
     const { name, price, image, category_id, product_id } = payload;
     
-    const updatedProduct = await Product.findOneAndUpdate({ _id: product_id }, {
+    const editedProduct = await Product.findOneAndUpdate({ _id: product_id }, {
         name: name,
         price: price,
         image: image,
         category_id: category_id
     }, { runValidators: true }) 
     
-    return updatedProduct;
+    return editedProduct;
 
 };
 
 
 module.exports = { getProductByName, getProductsByCategory, getProductPrice, getNumOfProducts, 
-    createProduct, updateProduct };
+    createProduct, editProduct };

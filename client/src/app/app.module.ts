@@ -25,6 +25,8 @@ import { ReceiptComponent } from './components/receipt/receipt.component';
 import { OrderComponent } from './components/order/order.component';
 import { OrderFeedbackComponent } from './components/order-feedback/order-feedback.component';
 import { AboutComponent } from './components/about/about.component';
+import { ProductComponent } from './components/product/product.component';
+import { RoleDirective } from './directives/role.directive';
 
 
 @NgModule({
@@ -44,7 +46,9 @@ import { AboutComponent } from './components/about/about.component';
     ReceiptComponent,
     OrderComponent,
     OrderFeedbackComponent,
-    AboutComponent
+    AboutComponent,
+    ProductComponent,
+    RoleDirective
   ],
   imports: [
     BrowserModule,
@@ -55,12 +59,13 @@ import { AboutComponent } from './components/about/about.component';
     FormsModule, 
     ReactiveFormsModule, BrowserAnimationsModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}
   ],
   bootstrap: [AppComponent],
-  entryComponents: [DialogComponent, OrderFeedbackComponent]
+  entryComponents: [DialogComponent, OrderFeedbackComponent, CartComponent]
 })
 export class AppModule { }

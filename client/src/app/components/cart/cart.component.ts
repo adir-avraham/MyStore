@@ -5,7 +5,7 @@ import { SelectedProduct } from '../../services/cart/cart.service';
 import { Router } from '@angular/router';
 
 
-interface Result {
+export interface CartResult {
   cart: Array<CartItem>;
   status: boolean;
 }
@@ -45,8 +45,8 @@ export class CartComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     
-    this.cartService.getCart().subscribe((result: Result) => {
-      const { cart } = result;
+    this.cartService.getCart().subscribe((cartResult: CartResult) => {
+      const { cart } = cartResult;
       this.cartItems = cart;
     }, error =>{
       console.log(error.message);
@@ -61,8 +61,8 @@ export class CartComponent implements OnInit, OnDestroy {
         cart_id: this.cartItems[0].cart_id
       }
 
-      this.cartService.addProductToCart(addedProduct).subscribe((result: Result) => {
-          const { cart } = result
+      this.cartService.addProductToCart(addedProduct).subscribe((cartResult: CartResult) => {
+          const { cart } = cartResult;
           this.cartItems = cart;
       }, error =>{
         console.log(error.message);
@@ -81,8 +81,8 @@ export class CartComponent implements OnInit, OnDestroy {
 
   deleteCartItem(item_id: string) {
 
-    this.cartService.deleteCartItem(item_id).subscribe((result: Result) => {
-      const { cart, status } = result
+    this.cartService.deleteCartItem(item_id).subscribe((cartResult: CartResult) => {
+      const { cart, status } = cartResult;
       if (!status) return;
       this.cartItems = cart;
   }, error =>{
@@ -92,8 +92,8 @@ export class CartComponent implements OnInit, OnDestroy {
 }
 
 emptyCart(cart_id: string) {
-  this.cartService.emptyCart(cart_id).subscribe((result: Result) =>{
-    const { cart, status} = result;
+  this.cartService.emptyCart(cart_id).subscribe((cartResult: CartResult) =>{
+    const { cart, status} = cartResult;
     if (!status) return;
     this.cartItems = cart;
 

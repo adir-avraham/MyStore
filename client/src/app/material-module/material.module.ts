@@ -18,9 +18,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from	'@angular/material/core';
 import { MAT_DATE_LOCALE } from '@angular/material/core'
-
-
-
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
     providers: [
@@ -45,7 +45,9 @@ import { MAT_DATE_LOCALE } from '@angular/material/core'
         MatTooltipModule,
         MatDatepickerModule,
         MatNativeDateModule,
-
+        MatSidenavModule,
+        MatCheckboxModule,
+        MatMenuModule
 
 
     ],
@@ -67,7 +69,10 @@ import { MAT_DATE_LOCALE } from '@angular/material/core'
         MatAutocompleteModule,
         MatTooltipModule,
         MatDatepickerModule,
-        MatNativeDateModule
+        MatNativeDateModule,
+        MatSidenavModule,
+        MatCheckboxModule,
+        MatMenuModule
         
         ]
 })

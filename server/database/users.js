@@ -4,7 +4,7 @@ const User = require('../models/User');
 
 
 async function isUserExist(userName) {
-    const user = await User.findOne({ userName: userName });
+    const user = await User.exists({ userName: userName });
     return user;
 };
 

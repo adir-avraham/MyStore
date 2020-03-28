@@ -26,14 +26,14 @@ interface ResLogin {
 
 interface UserData {
   firstName: string;
-  role: string;
   _token: string;
   _tokenExpirationDate: string;
 }
 
-interface Decoded {
+export interface Decoded {
   exp: any;
   iat: any;
+  _doc: any;
 }
 
 @Injectable({
@@ -56,16 +56,15 @@ export class AuthService {
     if (!userData) {
       return;
     }
-    const { firstName, role, _token, _tokenExpirationDate } = userData;
-    const loadedUser = new User(firstName, role, _token, new Date(_tokenExpirationDate)); 
+    const { firstName, _token, _tokenExpirationDate } = userData;
+    const loadedUser = new User(firstName, _token, new Date(_tokenExpirationDate)); 
     
     if (loadedUser.token) {
       this.user.next(loadedUser);
-      const decoded: Decoded = jwtDecode(loadedUser.token);        
+      const decoded: Decoded = jwtDecode(loadedUser.token);       
       const { exp } = decoded;
       const expirationTime = exp * 1000; 
       const expirationDuration = expirationTime - new Date().getTime();
-      console.log({expirationDuration})
       this.autoLogout(expirationDuration);
     }
   }
@@ -75,12 +74,12 @@ export class AuthService {
     return this.httpClient.post(this.loginUrl, {userName, password}).pipe(tap((resLogin: ResLogin)=>{
       const { status } = resLogin;
       if (status) {
-        const { firstName, role, token } = resLogin.userData;
+        const { firstName, token } = resLogin.userData;
         const decoded: Decoded = jwtDecode(token);
         const { iat, exp } = decoded;
         const expirationTime = (exp - iat) * 1000; 
         const expirationDate = new Date(new Date().getTime() + expirationTime);
-        const user = new User(firstName, role, token, expirationDate);
+        const user = new User(firstName, token, expirationDate);
         this.user.next(user);
         this.autoLogout(expirationTime)
         localStorage.setItem('userData', JSON.stringify(user));

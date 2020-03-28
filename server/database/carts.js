@@ -1,5 +1,6 @@
 const CartItem = require('../models/CartItem');
 const Cart = require('../models/Cart');
+const Order = require('../models/Order');
 products = require('./products');
 
 class CartItemObj {
@@ -15,13 +16,49 @@ class CartItemObj {
 };
 
 
+async function getShoppingDetails(user_id) {
+    const hasCart = await Cart.findOne({user_id: user_id, open: true});
+    if (hasCart) {    
+        return await getDetails(hasCart, user_id);
+    } else {
+        return await getLastOrder(user_id);
+    };
+};
+
+async function getDetails(hasCart, user_id) {    
+    const { _id } = hasCart;
+    const cartItems = await CartItem.find({cart_id: _id}).populate('cart_id');
+    if (!cartItems.length) {
+        return await getLastOrder(user_id);
+    } else {
+        const totalPrice = await CartItem.aggregate([
+            { $match: { cart_id: _id } },
+            { $group: { _id: null, totalPrice: { $sum: "$price" } } }
+        ])
+        const cartDetails = {
+            totalPrice: totalPrice[0].totalPrice,
+            created_at: cartItems[0].cart_id.created_at
+        }
+        return cartDetails;
+    };
+};
+
+async function getLastOrder(user_id) {
+    const lastOrder = await Order.find({user_id: user_id}, 
+        { ordered_at: 1, _id: 0 }, 
+        { sort: { 'ordered_at' : -1 } })
+        .limit(1);
+    return lastOrder;
+};
+
+
 async function getCart(user_id) {
     
-    const hasCart = await Cart.findOne({user_id: user_id, open: true})
+    const hasCart = await Cart.findOne({user_id: user_id, open: true});
     
     if (hasCart) {    
         
-        return getCartItems(hasCart);
+        return await getCartItems(hasCart);
     
     } else {
         
@@ -116,4 +153,4 @@ async function getCartItemsList(cartId) {
 
 
 module.exports = { getCart, addCartItem, deleteCartItem, empmtyCart,
-    getCartByCartId, closeCart, getCartItemsList };
+    getCartByCartId, closeCart, getCartItemsList, getShoppingDetails };
