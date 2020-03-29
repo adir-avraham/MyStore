@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { CartService } from 'src/app/services/cart/cart.service';
-
+import { MatSidenav, MatDrawer } from '@angular/material/sidenav';
 
 
 interface SearchResult {
@@ -14,7 +14,7 @@ interface SearchResult {
 }
 
 export interface Product {
-  _id: string;
+  _id?: string;
   name: string;
   price: number;
   image: string;
@@ -39,24 +39,27 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
   public searchText: string;
   public unsubscribeSearchTextChanges: Subscription;
   public noSearchResults: boolean = false;
-  public initCategory = {
-    _id: "5e5ae45a82745acbeca9e635",
-    category : "Milk & Eggs"
-  } 
-
-
-
-  constructor(private productsService: ProductsService, private dialog: MatDialog, private cartService: CartService) { }
+  public initCategory = {_id: "5e5ae45a82745acbeca9e635", category : "Milk & Eggs"}; 
+  public unsubscribeProducts: Subscription;
+  public sidenav: MatSidenav;
+  public drawer: MatDrawer;
+  public opened: boolean;
+  public showSpinner: boolean = false;
+  
+  constructor(private productsService: ProductsService, private dialog: MatDialog,
+    private cartService: CartService) { }
 
 
   ngOnInit(): void {
-
+    
     this.getProductsByCategory(this.initCategory);
+    
+    this.unsubscribeProducts = this.productsService.products.subscribe((products: Array<Product>) => {
+      this.products = products;
+    });
 
-
-     this.unsubscribeSearchTextChanges = this.productsService.searchTextChanges.subscribe((newValue: string) =>{
-     this.searchText = newValue;
- 
+    this.unsubscribeSearchTextChanges = this.productsService.searchTextChanges.subscribe((newValue: string) => {
+      this.searchText = newValue;
       this.productsService.getProductByName(newValue).subscribe((result: SearchResult) =>{
         const { product } = result;
         if (!Array.isArray(product)) {
@@ -64,42 +67,50 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
         } else {
           this.noSearchResults = false;
           this.products = product;
-        }
+          }
       }, error => {
         this.noSearchResults = false;
         this.getProductsByCategory(this.initCategory);
-        console.log(error);
+        console.log(error.message);
       }) 
      })
-  }
+    };
   
-  getProductsByCategory(category: Category) {
-    this.productsService.getProductsByCategory(category).subscribe((result: ProductsResult) => {
-      const { products } = result;
-      this.products = products;
-      console.log(products);
-    }, error => {
-      console.log(error.message);
+    getProductsByCategory(category: Category) {
+      this.productsService.getProductsByCategory(category).subscribe((result: ProductsResult) => {
+        const { products } = result;
+        this.products = products;
+      }, error => {
+        console.log(error.message);
     });
+  
   };
   
 
   addProductToCart(product: Product) {
-
     const dialogRef = this.dialog.open(DialogComponent, {data: {
       name: product.name
     }})
-    
     dialogRef.afterClosed().subscribe((quantity: number) => {
       const selectedProduct = {quantity: quantity, product_id: product._id };
       this.cartService.selectedProduct.next(selectedProduct);
-
     })
   };
 
 
+  editProduct(product: Product) {
+    this.productsService.selectedProduct.next(product);
+    this.opened = true;
+  };
+
+  
+  execOnClose() {
+    this.opened = false;
+  };
+
   ngOnDestroy() {
     this.unsubscribeSearchTextChanges.unsubscribe();
+    this.unsubscribeProducts.unsubscribe();
   };
 
 

@@ -59,7 +59,7 @@ import { RoleDirective } from './directives/role.directive';
     FormsModule, 
     ReactiveFormsModule, BrowserAnimationsModule,
     MaterialModule,
-    FlexLayoutModule,
+    FlexLayoutModule
     
   ],
   providers: [

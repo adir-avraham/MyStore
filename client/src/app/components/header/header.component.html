@@ -1,32 +1,5 @@
-<div class="jumbotron jumbotron-fluid bg-primary text-light">
-  <a class="float-right btn btn-link" *ngIf="isAuthenticated">Logout</a>
-  <div class="container-fluid">
-    
-    <div class="row">
-      <div class="display-4 col-sm-8">
-      My Store
-    </div>
-    <div class="col-sm-4">
-      <div class="row">
-        <h4 class="lead">
-          <fa-icon [icon]="faPhoneAlt"></fa-icon> 01413533072
-          <fa-icon [icon]="faEnvelope"></fa-icon> info@MyStore.com
-        </h4>
-      </div>
-      <div class="row">
-        <h5 class="lead font-weight-bold">Hello {{ !userConnected ? 'Guest' : userConnected }}</h5>
-      </div>
-    </div>
-  </div>
-  
-  
-  <div class="row" *ngIf="isAuthenticated">
-    <div class="col-lg-3">
-      <app-search-product></app-search-product>      
-    </div>
-  </div>
-
-
-
-  </div>
-</div>
+<mat-toolbar color="primary" fxLayoutAlign="space-between center">
+    <a routerLink="/home">My Store &nbsp;</a> 
+    <span> Hello {{ !userConnected ? 'Guest' : userConnected }} &nbsp;</span>
+    <button mat-raised-button color="accent" (click)="logout()" *ngIf="isAuthenticated">Logout</button> 
+</mat-toolbar> 

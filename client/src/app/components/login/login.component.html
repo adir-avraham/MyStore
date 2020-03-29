@@ -1,26 +1,55 @@
-<div class="card">
-    <div class="card-body shadow-lg bg-light">
-      <button class="card-title btn btn-primary btn-lg btn-block" [disabled]="!isAuthenticated" (click)="goToShoppingPage()">
-         {{ !isAuthenticated ? 'Please login...' : 'Start Shopping' }}</button>
-        <h5 class="card-title">Resitered?</h5>
-        <form [formGroup]="loginForm">
-          <div class="form-row">
-          <div class="form-group col-sm-8">
-            <input formControlName="userName" type="userName" class="form-control" placeholder="User Name">
-          </div>
-          </div>
-          <div class="form-row">
-          <div class="form-group col-sm-8">
-            <input formControlName="password" type="password" class="form-control"  placeholder="Password">
-          </div> 
-          </div>  
-          <div *ngIf="!loginStatus" class="alert alert-danger" role="alert">
-            {{errorMessage}}
-          </div>
-              <button type="button" class="btn btn-primary px-5 " (click)="login()">Login
-                <span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
-              </button>
-              <a routerLink="/register" routerLinkActive="router-link-active"  class="link ml-3">Register</a>
-        </form>
-      </div>
+<mat-card class="h-100">
+ 
+  <div *ngIf="isUserConnected">
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="goToShoppingPage()">
+        {{ openCart ? 'Resume shopping' : 'Go Shopping' }}
+      </button>
+    </mat-card-actions>
+        
+    <mat-card-subtitle *ngIf="welcomeMessage">{{ welcomeMessage }}</mat-card-subtitle>
+      <mat-card-subtitle *ngIf="openCart">
+        Open Cart ${{ openCart.totalPrice }} from {{openCart.created_at}}
+      </mat-card-subtitle>
   </div>
+
+  <mat-card-actions *ngIf="isAdminConnected">
+    <button mat-raised-button color="primary" (click)="goToShoppingPage()">
+      Products Management
+    </button>
+  </mat-card-actions>
+  
+  
+  <div *ngIf="!isAuthenticated">
+    
+    <mat-card-title>Register?</mat-card-title>
+    
+    <mat-card-content>  
+      <form [formGroup]="loginForm" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="15px">
+        <mat-form-field>
+          <input matInput formControlName="userName" type="userName" placeholder="User Name">
+          <mat-icon matSuffix>face</mat-icon>
+        </mat-form-field>
+      
+        <mat-form-field>
+          <input matInput formControlName="password" type="password" placeholder="Password">
+          <mat-icon matSuffix>visibility_off</mat-icon>
+        </mat-form-field>
+      
+        <div *ngIf="!isLoading" class="error">
+          {{errorMessage}}
+        </div>
+      </form>
+    </mat-card-content>
+  
+    <mat-card-actions>              
+      <button type="button" mat-raised-button color="primary" (click)="login()">
+        Login<span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
+      </button>
+      <button mat-raised-button color="accent" routerLink="/register">
+        Register
+      </button>
+    </mat-card-actions>
+  </div>  
+  
+</mat-card>

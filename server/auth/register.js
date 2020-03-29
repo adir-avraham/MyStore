@@ -4,6 +4,19 @@ const users = require('../database/users');
 const validationFirstStep = require('../validations/registerValidation');
 
 
+router.get('/firstStep/:userName' ,async (req, res, next) => {
+    try {  
+        const { isUserExist } = users;
+        const { userName } = req.params;
+        const user = await isUserExist(userName);
+        if (user) return res.json({message: "User already exists", status: true});
+        res.json({message: "ok", status: true});
+    } catch (error) {
+        res.json({error: error.message , status: false});
+    }
+});
+
+
 router.use(async (req, res, next) => {
     try {
         const { isUserExist } = users;
@@ -20,22 +33,11 @@ router.use(async (req, res, next) => {
 });
 
 
-router.post('/firstStep' , async (req, res) => {
-    try {  
-        const { registerValidationFirstStep } = validationFirstStep;      
-        const isValid = await registerValidationFirstStep(req.body);
-        return res.json(isValid);
-    } catch (error) {
-        res.json({error: error.message , status: false});
-    }
-});
-
-
 router.post('/secondStep', async (req, res) => {    
     try{    
         const { saveUser } = users;    
         const savedUser = await saveUser(req.body);
-        if (savedUser) return res.json({message: "Registration completed!", status: true, savedUser: savedUser });
+        if (savedUser) return res.json({message: "Registration completed!", savedUser: savedUser, status: true });
         res.json({message: "Register error!", status: false});
     } catch (error) {
         res.json({error: error.message , status: false});

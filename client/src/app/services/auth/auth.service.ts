@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
 import * as jwtDecode from 'jwt-decode'; 
 import { basedUrl } from 'src/app/sharing-url/sharing.url';
 
-
 interface newUser {
   id: number;
   userName: string;
@@ -39,13 +38,15 @@ export interface Decoded {
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class AuthService {
 
   public registerFirstStepUrl = `${basedUrl}/register/firstStep`;
   public registerUrl = `${basedUrl}/register/secondStep`;
   public loginUrl = `${basedUrl}/login`;
 
-  user = new BehaviorSubject<User>(null);
+  public user = new BehaviorSubject<User>(null);
   private tokenExpirationTimer: any;
 
   constructor(private httpClient: HttpClient, private router: Router) { }
@@ -53,9 +54,8 @@ export class AuthService {
   
   autoLogin() {
     const userData: UserData = JSON.parse(localStorage.getItem('userData'));
-    if (!userData) {
-      return;
-    }
+    if (!userData) return;
+  
     const { firstName, _token, _tokenExpirationDate } = userData;
     const loadedUser = new User(firstName, _token, new Date(_tokenExpirationDate)); 
     
@@ -67,7 +67,7 @@ export class AuthService {
       const expirationDuration = expirationTime - new Date().getTime();
       this.autoLogout(expirationDuration);
     }
-  }
+  };
 
 
   login(userName: string, password: string) {
@@ -81,23 +81,25 @@ export class AuthService {
         const expirationDate = new Date(new Date().getTime() + expirationTime);
         const user = new User(firstName, token, expirationDate);
         this.user.next(user);
-        this.autoLogout(expirationTime)
+        this.autoLogout(expirationTime);
         localStorage.setItem('userData', JSON.stringify(user));
-      }
-      
+      }    
     })).pipe(catchError(error => {
       return throwError(error)
-    }));
-  }
+    }))
+  };
 
-  resiterFirstStep(newUser: newUser) {
-    return this.httpClient.post(this.registerFirstStepUrl, newUser);
-  }
+
+  resiterFirstStep(userName: string) {
+    return this.httpClient.get(`${this.registerFirstStepUrl}/${userName}`);
+  };
+
 
   register(newUser: newUser) {
     return this.httpClient.post(this.registerUrl, newUser);
-  }
+  };
 
+  
   logout() {
     this.user.next(null);
     this.router.navigate(['/home']);
@@ -106,12 +108,13 @@ export class AuthService {
       clearTimeout(this.tokenExpirationTimer);
     }
     this.tokenExpirationTimer = null;
-  }
+  };
 
+  
   autoLogout(expirationDuration: number) {
     this.tokenExpirationTimer = setTimeout(() =>{
       this.logout();
     }, expirationDuration)
-  }
+  };
 
 };

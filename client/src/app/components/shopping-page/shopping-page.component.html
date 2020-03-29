@@ -1,30 +1,48 @@
-<div class="container">
+<app-search-product></app-search-product> 
 
-        <p *ngIf="noSearchResults">Sorry! No products found...</p>    
+<mat-drawer-container class="example-container" autosize>
   
-      <app-navbar-categories (productsByCategory)="getProductsByCategory($event)" *ngIf="!noSearchResults"></app-navbar-categories>
+  <mat-drawer #drawer class="example-sidenav" mode="side" [(opened)]="opened">
+    <app-product (onClose)="execOnClose()"></app-product>
+  </mat-drawer>
+  
+  <app-cart *appRole="'user'"></app-cart>
+  
+  <div class="container mt-5">
+    
+    <mat-spinner *ngIf="showSpinner"></mat-spinner>
+    
+    <app-navbar-categories (productsByCategory)="getProductsByCategory($event)" *ngIf="!noSearchResults"></app-navbar-categories>
+    
+    <h3 *ngIf="noSearchResults" fxLayoutAlign="center center" >Sorry! No products found...</h3>    
         
+    <div 
+    fxLayout="row wrap" 
+    fxLayout.lt-md="column" 
+    fxLayoutAlign="start" 
+    fxLayoutGap="7px" 
+    *ngIf="!noSearchResults"
+    class="mt-5"
+    >
+      <mat-card *ngFor="let product of products" class="mb-2"
+      fxFlex="0 1 calc(25% - 7px)"
+      fxFlex.lt-md="0 1 calc(50% - 7px)"
+      fxFlex.lt-sm="100%"
+      fxLayout="column" 
+      >
+        <img mat-card-image [src]="product.image" alt="image" fxFlexAlign="center">
+        <mat-card-content>{{ product.name }}</mat-card-content>
+        <mat-card-content>${{ product.price }}</mat-card-content>   
+        <mat-card-actions>
+          <button *appRole="'user'" type="button" mat-raised-button color="primary" (click)="addProductToCart(product)">
+            Add
+          </button>
+          <button *appRole="'admin'" type="button" mat-raised-button color="accent" (click)="editProduct(product)">
+            Edit
+          </button>
+        </mat-card-actions>
+      </mat-card>     
+    </div>
+  </div>
 
-      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4" *ngIf="!noSearchResults">
-        <div class="col mb-4" *ngFor="let product of products">
-          <div class="card h-100" style="min-width: 18rem;">
-            <img [src]="product.image" class="card-img-top mx-auto d-block" alt="image" style="max-width: 10rem;">
-            <div class="card-body">
-              <p class="card-title">{{ product.name }}</p>
-              <h6 class="card-text">${{ product.price }}</h6>
-            </div>
-            <div class="card-footer text-right">
-              <button type="button" class="btn btn-sm btn-primary" (click)="addProductToCart(product)">Add</button>
-            </div>
-          </div>
-        </div>
-
-
-       
-      </div>
-
-
-
-
-
-</div>
+</mat-drawer-container>

@@ -1,21 +1,21 @@
 const exprees = require('express');
 const router = exprees.Router();
-const products = require('../database/products');
+const productsData = require('../database/products');
 
 
 router.post('/', async (req, res, next) => {
 
     try {
-
-        const { createProduct } = products;    
+        const { createProduct, getProductsByCategory } = productsData;    
         const createdProduct = await createProduct(req.body);
-    
-        res.json({message: "Product has been created!" ,createdProduct: createdProduct, status: true});
-   
+        const { category_id } = req.body;
+        const products = await getProductsByCategory(category_id);
+        if (!createdProduct) return res.json({message: "Create product failed", status: false});
+        res.json({message: "Product has been created!" ,createdProduct: createdProduct, 
+        products: products, status: true});
     } catch (error) {
         res.json({error: error.message, status: false});
     }
-
 });
 
 

@@ -2,75 +2,50 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Router } from '@angular/router';
+import { passwordValidator, UniqueUsernameValidator } from './custom-validators';
+
 
 interface Response {
   status?: boolean;
   message?: string;
 }
 
-
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
+
+
 export class RegisterComponent implements OnInit {
 
   public registerForm1: FormGroup;
   public registerForm2: FormGroup;
-  public isFirstStepValid = false;
-
-
+  public isLinear: boolean = false;
+  public requiredMsg: string = "Field is required.";
+  public cities: Array<string> = ["London","Birmingham", "Leicester", "Southampton", "Leeds", "Manchester", "Liverpool"];
+  public hintColor: string = '#ff0000';
+  public uniqueUsernameValidator = new UniqueUsernameValidator(this.authService);
+  
+  get userName() { return this.registerForm1.get('userName').value};
+  
   constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) { 
     this.registerForm1 = this.formBuilder.group({
       id: [null, [Validators.required, Validators.min(1000)]],
-      userName: [null, [Validators.required, Validators.email]],
+      userName: [null, [Validators.required, Validators.email], [this.uniqueUsernameValidator]],      
       password: [null, Validators.required],
       passwordConfirm: [null, Validators.required]
-    })
+    }, { validator: passwordValidator })
 
     this.registerForm2 = this.formBuilder.group({
-      city: null,
-      street: null,
-      firstName: null,
-      lastName: null
+      city: [null, Validators.required],
+      street: [null, Validators.required],
+      firstName: [null, Validators.required],
+      lastName: [null, Validators.required]
     }) 
-    
-  
-  }
-
-  validation(param: string) {
-    if (!this.registerForm1.get(param).valid && this.registerForm1.get(param).touched ) {
-      return true;
-    } 
-  }
-
+  };
    
   ngOnInit(): void {
-  }
-
-  registerFirstStep() {
-    console.log(this.registerForm1.get('userName'))
-    const newUser = {
-      id: this.registerForm1.get('id').value,
-      userName: this.registerForm1.get('userName').value,
-      password: this.registerForm1.get('password').value,
-      passwordConfirm: this.registerForm1.get('passwordConfirm').value
-
-    }
-    console.log("new user first stem=>", newUser)
-    this.authService.resiterFirstStep(newUser).subscribe((response: Response)  => {
-      console.log("result from first step=>", response )
-      const { status } = response;
-      if (status) {
-        this.isFirstStepValid = true;
-      } else {
-        this.isFirstStepValid = false;
-      }
-
-    }, error =>{
-      console.log(error)
-    })
   }
 
   register() {
@@ -84,21 +59,27 @@ export class RegisterComponent implements OnInit {
       firstName: this.registerForm2.get('firstName').value,
       lastName: this.registerForm2.get('lastName').value
     }
-    console.log("new user second stem=>", newUser)
-    this.authService.register(newUser).subscribe((response: Response)=>{
-      console.log({response})
-      const { status, message } = response;
+
+    this.authService.register(newUser).subscribe((response: Response) => {
+      const { status } = response;
       if (status) {
-        alert(message);
-        this.registerForm1.reset();
-        this.registerForm2.reset();
-        this.isFirstStepValid = false; 
+        const { userName, password } = newUser;
+        this.authService.login(userName, password).subscribe();
         this.router.navigate(['/home']);
       } 
-
     }, error => {
-      console.log(error)
+      console.log(error.message);
     })
-  }
+  };
 
+
+  requiredValidation1(field: string) {
+    return this.registerForm1.get(field).errors?.required;
+  };
+
+  requiredValidation2(field: string) {
+    return this.registerForm2.get(field).errors?.required;
+  };
+
+  
 };

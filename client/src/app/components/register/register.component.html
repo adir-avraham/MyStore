@@ -1,90 +1,100 @@
-<div class="container">
-    <div class="card shadow-lg bg-light">
-        <h5 class="card-header">
-            Register - user
-        </h5>
-        <div class="card-body" *ngIf="!isFirstStepValid">
-            <form [formGroup]="registerForm1">
-                <div class="form-group row justify-content-center mt-3">
-                  <label for="inputId" class="col-lg-2 col-form-label">ID</label>
-                  <div class="col-lg-5">
-                    <input formControlName="id" type="number" class="form-control" [ngClass]="{'is-invalid': validation('id')}" id="inputId">
-                    <div class="invalid-feedback" *ngIf="registerForm1.get('id').errors?.required">
-                        Please provide a valid ID.
-                    </div>
-                    <div class="invalid-feedback" *ngIf="registerForm1.get('id').errors?.min">
-                        ID must be at least 4 digits long.
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group row justify-content-center">
-                   <label for="inputUserName" class="col-lg-2 col-form-label">User Name</label>
-                   <div class="col-lg-5">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">@</div>
-                            </div>
-                            <input formControlName="userName" type="email" class="form-control" [ngClass]="{'is-invalid': validation('userName')}" id="inputUserName">
-                            <div class="invalid-feedback" *ngIf="registerForm1.get('userName').errors?.required">
-                                Please provide a valid User name.
-                            </div>
-                            <div class="invalid-feedback" *ngIf="registerForm1.get('userName').errors?.email">
-                                Please provide a valid Email address.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group row justify-content-center">
-                  <label for="inputPassword" class="col-lg-2 col-form-label">Password</label>
-                  <div class="col-lg-5">
-                    <input formControlName="password" type="password" class="form-control" [ngClass]="{'is-invalid': validation('password')}" id="inputPassword">
-                    <div class="invalid-feedback" *ngIf="registerForm1.get('password').errors?.required">
-                        Please provide a password.
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group row justify-content-center">
-                    <label for="inputPasswordConfirm" class="col-lg-2 col-form-label">Password Confirm</label>
-                    <div class="col-lg-5">
-                      <input formControlName="passwordConfirm" type="password" class="form-control" [ngClass]="{'is-invalid': validation('passwordConfirm')}" id="inputPasswordConfirm">
-                      <div class="invalid-feedback" *ngIf="registerForm1.get('passwordConfirm').errors?.required">
-                        Please confirm your password.
-                    </div>
-                    </div>
-                </div>
+<div class="container m">
+  <mat-card>
+    <mat-card-title>
+      Register
+    </mat-card-title>
+      <mat-horizontal-stepper #stepper linear>
+        
+        <mat-step [stepControl]="registerForm1">
+          <form [formGroup]="registerForm1" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <ng-template matStepLabel>Fill out account details</ng-template>       
+              
+              <mat-form-field>                
+                <input matInput placeholder="ID" formControlName="id" type="number">  
+                <mat-error *ngIf="requiredValidation1('id')">
+                  {{ requiredMsg }}
+                </mat-error>
+                <mat-error *ngIf="registerForm1.get('id').errors?.min">
+                  ID must be at least 4 digits long.
+                </mat-error>
+              </mat-form-field>
+                
+              <mat-form-field>
+                <input matInput formControlName="userName" type="email" placeholder="User Name">
+                <mat-error *ngIf="requiredValidation1('userName')">
+                  {{ requiredMsg }}
+                </mat-error>
+                <mat-error *ngIf="registerForm1.get('userName').errors?.email">
+                  Please provide a valid Email address.
+                </mat-error>
+                <mat-error  *ngIf="registerForm1.get('userName').errors?.uniqueUserName">
+                  {{ userName }} in not an available user name.  
+                </mat-error> 
+              </mat-form-field>
+      
+              
+              <mat-form-field>
+                <input matInput placeholder="Password" formControlName="password" type="password">
+                <mat-error *ngIf="requiredValidation1('password')">
+                  {{ requiredMsg }}
+                </mat-error>
+              </mat-form-field>
+              
+              <mat-form-field>
+                <input matInput placeholder="Password Confirm" formControlName="passwordConfirm" type="password">
+                <mat-error *ngIf="requiredValidation1('passwordConfirm')">
+                  {{ requiredMsg }}
+                </mat-error>
+                <mat-hint [ngStyle]="{color: hintColor}" *ngIf="registerForm1.errors?.misMatch">
+                  Confirm password is not matching.  
+                </mat-hint> 
+              </mat-form-field>
             </form>            
-            <button class="btn btn-primary float-right mt-3" (click)="registerFirstStep()" [disabled]="!registerForm1.valid">Continue to register</button>
-        </div>
+          </mat-step>
+          
+          <mat-step [stepControl]="registerForm2" >
+            <form [formGroup]="registerForm2" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+              <ng-template matStepLabel >Fill out user details</ng-template>  
+              
+              <mat-form-field>
+                <mat-label>City</mat-label>
+                <mat-select formControlName="city">
+                  <mat-option *ngFor="let city of cities" value={{city}}>{{ city }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="requiredValidation2('city')">{{ requiredMsg }}</mat-error>
+              </mat-form-field>
 
-        <div class="card-body" *ngIf="isFirstStepValid">
-            <form [formGroup]="registerForm2">
-                <div class="form-group row justify-content-center mt-3">
-                  <label for="inputCity" class="col-lg-2 col-form-label">City</label>
-                  <div class="col-lg-5">
-                    <input formControlName="city" type="text" class="form-control" id="inputCity">
-                  </div>
-                </div>
-                <div class="form-group row justify-content-center">
-                   <label for="inputStreet" class="col-lg-2 col-form-label">Street</label>
-                   <div class="col-lg-5">
-                        <input formControlName="street" type="text" class="form-control" id="inputStreet">
-                    </div>
-                </div>
-                <div class="form-group row justify-content-center">
-                  <label for="inputFirstName" class="col-lg-2 col-form-label">First Name</label>
-                  <div class="col-lg-5">
-                    <input formControlName="firstName" type="text" class="form-control" id="inputFirstName">
-                  </div>
-                </div>
-                <div class="form-group row justify-content-center">
-                    <label for="inputLastName" class="col-lg-2 col-form-label">Last Name</label>
-                    <div class="col-lg-5">
-                      <input formControlName="lastName" type="text" class="form-control" id="inputLastName">
-                    </div>
-                </div>
-            </form>            
-            <button class="btn btn-primary float-right mt-3" (click)="register()">Register</button>
-        </div>
+              <mat-form-field>
+                <input matInput placeholder="Street" formControlName="street" type="text">
+                <mat-error *ngIf="requiredValidation2('street')">{{ requiredMsg }}</mat-error>
+              </mat-form-field>
+              
+              <mat-form-field>
+                <input matInput placeholder="First Name" formControlName="firstName" type="text">
+                <mat-error *ngIf="requiredValidation2('firstName')">{{ requiredMsg }}</mat-error>
+              </mat-form-field>
+      
+              <mat-form-field>
+                <input matInput placeholder="Last Name" formControlName="lastName" type="text">
+                <mat-error *ngIf="requiredValidation2('lastName')">{{ requiredMsg }}</mat-error>
+              </mat-form-field>
+              
+              <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+              </div>
+            </form>
+        </mat-step>
 
-    </div>
-</div>
+        <mat-step>
+          <ng-template matStepLabel>Done</ng-template>  
+          <h3 fxLayoutAlign="center center">You are now done.</h3>
+          <div fxLayoutAlign="center center">
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="register()">Submit</button>
+          </div>
+        </mat-step>
+
+      </mat-horizontal-stepper>
+    </mat-card>
+  </div>
