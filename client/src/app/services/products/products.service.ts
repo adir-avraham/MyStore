@@ -68,12 +68,4 @@ export class ProductsService {
   };
 
 
-  getProductImage(productQueqry: string) {
-    let headers = new HttpHeaders()
-    headers = headers.append('Authorization', 'Basic VDFDVXFCUzB5aW5LVWhLcjhudWw1b0JkZ2hhZkl6VHI6TWZUWFM4cHR1dnY1WnhNUg==');
-    headers = headers.append('Content-Type', 'application/json');
-    return this.httpClient.get(`https://api.shutterstock.com/v2/images/search?query=${productQueqry}`, {headers: headers});
-  };
-
-
 };

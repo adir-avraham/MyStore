@@ -21,6 +21,8 @@ import { MAT_DATE_LOCALE } from '@angular/material/core'
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatRippleModule } from '@angular/material/core';
+
 
 @NgModule({
     providers: [
@@ -47,7 +49,8 @@ import { MatMenuModule } from '@angular/material/menu';
         MatNativeDateModule,
         MatSidenavModule,
         MatCheckboxModule,
-        MatMenuModule
+        MatMenuModule,
+        MatRippleModule
 
 
     ],
@@ -72,7 +75,8 @@ import { MatMenuModule } from '@angular/material/menu';
         MatNativeDateModule,
         MatSidenavModule,
         MatCheckboxModule,
-        MatMenuModule
+        MatMenuModule,
+        MatRippleModule
         
         ]
 })

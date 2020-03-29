@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FormControl } from '@angular/forms';
 import { ProductsService } from 'src/app/services/products/products.service';
 import { debounceTime } from 'rxjs/operators';
@@ -14,7 +13,6 @@ import { Subscription } from 'rxjs';
 
 
 export class SearchProductComponent implements OnInit, OnDestroy {
-  faSearch = faSearch;
 
   public searchText: string;
   public searchFormControl: FormControl;
@@ -27,7 +25,7 @@ export class SearchProductComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.unsubscribeSearchTextChanges = this.searchFormControl.valueChanges.pipe(debounceTime(400))
     .subscribe((newValue: string) => {
-      this.productsService.setSearchTextChanges(newValue)
+      this.productsService.setSearchTextChanges(newValue);
       this.searchText = newValue;
     });
   };

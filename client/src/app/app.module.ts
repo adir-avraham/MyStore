@@ -27,6 +27,7 @@ import { OrderFeedbackComponent } from './components/order-feedback/order-feedba
 import { AboutComponent } from './components/about/about.component';
 import { ProductComponent } from './components/product/product.component';
 import { RoleDirective } from './directives/role.directive';
+import { GalleryComponent } from './components/gallery/gallery.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { RoleDirective } from './directives/role.directive';
     OrderFeedbackComponent,
     AboutComponent,
     ProductComponent,
-    RoleDirective
+    RoleDirective,
+    GalleryComponent
   ],
   imports: [
     BrowserModule,
@@ -66,6 +68,6 @@ import { RoleDirective } from './directives/role.directive';
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}
   ],
   bootstrap: [AppComponent],
-  entryComponents: [DialogComponent, OrderFeedbackComponent, CartComponent]
+  entryComponents: [DialogComponent, OrderFeedbackComponent, CartComponent, GalleryComponent]
 })
 export class AppModule { }

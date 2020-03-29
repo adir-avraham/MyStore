@@ -58,7 +58,7 @@
               
               <mat-form-field>
                 <mat-label>City</mat-label>
-                <mat-select formControlName="city">
+                <mat-select formControlName="city" required>
                   <mat-option *ngFor="let city of cities" value={{city}}>{{ city }}</mat-option>
                 </mat-select>
                 <mat-error *ngIf="requiredValidation2('city')">{{ requiredMsg }}</mat-error>

@@ -1,0 +1,13 @@
+img {
+    height: 150px;
+    width: 150px;
+}
+
+mat-card:hover { 
+   background-color: #ffd740;
+   cursor: pointer;
+   opacity: 0.7;
+   transition: ease-in;
+   transition: ease-out;
+   transition-duration: 1s;
+}
