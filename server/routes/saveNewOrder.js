@@ -10,7 +10,6 @@ router.use( async (req, res, next) => {
         const { getUnavailableDates } = orders;
         const unavailableDates = await getUnavailableDates();
         const isUnavailable = isDateAvailable(deliveryDate, unavailableDates);
-        console.log(isUnavailable)
         if (isUnavailable) return res.json({message: "Unavailable delivery date", status: false});
         if (!validateCreditCard(creditCard)) return res.json({message: "Invalid credit card", status: false});
         next()
@@ -43,9 +42,7 @@ function isDateAvailable(deliveryDate, unavailableDates) {
 }
 
 function validateCreditCard(creditCard) {
-    // check only as min digits of 16 - nedd to be exact 16!
-    const pat = /\d{16}/
-    const validate = pat.test(creditCard)
-    //console.log(validate)
+    const pattern = /\d{16}/
+    const validate = pattern.test(creditCard);
     return validate;
 }

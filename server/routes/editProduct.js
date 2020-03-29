@@ -7,7 +7,6 @@ router.put('/', async (req, res, next) =>{
 
     try {
         const { editProduct, getProductsByCategory } = productsData;
-        console.log(req.body)
         const editedProduct = await editProduct(req.body);
         if (!editedProduct) return res.json({message: "Edit product failed", status: false});
         const { category_id } = req.body;

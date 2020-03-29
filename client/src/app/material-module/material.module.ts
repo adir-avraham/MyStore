@@ -8,7 +8,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatListModule } from '@angular/material/list';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
@@ -38,7 +37,6 @@ import { MatRippleModule } from '@angular/material/core';
         MatTabsModule,
         MatStepperModule,
         MatListModule,
-        MatProgressSpinnerModule,
         MatExpansionModule,
         MatDialogModule,
         MatTableModule,
@@ -64,7 +62,6 @@ import { MatRippleModule } from '@angular/material/core';
         MatTabsModule,
         MatStepperModule,
         MatListModule,
-        MatProgressSpinnerModule,
         MatExpansionModule,
         MatDialogModule,
         MatTableModule,

@@ -28,7 +28,9 @@ import { AboutComponent } from './components/about/about.component';
 import { ProductComponent } from './components/product/product.component';
 import { RoleDirective } from './directives/role.directive';
 import { GalleryComponent } from './components/gallery/gallery.component';
-
+import { NgxSpinnerModule } from "ngx-spinner";
+import { LoaderInterceptor } from './interceptors/loader/loader.interceptor';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,8 @@ import { GalleryComponent } from './components/gallery/gallery.component';
     AboutComponent,
     ProductComponent,
     RoleDirective,
-    GalleryComponent
+    GalleryComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -61,11 +64,13 @@ import { GalleryComponent } from './components/gallery/gallery.component';
     FormsModule, 
     ReactiveFormsModule, BrowserAnimationsModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    NgxSpinnerModule
     
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true}
   ],
   bootstrap: [AppComponent],
   entryComponents: [DialogComponent, OrderFeedbackComponent, CartComponent, GalleryComponent]

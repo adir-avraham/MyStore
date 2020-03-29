@@ -36,7 +36,7 @@
           <mat-icon matSuffix>visibility_off</mat-icon>
         </mat-form-field>
       
-        <div *ngIf="!isLoading" class="error">
+        <div *ngIf="errorMessage" class="error">
           {{errorMessage}}
         </div>
       </form>
@@ -44,7 +44,7 @@
   
     <mat-card-actions>              
       <button type="button" mat-raised-button color="primary" (click)="login()">
-        Login<span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
+        Login
       </button>
       <button mat-raised-button color="accent" routerLink="/register">
         Register

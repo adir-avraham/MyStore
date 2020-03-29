@@ -10,8 +10,6 @@
   
   <div class="container mt-5">
     
-    <mat-spinner *ngIf="showSpinner"></mat-spinner>
-    
     <app-navbar-categories (productsByCategory)="getProductsByCategory($event)" *ngIf="!noSearchResults"></app-navbar-categories>
     
     <h3 *ngIf="noSearchResults" fxLayoutAlign="center center" >Sorry! No products found...</h3>    

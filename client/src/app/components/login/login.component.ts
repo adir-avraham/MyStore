@@ -41,8 +41,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   public loginForm: FormGroup;
   public errorMessage: string = null;
-  public loginStatus: boolean = true;
-  public isLoading: boolean = false;
   public isAuthenticated: boolean = false;
   public isAdminConnected: boolean = false;
   public isUserConnected: boolean = false;
@@ -102,25 +100,18 @@ export class LoginComponent implements OnInit, OnDestroy {
     const userName = this.loginForm.get('userName').value;
     const password = this.loginForm.get('password').value;
     
-    this.isLoading = true;
-    
     this.authService.login(userName, password).subscribe((loginRes: loginRes) => {
       const {message, status, userData } = loginRes;
         if (status) {
-          this.isLoading = false;
           this.isAuthenticated = true;
-          this.loginStatus = true;
           this.userLoggedin(userData);
         }
         if (message && !status) {
         this.errorMessage = message;
-        this.loginStatus = status;
-        this.isLoading = false;
         }
     }, error =>{
       console.log(error.message)
       this.errorMessage = "Somethins went wrong..";
-      this.isLoading = false;
     });
   };
 

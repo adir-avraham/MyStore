@@ -44,8 +44,7 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
   public sidenav: MatSidenav;
   public drawer: MatDrawer;
   public opened: boolean;
-  public showSpinner: boolean = false;
-  
+
   constructor(private productsService: ProductsService, private dialog: MatDialog,
     private cartService: CartService) { }
 
@@ -57,7 +56,7 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
     this.unsubscribeProducts = this.productsService.products.subscribe((products: Array<Product>) => {
       this.products = products;
     });
-
+    
     this.unsubscribeSearchTextChanges = this.productsService.searchTextChanges.subscribe((newValue: string) => {
       this.searchText = newValue;
       this.productsService.getProductByName(newValue).subscribe((result: SearchResult) =>{
@@ -67,14 +66,14 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
         } else {
           this.noSearchResults = false;
           this.products = product;
-          }
+        }
       }, error => {
         this.noSearchResults = false;
         this.getProductsByCategory(this.initCategory);
         console.log(error.message);
       }) 
-     })
-    };
+    })
+  };
   
     getProductsByCategory(category: Category) {
       this.productsService.getProductsByCategory(category).subscribe((result: ProductsResult) => {
@@ -86,7 +85,7 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
   
   };
   
-
+  
   addProductToCart(product: Product) {
     const dialogRef = this.dialog.open(DialogComponent, {data: {
       name: product.name
