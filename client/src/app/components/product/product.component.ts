@@ -56,6 +56,7 @@ export class ProductComponent implements OnInit, OnDestroy {
     })
 
     this.unsubscribeSelectedProduct = this.productsService.selectedProduct.subscribe((selectedProduct: Product) => {
+      if (!selectedProduct) return;
       this.editMode = true;
       const { name, price, image, category_id, _id } = selectedProduct;
       this.productForm.get('name').setValue(name);

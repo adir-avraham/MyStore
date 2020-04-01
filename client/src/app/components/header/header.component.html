@@ -1,5 +1,6 @@
 <mat-toolbar color="primary" fxLayoutAlign="space-between center">
     <a routerLink="/home">My Store &nbsp;</a> 
-    <span> Hello {{ !userConnected ? 'Guest' : userConnected }} &nbsp;</span>
-    <button mat-raised-button color="accent" (click)="logout()" *ngIf="isAuthenticated">Logout</button> 
+    <span *ngIf="adminConnected"> {{ adminConnected }} </span>
+    <app-cart-indicator *ngIf="showCartIndicator"></app-cart-indicator>
+    <button mat-stroked-button color="accent" (click)="logout()" *ngIf="isAuthenticated">Logout</button> 
 </mat-toolbar> 

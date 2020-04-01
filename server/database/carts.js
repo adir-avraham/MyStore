@@ -36,7 +36,7 @@ async function getDetails(hasCart, user_id) {
             { $group: { _id: null, totalPrice: { $sum: "$price" } } }
         ])
         const cartDetails = {
-            totalPrice: totalPrice[0].totalPrice,
+            totalPrice: Math.floor(totalPrice[0].totalPrice * 100) / 100,
             created_at: cartItems[0].cart_id.created_at
         }
         return cartDetails;

@@ -1,8 +1,9 @@
 <mat-card class="h-100">
+  <mat-card-title> Hello {{ !userName ? 'Guest' : userName }} </mat-card-title>
  
   <div *ngIf="isUserConnected">
     <mat-card-actions>
-      <button mat-raised-button color="primary" (click)="goToShoppingPage()">
+      <button mat-raised-button color="accent" (click)="goToShoppingPage()">
         {{ openCart ? 'Resume shopping' : 'Go Shopping' }}
       </button>
     </mat-card-actions>
@@ -14,15 +15,14 @@
   </div>
 
   <mat-card-actions *ngIf="isAdminConnected">
-    <button mat-raised-button color="primary" (click)="goToShoppingPage()">
+    <button mat-raised-button color="accent" (click)="goToShoppingPage()">
       Products Management
     </button>
   </mat-card-actions>
   
   
   <div *ngIf="!isAuthenticated">
-    
-    <mat-card-title>Register?</mat-card-title>
+    <mat-card-subtitle>Register?</mat-card-subtitle>
     
     <mat-card-content>  
       <form [formGroup]="loginForm" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="15px">

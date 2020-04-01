@@ -6,7 +6,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { MatSidenav, MatDrawer } from '@angular/material/sidenav';
-
+import { AuthService, Decoded } from 'src/app/services/auth/auth.service';
+import { User } from 'src/app/models/user.model';
+import * as jwtDecode from 'jwt-decode'; 
 
 interface SearchResult {
   product: Array<Product>;
@@ -44,9 +46,12 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
   public sidenav: MatSidenav;
   public drawer: MatDrawer;
   public opened: boolean;
+  public showCartIndicator: boolean = false;
+  public showCartIndicatorSub: Subscription;
+  public openSideCartSub: Subscription;
 
   constructor(private productsService: ProductsService, private dialog: MatDialog,
-    private cartService: CartService) { }
+    private cartService: CartService, private authService: AuthService) { }
 
 
   ngOnInit(): void {
@@ -72,17 +77,37 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
         this.getProductsByCategory(this.initCategory);
         console.log(error.message);
       }) 
-    })
+    });
+
+
+    this.openSideCartSub = this.cartService.openSideCart.subscribe((openSideCart: boolean) => {
+      this.opened = openSideCart;
+    });
+
+    
+    this.authService.user.subscribe((user: User) => {
+      if (!user) return;
+      const { token } = user;
+      const decoded: Decoded = jwtDecode(token);       
+      const { role } = decoded._doc;
+        if (role === 'user') {  
+          this.cartService.showCartIndicator.next(true);
+        } else {
+          this.cartService.showCartIndicator.next(false);
+        }   
+    });
+      
+  
   };
   
-    getProductsByCategory(category: Category) {
-      this.productsService.getProductsByCategory(category).subscribe((result: ProductsResult) => {
-        const { products } = result;
-        this.products = products;
+  
+  getProductsByCategory(category: Category) {
+    this.productsService.getProductsByCategory(category).subscribe((result: ProductsResult) => {
+      const { products } = result;
+      this.products = products;
       }, error => {
         console.log(error.message);
-    });
-  
+    })
   };
   
   
@@ -91,6 +116,7 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
       name: product.name
     }})
     dialogRef.afterClosed().subscribe((quantity: number) => {
+      if (!quantity) return;
       const selectedProduct = {quantity: quantity, product_id: product._id };
       this.cartService.selectedProduct.next(selectedProduct);
     })
@@ -110,6 +136,7 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.unsubscribeSearchTextChanges.unsubscribe();
     this.unsubscribeProducts.unsubscribe();
+    this.openSideCartSub.unsubscribe();
   };
 
 

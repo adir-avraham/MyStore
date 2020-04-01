@@ -1,29 +1,26 @@
 table {
-    width: 100%;
-  }
-  
-  tr.mat-footer-row {
-    font-weight: bold;
-  }
-
-
-.cart {
-    width: 440px;
+  width: 400px;  
 }
 
-
 @media only screen and (max-width: 800px) {
-    .cart {
-        width: 100%;
+  table {
+    width: 100%;
+  }
+}
 
-    }
+tr.mat-footer-row {
+  font-weight: bold;
 }
 
 img {
   width: 40px;
 }
 
-mat-icon {
+.btn-remove {
   color: gray;
   cursor: pointer;
+}
+
+.icon-close {
+  color: gray;
 }

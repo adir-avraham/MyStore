@@ -1,6 +1,6 @@
 <div fxLayoutAlign="space-between">
     <h1>Products Management</h1>
-    <button mat-mini-fab [matMenuTriggerFor]="menu" color="primary">
+    <button mat-mini-fab [matMenuTriggerFor]="menu" color="accent">
         <mat-icon>add</mat-icon>  
     </button>
 </div>
@@ -56,10 +56,10 @@
         </mat-error>
     </mat-form-field>
 
-    <button type="button" mat-raised-button color="primary" (click)="createProduct()" *ngIf="!editMode">
+    <button type="button" mat-raised-button color="accent" (click)="createProduct()" *ngIf="!editMode">
         Save product
     </button>
-    <button type="button" mat-raised-button color="primary" (click)="editProduct()" *ngIf="editMode">
+    <button type="button" mat-raised-button color="accent" (click)="editProduct()" *ngIf="editMode">
         Save changes
     </button>
 </form>

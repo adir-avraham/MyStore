@@ -3,10 +3,9 @@
 <mat-drawer-container class="example-container" autosize>
   
   <mat-drawer #drawer class="example-sidenav" mode="side" [(opened)]="opened">
-    <app-product (onClose)="execOnClose()"></app-product>
+    <app-product *appRole="'admin'" (onClose)="execOnClose()"></app-product>
+    <app-cart *appRole="'user'" (onClose)="execOnClose()"></app-cart>
   </mat-drawer>
-  
-  <app-cart *appRole="'user'"></app-cart>
   
   <div class="container mt-5">
     
@@ -32,7 +31,7 @@
         <mat-card-content>{{ product.name }}</mat-card-content>
         <mat-card-content>${{ product.price }}</mat-card-content>   
         <mat-card-actions>
-          <button *appRole="'user'" type="button" mat-raised-button color="primary" (click)="addProductToCart(product)">
+          <button *appRole="'user'" type="button" mat-raised-button color="accent" (click)="addProductToCart(product)">
             Add
           </button>
           <button *appRole="'admin'" type="button" mat-raised-button color="accent" (click)="editProduct(product)">

@@ -47,6 +47,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   public welcomeMessage: string = null;
   public openCart: OpenCart = null;
   public userSubscription: Subscription;
+  public userName: string = null;
 
   constructor(private formBuilder: FormBuilder, private authService: AuthService, 
     private router: Router, private cartService: CartService) {
@@ -59,10 +60,11 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userSubscription = this.authService.user.subscribe((user: User) => {
-      
+      this.cartService.showCartIndicator.next(false)
       if (user) {
         this.isAuthenticated = true;
-        const { token } = user;
+        const { token, firstName } = user;
+        this.userName = firstName;
         const decoded: Decoded = jwtDecode(token);       
         const { role } = decoded._doc;
         if ( role === 'admin' ) {
@@ -90,6 +92,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.isAuthenticated = false;
         this.isUserConnected = false;
         this.isAdminConnected = false;
+        this.userName = null;
         this.welcomeMessage = null;
         this.openCart = null;
       }

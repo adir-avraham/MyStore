@@ -26,6 +26,7 @@ export class RoleDirective implements OnInit, OnDestroy {
     this.unsubscribeUser = this.authService.user.pipe(take(1)).subscribe((user: any) => {
       if (!user) { 
         this.viewContainerRef.clear();
+        return;
       }
       const decoded: any = jwtDecode(user.token);  
       const { role } = decoded._doc;

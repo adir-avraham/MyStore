@@ -24,8 +24,11 @@ export class CartService {
   public emptyCartUrl = `${basedUrl}/emptyCart`;
 
   selectedProduct = new Subject<SelectedProduct>();
+  openSideCart = new Subject<boolean>();
+  totalQuantity = new Subject<number>();
+  showCartIndicator = new Subject<boolean>();
 
-  constructor(private httpClient: HttpClient ) { }
+  constructor(private httpClient: HttpClient) { }
 
   getShoppingDetails() {
     return this.httpClient.get(this.getShoppingDetailsUrl);
@@ -46,4 +49,5 @@ export class CartService {
   emptyCart(cart_id: string) {
     return this.httpClient.delete(`${this.emptyCartUrl}/${cart_id}`);
   }
-}
+
+};

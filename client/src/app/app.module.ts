@@ -31,6 +31,7 @@ import { GalleryComponent } from './components/gallery/gallery.component';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { LoaderInterceptor } from './interceptors/loader/loader.interceptor';
 import { LoaderComponent } from './components/loader/loader.component';
+import { CartIndicatorComponent } from './components/cart-indicator/cart-indicator.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { LoaderComponent } from './components/loader/loader.component';
     ProductComponent,
     RoleDirective,
     GalleryComponent,
-    LoaderComponent
+    LoaderComponent,
+    CartIndicatorComponent
   ],
   imports: [
     BrowserModule,

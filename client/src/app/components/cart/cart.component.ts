@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { Subscription } from 'rxjs';
 import { SelectedProduct } from '../../services/cart/cart.service';
@@ -39,7 +39,7 @@ export class CartComponent implements OnInit, OnDestroy {
   panelOpenState = false;
   cartItems: Array<CartItem> = [];
   selectedProductSub: Subscription;
- 
+  @Output() onClose = new EventEmitter();
   constructor(private cartService: CartService, private router: Router) { }
 
 
@@ -48,6 +48,7 @@ export class CartComponent implements OnInit, OnDestroy {
     this.cartService.getCart().subscribe((cartResult: CartResult) => {
       const { cart } = cartResult;
       this.cartItems = cart;
+      this.cartService.totalQuantity.next(this.getTotalCartItems());
     }, error =>{
       console.log(error.message);
     });
@@ -64,6 +65,7 @@ export class CartComponent implements OnInit, OnDestroy {
       this.cartService.addProductToCart(addedProduct).subscribe((cartResult: CartResult) => {
           const { cart } = cartResult;
           this.cartItems = cart;
+          this.cartService.totalQuantity.next(this.getTotalCartItems());
       }, error =>{
         console.log(error.message);
       });
@@ -79,12 +81,17 @@ export class CartComponent implements OnInit, OnDestroy {
     return this.cartItems.map(item => item.price).reduce((acc, value) => acc + value, 0);
   }
 
+  getTotalCartItems() {
+    return this.cartItems.map(item => item.quantity).reduce((acc, value) => acc + value, 0);
+  }
+
   deleteCartItem(item_id: string) {
 
     this.cartService.deleteCartItem(item_id).subscribe((cartResult: CartResult) => {
       const { cart, status } = cartResult;
       if (!status) return;
       this.cartItems = cart;
+      this.cartService.totalQuantity.next(this.getTotalCartItems());
   }, error =>{
     console.log(error.message);
   });
@@ -96,7 +103,7 @@ emptyCart(cart_id: string) {
     const { cart, status} = cartResult;
     if (!status) return;
     this.cartItems = cart;
-
+    this.cartService.totalQuantity.next(this.getTotalCartItems());
   }, error =>{
     console.log(error.message);
   })
@@ -106,9 +113,13 @@ checkout() {
   this.router.navigate(['/checkout']);
 }
 
-  ngOnDestroy() {
-    this.selectedProductSub.unsubscribe();
-  }
+closeSideBar() {
+  this.onClose.emit();
+};
+
+ngOnDestroy() {
+  this.selectedProductSub.unsubscribe();
+}
 
 
 }
