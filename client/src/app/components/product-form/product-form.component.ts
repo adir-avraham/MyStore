@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { GalleryService } from 'src/app/services/gallery/gallery.service';
 import { GalleryComponent } from '../gallery/gallery.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AlertComponent } from '../alert/alert.component';
 
 
 interface UpdatedProduct {
@@ -19,12 +20,12 @@ interface UpdatedProduct {
 }
 
 @Component({
-  selector: 'app-product',
-  templateUrl: './product.component.html',
-  styleUrls: ['./product.component.css']
+  selector: 'app-product-form',
+  templateUrl: './product-form.component.html',
+  styleUrls: ['./product-form.component.css']
 })
 
-export class ProductComponent implements OnInit, OnDestroy {
+export class ProductFormComponent implements OnInit, OnDestroy {
 
   public productForm: FormGroup;
   public categories: Array<Category>;
@@ -79,9 +80,10 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.productsService.createProduct(newProduct).subscribe((updatedProductsRes: UpdatedProductsRes)=>{
       const { products, status } = updatedProductsRes;
       if (status) {
-        alert('create product success');
-        this.productsService.products.next(products);
-        this.productForm.reset();
+        const message = "Product has been saved successfully!";
+        this.successResponse(products, message);
+      } else {
+        this.failureResponse();
       }
     }, error => {
       console.log(error.message);
@@ -100,16 +102,36 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.productsService.editProduct(editedProduct).subscribe((updatedProductsRes: UpdatedProductsRes)=>{
       const { products, status } = updatedProductsRes;
       if (status) {
-        alert('edit product success');
-        this.productsService.products.next(products);
-        this.productForm.reset();
-        this.productForm.touched;
+        const message = "Changes have been saved successfully!"
+        this.successResponse(products, message);
+      } else {
+        this.failureResponse();
       }
     }, error => {
       console.log(error.message);
     });
   }
 
+  successResponse(products: Array<Product>, message: string) {
+    this.productsService.products.next(products);
+    this.productForm.reset();
+    this.dialog.open(AlertComponent, {
+      width: '450px',
+      data: {
+      message: message,
+      title: "Success"
+    }})
+  }
+
+  failureResponse() {
+    this.dialog.open(AlertComponent, {
+      width: '450px',
+      data: {
+      message: "We're sorry! Something went wrong. Please make sure you complete the form.",
+      title: "Failure"
+    }})
+  }
+  
   openGallery() {
     const productNameParam = this.productForm.get('name').value;
     
@@ -123,7 +145,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   
   }
 
-  
+
   createMode() {
     this.editMode = false;
     this.productForm.reset();

@@ -7,6 +7,7 @@ import * as jwtDecode from 'jwt-decode';
 import { CartService } from 'src/app/services/cart/cart.service';
 import moment from 'moment/src/moment';
 import { Subscription } from 'rxjs';
+import { getGreeting } from './utils.component';
 
 interface loginRes {
   message: string;
@@ -48,6 +49,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   public openCart: OpenCart = null;
   public userSubscription: Subscription;
   public userName: string = null;
+  public dynamicGreeting: string = 'Hello'; 
 
   constructor(private formBuilder: FormBuilder, private authService: AuthService, 
     private router: Router, private cartService: CartService) {
@@ -67,6 +69,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.userName = firstName;
         const decoded: Decoded = jwtDecode(token);       
         const { role } = decoded._doc;
+        this.dynamicGreeting = getGreeting();
         if ( role === 'admin' ) {
           this.isAdminConnected = true;
         } else if (role === 'user') {

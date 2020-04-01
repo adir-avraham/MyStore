@@ -3,7 +3,7 @@
 <mat-drawer-container class="example-container" autosize>
   
   <mat-drawer #drawer class="example-sidenav" mode="side" [(opened)]="opened">
-    <app-product *appRole="'admin'" (onClose)="execOnClose()"></app-product>
+    <app-product-form *appRole="'admin'" (onClose)="execOnClose()"></app-product-form>
     <app-cart *appRole="'user'" (onClose)="execOnClose()"></app-cart>
   </mat-drawer>
   

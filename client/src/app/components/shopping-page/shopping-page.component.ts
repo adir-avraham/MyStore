@@ -112,7 +112,9 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
   
   
   addProductToCart(product: Product) {
-    const dialogRef = this.dialog.open(DialogComponent, {data: {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '500px',
+      data: {
       name: product.name
     }})
     dialogRef.afterClosed().subscribe((quantity: number) => {

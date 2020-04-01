@@ -25,13 +25,14 @@ import { ReceiptComponent } from './components/receipt/receipt.component';
 import { OrderComponent } from './components/order/order.component';
 import { OrderFeedbackComponent } from './components/order-feedback/order-feedback.component';
 import { AboutComponent } from './components/about/about.component';
-import { ProductComponent } from './components/product/product.component';
+import { ProductFormComponent } from './components/product-form/product-form.component';
 import { RoleDirective } from './directives/role.directive';
 import { GalleryComponent } from './components/gallery/gallery.component';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { LoaderInterceptor } from './interceptors/loader/loader.interceptor';
 import { LoaderComponent } from './components/loader/loader.component';
 import { CartIndicatorComponent } from './components/cart-indicator/cart-indicator.component';
+import { AlertComponent } from './components/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -51,11 +52,12 @@ import { CartIndicatorComponent } from './components/cart-indicator/cart-indicat
     OrderComponent,
     OrderFeedbackComponent,
     AboutComponent,
-    ProductComponent,
+    ProductFormComponent,
     RoleDirective,
     GalleryComponent,
     LoaderComponent,
-    CartIndicatorComponent
+    CartIndicatorComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,

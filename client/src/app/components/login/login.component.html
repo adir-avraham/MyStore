@@ -1,5 +1,5 @@
 <mat-card class="h-100">
-  <mat-card-title> Hello {{ !userName ? 'Guest' : userName }} </mat-card-title>
+  <mat-card-title>{{ !userName ? 'Hello Guest' : dynamicGreeting }} {{userName}} </mat-card-title>
  
   <div *ngIf="isUserConnected">
     <mat-card-actions>

@@ -18,4 +18,13 @@ export class DialogComponent implements OnInit {
 
   }
 
+  increment() {
+    this.quantity++;
+  }
+
+  decrement() {
+    if (this.quantity === 1) return;
+    this.quantity--;
+  }
+
 }

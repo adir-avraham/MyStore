@@ -10,3 +10,9 @@ button:focus, button:active:focus, button.active:focus {
     outline: none;
     outline-style: none;
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
