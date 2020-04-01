@@ -1,13 +1,9 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
-    <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">
-      &#9776;
-    </button>
-  
-    <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse justify-content-around">
-        <ul class="navbar-nav">
-        <li class="nav-item" *ngFor="let category of categories">
-          <a class="nav-link" (click)="getProductsByCategory(category)"> {{ category.category }} </a>
-        </li>
-      </ul>
-    </div>
-</nav>
+<mat-nav-list fxLayout fxLayoutAlign="space-evenly" fxLayout.lt-sm="column">
+  <mat-list-item
+    fxLayoutAlign="center"
+    (click)="getProductsByCategory(category)"
+    *ngFor="let category of categories"
+  >
+  {{ category.category }}
+  </mat-list-item>
+</mat-nav-list>

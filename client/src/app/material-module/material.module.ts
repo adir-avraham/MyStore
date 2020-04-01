@@ -20,7 +20,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core'
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatMenuModule } from '@angular/material/menu';
-import {MatBadgeModule} from '@angular/material/badge';
+import { MatBadgeModule } from '@angular/material/badge';
 
 
 @NgModule({
@@ -48,7 +48,7 @@ import {MatBadgeModule} from '@angular/material/badge';
         MatSidenavModule,
         MatCheckboxModule,
         MatMenuModule,
-        MatBadgeModule
+        MatBadgeModule,
 
 
     ],
@@ -73,7 +73,8 @@ import {MatBadgeModule} from '@angular/material/badge';
         MatSidenavModule,
         MatCheckboxModule,
         MatMenuModule,
-        MatBadgeModule
+        MatBadgeModule,
+
         
         ]
 })

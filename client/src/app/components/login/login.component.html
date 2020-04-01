@@ -9,9 +9,10 @@
     </mat-card-actions>
         
     <mat-card-subtitle *ngIf="welcomeMessage">{{ welcomeMessage }}</mat-card-subtitle>
-      <mat-card-subtitle *ngIf="openCart">
-        Open Cart ${{ openCart.totalPrice }} from {{openCart.created_at}}
-      </mat-card-subtitle>
+    
+    <mat-card-subtitle *ngIf="openCart">
+      Open Cart ${{ openCart.totalPrice }} from {{openCart.created_at}}
+    </mat-card-subtitle>
   </div>
 
   <mat-card-actions *ngIf="isAdminConnected">

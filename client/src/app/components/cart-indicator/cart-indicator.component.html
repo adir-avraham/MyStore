@@ -1,5 +1,6 @@
-<mat-icon
-    (click)="showCart()" 
+<button mat-button color="accent" (click)="showCart()">
+    My Cart
+    <mat-icon
     matBadge={{totalCartItems}} 
     matBadgeOverlap="false"
     matBadgeSize="small"
@@ -8,4 +9,5 @@
     class="material-icons-outlined cart"
     >
     shopping_cart
-</mat-icon>
+    </mat-icon>
+</button>

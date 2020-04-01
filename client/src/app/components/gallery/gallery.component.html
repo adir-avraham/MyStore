@@ -10,17 +10,15 @@
     fxLayout="row wrap" 
     fxLayout.lt-md="column" 
     fxLayoutAlign="start" 
-    class="mt-5"
-    >
-        <div matRipple *ngFor="let image of images" mat-dialog-close={{image.url}}>
-            <mat-card class="h-100" 
-            class="m-2"
-            fxFlex="0 1 calc(15%)"
-            fxFlex.lt-md="0 1 calc(50%)"
-            fxFlex.lt-sm="100%"
-            fxLayout="column">   
-                <img mat-card-image [src]=image.url alt="image" fxFlexAlign="center">
-            </mat-card>
-        </div>
+    class="mt-5">
+        <mat-card *ngFor="let image of images" mat-dialog-close={{image.url}} 
+        class="h-100" 
+        class="m-2"
+        fxFlex="0 1 calc(15%)"
+        fxFlex.lt-md="0 1 calc(50%)"
+        fxFlex.lt-sm="100%"
+        fxLayout="column">   
+            <img mat-card-image [src]=image.url alt="image" fxFlexAlign="center">
+        </mat-card>
     </mat-dialog-content>
 </div>

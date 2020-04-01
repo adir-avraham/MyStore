@@ -23,16 +23,21 @@ export class GalleryComponent implements OnInit {
   ngOnInit(): void {
   
     this.galleryService.searchImages(this.param).subscribe((res: any)=> {
-      if (!res || !res.data || ! res.data.image) {
-        return this.resultMessage = `We're sorry! We couldn't find any result for ${this.param}. Please
-         try another query or try later.`
-      }
-      this.images = res.data.map((image: any) => {
-        const { url } = image.assets.large_thumb;
-        return { url };
-      })
-    }); 
   
+    if (!res.data.length) {
+      return this.resultMessage = `We're sorry! We couldn't find any result for ${this.param}. Please
+       try another query or try later.`
+    } 
+    this.images = res.data.map((image: any) => {
+      const { url } = image.assets.large_thumb;
+      return { url };
+    })
+    }, error => {
+      this.resultMessage = `We're sorry! There was something wrong with the API. Please try again later.`;
+      console.log(error.message)
+    }); 
+
   }
+
 
 };
