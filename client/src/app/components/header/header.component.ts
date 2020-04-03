@@ -24,7 +24,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     
     this.userSubscription = this.authService.user.subscribe((user: User) => {
-      if (!user) return;
+      if (!user) {
+        this.isAuthenticated = false;
+        this.adminConnected = null;
+        return;
+      } 
       const { token } = user;
       const decoded: Decoded = jwtDecode(token);       
       const { role } = decoded._doc;
@@ -40,9 +44,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   };
 
+  
   logout() {
     this.authService.logout();
-    this.adminConnected = null;
   }
 
 

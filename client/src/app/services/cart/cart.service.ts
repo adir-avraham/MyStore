@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { AddedProduct } from '../../components/cart/cart.component'
-import { basedUrl } from 'src/app/sharing-url/sharing.url';
+import { baseUrl } from 'src/app/sharing-url/sharing.url';
 
 
 
@@ -17,11 +17,11 @@ export interface SelectedProduct {
 })
 export class CartService {
 
-  public getShoppingDetailsUrl = `${basedUrl}/getUserDetails/shopping`;
-  public getCartUrl = `${basedUrl}/getCart`;
-  public addToCartUrl = `${basedUrl}/addCartItem`;
-  public deleteCartItemUrl = `${basedUrl}/deleteCartItem`;
-  public emptyCartUrl = `${basedUrl}/emptyCart`;
+  public getShoppingDetailsUrl = `${baseUrl}/getUserDetails/shopping`;
+  public getCartUrl = `${baseUrl}/getCart`;
+  public addToCartUrl = `${baseUrl}/addCartItem`;
+  public deleteCartItemUrl = `${baseUrl}/deleteCartItem`;
+  public emptyCartUrl = `${baseUrl}/emptyCart`;
 
   selectedProduct = new Subject<SelectedProduct>();
   openSideCart = new Subject<boolean>();

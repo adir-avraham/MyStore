@@ -48,7 +48,7 @@ import { MatBadgeModule } from '@angular/material/badge';
         MatSidenavModule,
         MatCheckboxModule,
         MatMenuModule,
-        MatBadgeModule,
+        MatBadgeModule
 
 
     ],
@@ -73,8 +73,7 @@ import { MatBadgeModule } from '@angular/material/badge';
         MatSidenavModule,
         MatCheckboxModule,
         MatMenuModule,
-        MatBadgeModule,
-
+        MatBadgeModule
         
         ]
 })

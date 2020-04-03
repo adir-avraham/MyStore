@@ -5,7 +5,7 @@ import { tap, catchError } from 'rxjs/operators';
 import { User } from 'src/app/models/user.model';
 import { Router } from '@angular/router';
 import * as jwtDecode from 'jwt-decode'; 
-import { basedUrl } from 'src/app/sharing-url/sharing.url';
+import { baseUrl } from 'src/app/sharing-url/sharing.url';
 
 interface newUser {
   id: number;
@@ -42,9 +42,9 @@ export interface Decoded {
 
 export class AuthService {
 
-  public registerFirstStepUrl = `${basedUrl}/register/firstStep`;
-  public registerUrl = `${basedUrl}/register/secondStep`;
-  public loginUrl = `${basedUrl}/login`;
+  public registerFirstStepUrl = `${baseUrl}/register/firstStep`;
+  public registerUrl = `${baseUrl}/register/secondStep`;
+  public loginUrl = `${baseUrl}/login`;
 
   public user = new BehaviorSubject<User>(null);
   private tokenExpirationTimer: any;

@@ -37,6 +37,8 @@ export class ProductFormComponent implements OnInit, OnDestroy {
   public arrayOfImages = [];
   get productName() { return this.productForm.get('name').value };
   @Output() onClose = new EventEmitter();
+  public images: Array<any> = [];
+  public resultMessage: string = null;
   
   constructor(private formBuilder: FormBuilder, private categoriesService: CategoriesService, 
     private productsService: ProductsService, private galleryService: GalleryService, private dialog: MatDialog) { 
@@ -135,16 +137,37 @@ export class ProductFormComponent implements OnInit, OnDestroy {
   openGallery() {
     const productNameParam = this.productForm.get('name').value;
     
+    this.galleryService.searchImages(productNameParam).subscribe((res: any)=> {
+      if (!res.data.length) {
+        this.resultMessage = `We're sorry! We couldn't find any result for ${productNameParam}. Please
+        try another query or try later.`
+      } 
+      this.images = res.data.map((image: any) => {
+      const { url } = image.assets.large_thumb;
+      return { url };
+      })
+      this.passDataToGallery(productNameParam);
+      }, error => {
+      this.resultMessage = `We're sorry! There was something wrong with the API. Please try again later.`;
+      this.passDataToGallery(productNameParam);
+      console.log(error.message)
+    }); 
+
+  
+  }
+
+  passDataToGallery(productNameParam: string) {
     const dialogRef = this.dialog.open(GalleryComponent, {data: {
-      productNameParam: productNameParam
+      productNameParam: productNameParam,
+      resultMessage: this.resultMessage,
+      images: this.images
     }})
     dialogRef.afterClosed().subscribe((imageUrl: string) => {
       if (!imageUrl) return;
       this.productForm.get('image').setValue(imageUrl);
     })
-  
   }
-
+  
 
   createMode() {
     this.editMode = false;

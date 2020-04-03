@@ -56,16 +56,11 @@ async function getCart(user_id) {
     
     const hasCart = await Cart.findOne({user_id: user_id, open: true});
     
-    if (hasCart) {    
-        
+    if (hasCart) {     
         return await getCartItems(hasCart);
-    
     } else {
-        
         const cart = new Cart({user_id: user_id});
-        
         const createdCart = await cart.save();
-        
         return await getCartItems(createdCart);
     };
 };
@@ -114,16 +109,26 @@ async function addCartItem(payload) {
     
     const productPrice = await getProductPrice(product_id);
     
-    const cartItem = new CartItem ({
-        quantity: quantity, 
-        price: (quantity * productPrice),
-        product_id: product_id,
-        cart_id: cart_id
-    }); 
-    
-    const addedCartItem = await cartItem.save();
+    const updatedProductQuantity = await CartItem.findOneAndUpdate(
+        { product_id: product_id, cart_id: cart_id },
+        { $inc: {quantity: +quantity} },
+        { runValidators: true }) 
 
-    return addedCartItem;
+    if (updatedProductQuantity) {
+    
+        return updatedProductQuantity;
+    
+    } else {
+        const cartItem = new CartItem ({
+            quantity: quantity, 
+            price: (quantity * productPrice),
+            product_id: product_id,
+            cart_id: cart_id
+        }); 
+        const addedCartItem = await cartItem.save();
+        
+        return addedCartItem;
+    }
 };
 
 

@@ -17,7 +17,7 @@ import { SearchProductComponent } from './components/search-product/search-produ
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material-module/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { AuthInterceptorService } from './services/auth/auth-interceptor.service';
+import { AuthInterceptorService } from './interceptors/auth/auth-interceptor.service';
 import { CartComponent } from './components/cart/cart.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';

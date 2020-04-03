@@ -25,10 +25,11 @@ const downloadReceipt = require('./routes/downloadReceipt');
 const verifyAdmin = require('./auth/verifyAdmin');
 const createProduct = require('./routes/createProduct');
 const editProduct = require('./routes/editProduct');
-
+const seed = require('./seed/seed');
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use('/seed', seed);
 app.use('/getStoreStatistics', getStoreStatistics);
 app.use('/register', register);
 app.use('/login', login);

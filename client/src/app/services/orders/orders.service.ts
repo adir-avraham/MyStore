@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { basedUrl } from '../../sharing-url/sharing.url';
+import { baseUrl } from '../../sharing-url/sharing.url';
 import { SavedOrderIds } from 'src/app/components/order/order.component';
 
 interface NewOrder {
@@ -17,12 +17,12 @@ interface NewOrder {
 })
 export class OrdersService {
 
-  getNumOfOrdersUrl = `${basedUrl}/getStoreStatistics/orders`;
-  getUserCityUrl = `${basedUrl}/getUserDetails/city`;
-  getUserStreetUrl = `${basedUrl}/getUserDetails/street`;
-  getUnavailableDatesUrl = `${basedUrl}/getUnavailableDates`;
-  saveNewOrderUrl = `${basedUrl}/saveNewOrder`;
-  downloadReceiptUrl = `${basedUrl}/downloadReceipt`;
+  getNumOfOrdersUrl = `${baseUrl}/getStoreStatistics/orders`;
+  getUserCityUrl = `${baseUrl}/getUserDetails/city`;
+  getUserStreetUrl = `${baseUrl}/getUserDetails/street`;
+  getUnavailableDatesUrl = `${baseUrl}/getUnavailableDates`;
+  saveNewOrderUrl = `${baseUrl}/saveNewOrder`;
+  downloadReceiptUrl = `${baseUrl}/downloadReceipt`;
   
   constructor(private httpClient: HttpClient) { }
 

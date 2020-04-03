@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Category } from 'src/app/components/navbar-categories/navbar-categories.component';
 import { Product } from 'src/app/components/shopping-page/shopping-page.component';
 import { Subject } from 'rxjs';
-import { basedUrl } from 'src/app/sharing-url/sharing.url';
+import { baseUrl } from 'src/app/sharing-url/sharing.url';
 
 export interface ProductsResult {
   products: Array<Product>;
@@ -28,11 +28,11 @@ export class ProductsService {
   public products = new Subject<Array<Product>>();
   public selectedProduct = new Subject<Product>();
   
-  public getNumOfProductsUrl = `${basedUrl}/getStoreStatistics/products`;
-  public getProductsByCategoryUrl = `${basedUrl}/getProductsByCategory`;
-  public getProductByNameUrl = `${basedUrl}/getProductByName`;
-  public createProductUrl = `${basedUrl}/admin/createProduct`;
-  public editProductUrl = `${basedUrl}/admin/editProduct`;
+  public getNumOfProductsUrl = `${baseUrl}/getStoreStatistics/products`;
+  public getProductsByCategoryUrl = `${baseUrl}/getProductsByCategory`;
+  public getProductByNameUrl = `${baseUrl}/getProductByName`;
+  public createProductUrl = `${baseUrl}/admin/createProduct`;
+  public editProductUrl = `${baseUrl}/admin/editProduct`;
 
   constructor(private httpClient: HttpClient) { }
 

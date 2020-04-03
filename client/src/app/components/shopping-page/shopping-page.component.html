@@ -9,25 +9,13 @@
   
   <div class="container mt-5">
     
-    <app-navbar-categories (productsByCategory)="getProductsByCategory($event)" *ngIf="!noSearchResults"></app-navbar-categories>
+    <app-navbar-categories class="m-5" (productsByCategory)="getProductsByCategory($event)" *ngIf="!noSearchResults"></app-navbar-categories>
     
-    <h3 *ngIf="noSearchResults" fxLayoutAlign="center center" >Sorry! No products found...</h3>    
+    <h3 *ngIf="noSearchResults" fxLayoutAlign="center center">Sorry! No products found...</h3>    
         
-    <div 
-    fxLayout="row wrap" 
-    fxLayout.lt-md="column" 
-    fxLayoutAlign="start" 
-    fxLayoutGap="7px" 
-    *ngIf="!noSearchResults"
-    class="mt-5"
-    >
-      <mat-card *ngFor="let product of products" class="mb-2"
-      fxFlex="0 1 calc(25% - 7px)"
-      fxFlex.lt-md="0 1 calc(50% - 7px)"
-      fxFlex.lt-sm="100%"
-      fxLayout="column" 
-      >
-        <img mat-card-image [src]="product.image" alt="image" fxFlexAlign="center">
+    <div class="main" *ngIf="!noSearchResults">
+      <mat-card *ngFor="let product of products" class="my-card h-100">
+        <img mat-card-image [src]="product.image" alt="image">
         <mat-card-content>{{ product.name }}</mat-card-content>
         <mat-card-content>${{ product.price }}</mat-card-content>   
         <mat-card-actions>

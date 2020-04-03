@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { basedUrl } from 'src/app/sharing-url/sharing.url';
+import { baseUrl } from 'src/app/sharing-url/sharing.url';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoriesService {
 
-  public getCategoriesUrl = `${basedUrl}/getCategories`;
+  public getCategoriesUrl = `${baseUrl}/getCategories`;
 
   constructor(private httpClient: HttpClient) { }
 
