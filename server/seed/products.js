@@ -19,7 +19,7 @@ const productsNames = {
     "Lemons",
     "Pears",
     "Peaches",
-    "Potatos",
+    "Potatoes",
     "Carrots",
     "Tomatoes",
     "Onions",
@@ -28,7 +28,7 @@ const productsNames = {
     "Peppers"
   ],
 
-  "Breads & Bakery": ["Bread", "Pizza", "Cake", "Biscuit", "Bun", "Cookies"],
+  "Breads & Bakery": ["Bread", "Pizza", "Cake", "Biscuits", "Bun", "Cookies"],
 
   "Wine & Drinks": [
     "Green Tea",

@@ -1,0 +1,4 @@
+[{"_id":{"$oid":"5e89d2378f8bc90010e8b0d7"},"category":"Milk & Eggs"},
+{"_id":{"$oid":"5e89d2378f8bc90010e8b0d8"},"category":"Vegetables & Fruit"},
+{"_id":{"$oid":"5e89d2378f8bc90010e8b0d9"},"category":"Breads & Bakery"},
+{"_id":{"$oid":"5e89d2378f8bc90010e8b0da"},"category":"Wine & Drinks"}]
