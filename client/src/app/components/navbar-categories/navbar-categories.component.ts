@@ -21,10 +21,10 @@ export interface CategoriesRes {
 
 export class NavbarCategoriesComponent implements OnInit {
 
-  public isMenuCollapsed = true;
   public categories: Array<Category>; 
 
   @Output() productsByCategory = new EventEmitter<Category>();
+  @Output() getAllProducts = new EventEmitter();
 
   constructor(private categoriesService: CategoriesService) { }
 
@@ -39,9 +39,11 @@ export class NavbarCategoriesComponent implements OnInit {
   }
 
   getProductsByCategory(category: Category) {
-    this.isMenuCollapsed = true;
     this.productsByCategory.emit(category);
   }
 
+  getProducts() {
+    this.getAllProducts.emit();
+  }
 
 }

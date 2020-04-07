@@ -9,6 +9,7 @@ import { GalleryService } from 'src/app/services/gallery/gallery.service';
 import { GalleryComponent } from '../gallery/gallery.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertComponent } from '../alert/alert.component';
+import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
 
 
 interface UpdatedProduct {
@@ -36,12 +37,14 @@ export class ProductFormComponent implements OnInit, OnDestroy {
   public requiredMsg = "Field is required.";
   public arrayOfImages = [];
   get productName() { return this.productForm.get('name').value };
-  @Output() onClose = new EventEmitter();
   public images: Array<any> = [];
   public resultMessage: string = null;
+  public openSidebar: boolean;
+  public openSidebarSub: Subscription;
   
   constructor(private formBuilder: FormBuilder, private categoriesService: CategoriesService, 
-    private productsService: ProductsService, private galleryService: GalleryService, private dialog: MatDialog) { 
+    private productsService: ProductsService, private galleryService: GalleryService, 
+    private dialog: MatDialog, private sidebarSevice: SidebarService) { 
     this.productForm = this.formBuilder.group({
       name: [null, Validators.required],
       price: [null, Validators.required],
@@ -68,6 +71,10 @@ export class ProductFormComponent implements OnInit, OnDestroy {
       this.productForm.get('category_id').setValue(category_id);
       this.product_id = _id;
     })
+
+    this.openSidebarSub = this.sidebarSevice.openSidebar.subscribe((openSidebar: boolean) => {
+      this.openSidebar = openSidebar;
+    });
 
   };
 
@@ -176,12 +183,13 @@ export class ProductFormComponent implements OnInit, OnDestroy {
 
   
   closeSideBar() {
-    this.onClose.emit();
+    this.sidebarSevice.openSidebar.next(false);
   };
   
 
   ngOnDestroy() {
     this.unsubscribeSelectedProduct.unsubscribe();
+    this.openSidebarSub.unsubscribe();
   };
 
 

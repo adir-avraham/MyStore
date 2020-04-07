@@ -24,7 +24,6 @@ export class CartService {
   public emptyCartUrl = `${baseUrl}/emptyCart`;
 
   selectedProduct = new Subject<SelectedProduct>();
-  openSideCart = new Subject<boolean>();
   totalQuantity = new Subject<number>();
   showCartIndicator = new Subject<boolean>();
 

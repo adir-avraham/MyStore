@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { Subscription } from 'rxjs';
+import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
 
 @Component({
   selector: 'app-cart-indicator',
@@ -9,11 +10,12 @@ import { Subscription } from 'rxjs';
 })
 export class CartIndicatorComponent implements OnInit, OnDestroy {
 
-  public openSideCart: boolean = false;
+  public openSidebar: boolean;
   public totalCartItems: number = null;
   public totalQuantitySub: Subscription;
+  public openSidebarSub: Subscription;
 
-  constructor(private cartService: CartService) { }
+  constructor(private cartService: CartService, private sidebarService: SidebarService) { }
 
   ngOnInit(): void {
 
@@ -21,15 +23,20 @@ export class CartIndicatorComponent implements OnInit, OnDestroy {
       this.totalCartItems = totalQuantity;
     })
 
+    this.openSidebarSub = this.sidebarService.openSidebar.subscribe((openSidebar: boolean) => {
+      this.openSidebar = openSidebar;
+    });
+
   }
 
   showCart() {
-    this.openSideCart = !this.openSideCart;
-    this.cartService.openSideCart.next(this.openSideCart);
+    this.openSidebar = !this.openSidebar;
+    this.sidebarService.openSidebar.next(this.openSidebar);
   }
 
   ngOnDestroy() {
     this.totalQuantitySub.unsubscribe();
+    this.openSidebarSub.unsubscribe();
   }
 
 };

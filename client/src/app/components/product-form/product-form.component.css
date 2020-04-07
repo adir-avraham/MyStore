@@ -11,3 +11,8 @@ form {
 mat-form-field {
     width: 300px;    
 }
+
+.add-btn {
+    margin-right: 1%;
+    margin-top: 1%;
+}

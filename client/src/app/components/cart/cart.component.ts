@@ -3,6 +3,7 @@ import { CartService } from 'src/app/services/cart/cart.service';
 import { Subscription } from 'rxjs';
 import { SelectedProduct } from '../../services/cart/cart.service';
 import { Router } from '@angular/router';
+import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
 
 
 export interface CartResult {
@@ -39,8 +40,7 @@ export class CartComponent implements OnInit, OnDestroy {
   panelOpenState = false;
   cartItems: Array<CartItem> = [];
   selectedProductSub: Subscription;
-  @Output() onClose = new EventEmitter();
-  constructor(private cartService: CartService, private router: Router) { }
+  constructor(private cartService: CartService, private router: Router, private sidebarService: SidebarService) { }
 
 
   ngOnInit(): void {
@@ -114,7 +114,7 @@ checkout() {
 }
 
 closeSideBar() {
-  this.onClose.emit();
+  this.sidebarService.openSidebar.next(false);
 };
 
 ngOnDestroy() {

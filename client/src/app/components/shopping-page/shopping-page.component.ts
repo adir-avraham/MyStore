@@ -9,6 +9,7 @@ import { MatSidenav, MatDrawer } from '@angular/material/sidenav';
 import { AuthService, Decoded } from 'src/app/services/auth/auth.service';
 import { User } from 'src/app/models/user.model';
 import * as jwtDecode from 'jwt-decode'; 
+import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
 
 interface SearchResult {
   product: Array<Product>;
@@ -41,22 +42,21 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
   public searchText: string;
   public unsubscribeSearchTextChanges: Subscription;
   public noSearchResults: boolean = false;
-  public initCategory = {_id: "5e5ae45a82745acbeca9e635", category : "Milk & Eggs"}; 
   public unsubscribeProducts: Subscription;
   public sidenav: MatSidenav;
   public drawer: MatDrawer;
   public opened: boolean;
   public showCartIndicator: boolean = false;
   public showCartIndicatorSub: Subscription;
-  public openSideCartSub: Subscription;
+  public openSidebarSub: Subscription;
 
   constructor(private productsService: ProductsService, private dialog: MatDialog,
-    private cartService: CartService, private authService: AuthService) { }
+    private cartService: CartService, private authService: AuthService, private sidebarService: SidebarService) { }
 
 
   ngOnInit(): void {
     
-    this.getProductsByCategory(this.initCategory);
+    this.getProducts();
     
     this.unsubscribeProducts = this.productsService.products.subscribe((products: Array<Product>) => {
       this.products = products;
@@ -64,6 +64,7 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
     
     this.unsubscribeSearchTextChanges = this.productsService.searchTextChanges.subscribe((newValue: string) => {
       this.searchText = newValue;
+      if (!this.searchText) return this.getProducts();
       this.productsService.getProductByName(newValue).subscribe((result: SearchResult) =>{
         const { product } = result;
         if (!Array.isArray(product)) {
@@ -74,14 +75,14 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
         }
       }, error => {
         this.noSearchResults = false;
-        this.getProductsByCategory(this.initCategory);
+        this.getProducts();
         console.log(error.message);
       }) 
     });
 
 
-    this.openSideCartSub = this.cartService.openSideCart.subscribe((openSideCart: boolean) => {
-      this.opened = openSideCart;
+    this.openSidebarSub = this.sidebarService.openSidebar.subscribe((openSidebar: boolean) => {
+      this.opened = openSidebar;
     });
 
     
@@ -100,6 +101,16 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
   
   };
   
+  getProducts() {
+    this.productsService.getProducts().subscribe((productsResult: ProductsResult) => {
+      const { status, products } = productsResult;
+      if (status) {
+        this.products = products;
+      }
+    }, error => {
+      console.log(error.message);
+    })
+  }
   
   getProductsByCategory(category: Category) {
     this.productsService.getProductsByCategory(category).subscribe((result: ProductsResult) => {
@@ -127,18 +138,14 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
 
   editProduct(product: Product) {
     this.productsService.selectedProduct.next(product);
-    this.opened = true;
+    this.sidebarService.openSidebar.next(true);
   };
 
   
-  execOnClose() {
-    this.opened = false;
-  };
-
   ngOnDestroy() {
     this.unsubscribeSearchTextChanges.unsubscribe();
     this.unsubscribeProducts.unsubscribe();
-    this.openSideCartSub.unsubscribe();
+    this.openSidebarSub.unsubscribe();
   };
 
 
