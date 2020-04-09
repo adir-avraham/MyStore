@@ -7,7 +7,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatStepperModule } from '@angular/material/stepper';
-import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
@@ -21,7 +20,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatBadgeModule } from '@angular/material/badge';
-
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @NgModule({
     providers: [
@@ -36,7 +35,6 @@ import { MatBadgeModule } from '@angular/material/badge';
         MatCardModule,
         MatTabsModule,
         MatStepperModule,
-        MatListModule,
         MatExpansionModule,
         MatDialogModule,
         MatTableModule,
@@ -48,7 +46,8 @@ import { MatBadgeModule } from '@angular/material/badge';
         MatSidenavModule,
         MatCheckboxModule,
         MatMenuModule,
-        MatBadgeModule
+        MatBadgeModule,
+        MatButtonToggleModule
 
 
     ],
@@ -61,7 +60,6 @@ import { MatBadgeModule } from '@angular/material/badge';
         MatCardModule,
         MatTabsModule,
         MatStepperModule,
-        MatListModule,
         MatExpansionModule,
         MatDialogModule,
         MatTableModule,
@@ -73,7 +71,8 @@ import { MatBadgeModule } from '@angular/material/badge';
         MatSidenavModule,
         MatCheckboxModule,
         MatMenuModule,
-        MatBadgeModule
+        MatBadgeModule,
+        MatButtonToggleModule
         
         ]
 })

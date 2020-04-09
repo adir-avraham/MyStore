@@ -29,7 +29,6 @@ export class ProductsService {
   public selectedProduct = new Subject<Product>();
   
   public getNumOfProductsUrl = `${baseUrl}/getStoreStatistics/products`;
-  public getProductsUrl = `${baseUrl}/getProducts`;
   public getProductsByCategoryUrl = `${baseUrl}/getProductsByCategory`;
   public getProductByNameUrl = `${baseUrl}/getProductByName`;
   public createProductUrl = `${baseUrl}/admin/createProduct`;
@@ -42,9 +41,6 @@ export class ProductsService {
     return this.httpClient.get(this.getNumOfProductsUrl);
   };
 
-  getProducts() {
-    return this.httpClient.get(this.getProductsUrl);
-  }
 
   getProductsByCategory(category: Category) {
     const { _id } = category;

@@ -7,6 +7,7 @@ const axios = require('axios');
 const bcrypt = require('bcryptjs'); 
 const Category = require('../models/Category');
 const User = require('../models/User');
+productsUrl = require('./products.json');
 
 let productsCounter = 0;
 let categoriesCounter = 0;
@@ -42,7 +43,8 @@ router.get('/products', async (req, res, next) => {
                 const newProduct = {
                     name: productsNames[categories[i].category][j],
                     price: Math.floor(Math.random() * (1000 - 100) + 100) / 100,
-                    image: await getImage(productsNames[categories[i].category][j]),
+                    image: getImageSync(productsNames[categories[i].category][j]),
+                    //image: await getImage(productsNames[categories[i].category][j]),
                     category_id: categories[i]._id
                 }   
                 const createdProduct = await createProduct(newProduct);
@@ -94,6 +96,11 @@ async function getImage(productNameParam) {
     const { data } = await mainAxios.get();
     const imageUrl = data.data[0].assets.large_thumb.url;
     return imageUrl;
+}
+
+function getImageSync(productNameParam) {
+    const product = productsUrl.find(product => product.name === productNameParam);
+    return product.image;
 }
 
 module.exports = router;

@@ -3,7 +3,7 @@
     <mat-card-title>
       Register
     </mat-card-title>
-      <mat-horizontal-stepper #stepper linear>
+      <mat-vertical-stepper #stepper linear>
         
         <mat-step [stepControl]="registerForm1">
           <form [formGroup]="registerForm1" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
@@ -95,6 +95,6 @@
           </div>
         </mat-step>
 
-      </mat-horizontal-stepper>
+      </mat-vertical-stepper>
     </mat-card>
   </div>

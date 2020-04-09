@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { CartService } from 'src/app/services/cart/cart.service';
 import * as jwtDecode from 'jwt-decode'; 
+import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
 
 @Component({
   selector: 'app-header',
@@ -19,7 +20,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private userSubscription: Subscription;
   public showCartIndicator: boolean = false;
   public showCartIndicatorSub: Subscription;
-  constructor(private authService: AuthService, private cartService: CartService) { }
+  public openSidebar: boolean;
+  public openSidebarSub: Subscription;
+
+  constructor(private authService: AuthService, private cartService: CartService, 
+    private sidebarService: SidebarService) { }
 
   ngOnInit(): void {
     
@@ -42,6 +47,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.showCartIndicator = showCartIndicator;
     })
 
+    this.openSidebarSub = this.sidebarService.openSidebar.subscribe((openSidebar: boolean) => {
+      this.openSidebar = openSidebar;
+    });
+
+
   };
 
   
@@ -49,10 +59,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.authService.logout();
   }
 
+  
+  showCart() {
+    this.openSidebar = !this.openSidebar;
+    this.sidebarService.openSidebar.next(this.openSidebar);
+  }
+
 
   ngOnDestroy() {
     this.userSubscription.unsubscribe();
     this.showCartIndicatorSub.unsubscribe();
+    this.openSidebarSub.unsubscribe();
   }
 
 };

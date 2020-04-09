@@ -1,15 +1,16 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Category } from '../navbar-categories/navbar-categories.component';
+import { Category, CategoriesRes } from '../navbar-categories/navbar-categories.component';
 import { ProductsService } from 'src/app/services/products/products.service';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '../dialog/dialog.component';
+import { DialogComponent } from '../dialog-add/dialog.component';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { MatSidenav, MatDrawer } from '@angular/material/sidenav';
 import { AuthService, Decoded } from 'src/app/services/auth/auth.service';
 import { User } from 'src/app/models/user.model';
 import * as jwtDecode from 'jwt-decode'; 
 import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
+import { CategoriesService } from 'src/app/services/categories/categories.service';
 
 interface SearchResult {
   product: Array<Product>;
@@ -51,20 +52,26 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
   public openSidebarSub: Subscription;
 
   constructor(private productsService: ProductsService, private dialog: MatDialog,
-    private cartService: CartService, private authService: AuthService, private sidebarService: SidebarService) { }
+    private cartService: CartService, private authService: AuthService, 
+    private sidebarService: SidebarService, private categoriesService: CategoriesService) { }
 
 
   ngOnInit(): void {
     
-    this.getProducts();
-    
+    this.categoriesService.getCategories().subscribe((result: CategoriesRes) => {
+      const { categories } = result 
+      this.getProductsByCategory(categories[0]);
+    }, error =>{
+      console.log(error.message);
+    })
+
     this.unsubscribeProducts = this.productsService.products.subscribe((products: Array<Product>) => {
       this.products = products;
     });
     
     this.unsubscribeSearchTextChanges = this.productsService.searchTextChanges.subscribe((newValue: string) => {
-      this.searchText = newValue;
-      if (!this.searchText) return this.getProducts();
+      this.searchText = newValue; 
+      if (!this.searchText) return;
       this.productsService.getProductByName(newValue).subscribe((result: SearchResult) =>{
         const { product } = result;
         if (!Array.isArray(product)) {
@@ -75,7 +82,6 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
         }
       }, error => {
         this.noSearchResults = false;
-        this.getProducts();
         console.log(error.message);
       }) 
     });
@@ -101,16 +107,6 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
   
   };
   
-  getProducts() {
-    this.productsService.getProducts().subscribe((productsResult: ProductsResult) => {
-      const { status, products } = productsResult;
-      if (status) {
-        this.products = products;
-      }
-    }, error => {
-      console.log(error.message);
-    })
-  }
   
   getProductsByCategory(category: Category) {
     this.productsService.getProductsByCategory(category).subscribe((result: ProductsResult) => {

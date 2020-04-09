@@ -5,12 +5,14 @@ import { ShoppingPageComponent } from '../components/shopping-page/shopping-page
 import { AuthGuard } from '../guards/auth.guard';
 import { CheckoutComponent } from '../components/checkout/checkout.component';
 import { RoleGuard } from '../guards/role.guard';
+import { ContactUsComponent } from '../components/contact-us/contact-us.component';
 
 
 export const appRoutes: Routes = [
     {path: '', redirectTo : '/home', pathMatch: 'full'},    
     {path: 'home', component: HomeComponent},
     {path: 'register', component: RegisterComponent},
+    {path: 'contact-us', component: ContactUsComponent},
     {path: 'shopping-page', component: ShoppingPageComponent, canActivate: [AuthGuard]},
     {path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard, RoleGuard]},
     {path: '**', redirectTo : '/home'}, 

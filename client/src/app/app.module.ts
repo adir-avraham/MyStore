@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -19,7 +18,7 @@ import { MaterialModule } from './material-module/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AuthInterceptorService } from './interceptors/auth/auth-interceptor.service';
 import { CartComponent } from './components/cart/cart.component';
-import { DialogComponent } from './components/dialog/dialog.component';
+import { DialogComponent } from './components/dialog-add/dialog.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ReceiptComponent } from './components/receipt/receipt.component';
 import { OrderComponent } from './components/order/order.component';
@@ -33,6 +32,7 @@ import { LoaderInterceptor } from './interceptors/loader/loader.interceptor';
 import { LoaderComponent } from './components/loader/loader.component';
 import { CartIndicatorComponent } from './components/cart-indicator/cart-indicator.component';
 import { AlertComponent } from './components/alert/alert.component';
+import { ContactUsComponent } from './components/contact-us/contact-us.component';
 
 @NgModule({
   declarations: [
@@ -57,12 +57,12 @@ import { AlertComponent } from './components/alert/alert.component';
     GalleryComponent,
     LoaderComponent,
     CartIndicatorComponent,
-    AlertComponent
+    AlertComponent,
+    ContactUsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule,
     FontAwesomeModule,
     HttpClientModule,
     FormsModule, 

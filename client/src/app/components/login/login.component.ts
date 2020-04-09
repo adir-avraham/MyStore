@@ -70,6 +70,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         const decoded: Decoded = jwtDecode(token);       
         const { role } = decoded._doc;
         this.dynamicGreeting = getGreeting();
+        this.loginForm.reset();
         if ( role === 'admin' ) {
           this.isAdminConnected = true;
         } else if (role === 'user') {

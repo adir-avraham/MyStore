@@ -52,5 +52,6 @@
       </button>
     </mat-card-actions>
   </div>  
-  
+  <img (click)="goToShoppingPage()" class="open-sign fade-in" mat-card-image *ngIf="isUserConnected && !openCart" src="https://cdn.pixabay.com/photo/2014/04/02/11/11/welcome-305504_1280.png">
+  <img (click)="goToShoppingPage()" class="open-sign fade-in" mat-card-image *ngIf="isUserConnected && openCart" src="https://cdn.pixabay.com/photo/2020/02/26/07/41/grocery-basket-4880912_1280.png">
 </mat-card>

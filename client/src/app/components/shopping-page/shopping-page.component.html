@@ -9,7 +9,7 @@
   
   <div class="container mt-5">
     
-    <app-navbar-categories class="m-5" (getAllProducts)="getProducts()"  (productsByCategory)="getProductsByCategory($event)" *ngIf="!noSearchResults"></app-navbar-categories>
+    <app-navbar-categories class="m-5" (productsByCategory)="getProductsByCategory($event)" *ngIf="!noSearchResults"></app-navbar-categories>
     
     <h3 *ngIf="noSearchResults" fxLayoutAlign="center center">Sorry! No products found...</h3>    
         

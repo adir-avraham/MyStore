@@ -36,14 +36,12 @@ export class NavbarCategoriesComponent implements OnInit {
     }, error =>{
       console.log(error.message);
     })
-  }
+
+  };
 
   getProductsByCategory(category: Category) {
     this.productsByCategory.emit(category);
   }
 
-  getProducts() {
-    this.getAllProducts.emit();
-  }
 
 }
