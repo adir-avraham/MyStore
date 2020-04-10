@@ -18,10 +18,10 @@ export interface SelectedProduct {
 export class CartService {
 
   public getShoppingDetailsUrl = `${baseUrl}/getUserDetails/shopping`;
-  public getCartUrl = `${baseUrl}/getCart`;
-  public addToCartUrl = `${baseUrl}/addCartItem`;
-  public deleteCartItemUrl = `${baseUrl}/deleteCartItem`;
-  public emptyCartUrl = `${baseUrl}/emptyCart`;
+  public getCartUrl = `${baseUrl}/carts/getCart`;
+  public addToCartUrl = `${baseUrl}/carts/addCartItem`;
+  public deleteCartItemUrl = `${baseUrl}/carts/deleteCartItem`;
+  public emptyCartUrl = `${baseUrl}/carts/emptyCart`;
 
   selectedProduct = new Subject<SelectedProduct>();
   totalQuantity = new Subject<number>();

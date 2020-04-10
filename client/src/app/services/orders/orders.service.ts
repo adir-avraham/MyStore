@@ -17,11 +17,11 @@ interface NewOrder {
 })
 export class OrdersService {
 
-  getNumOfOrdersUrl = `${baseUrl}/getStoreStatistics/orders`;
+  getNumOfOrdersUrl = `${baseUrl}/statistics/getNumOfOrders`;
   getUserCityUrl = `${baseUrl}/getUserDetails/city`;
   getUserStreetUrl = `${baseUrl}/getUserDetails/street`;
-  getUnavailableDatesUrl = `${baseUrl}/getUnavailableDates`;
-  saveNewOrderUrl = `${baseUrl}/saveNewOrder`;
+  getUnavailableDatesUrl = `${baseUrl}/orders/getUnavailableDates`;
+  saveNewOrderUrl = `${baseUrl}/orders/saveNewOrder`;
   downloadReceiptUrl = `${baseUrl}/downloadReceipt`;
   
   constructor(private httpClient: HttpClient) { }

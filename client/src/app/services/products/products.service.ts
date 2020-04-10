@@ -28,11 +28,11 @@ export class ProductsService {
   public products = new Subject<Array<Product>>();
   public selectedProduct = new Subject<Product>();
   
-  public getNumOfProductsUrl = `${baseUrl}/getStoreStatistics/products`;
-  public getProductsByCategoryUrl = `${baseUrl}/getProductsByCategory`;
-  public getProductByNameUrl = `${baseUrl}/getProductByName`;
-  public createProductUrl = `${baseUrl}/admin/createProduct`;
-  public editProductUrl = `${baseUrl}/admin/editProduct`;
+  public getNumOfProductsUrl = `${baseUrl}/statistics/getNumOfProducts`;
+  public getProductsByCategoryUrl = `${baseUrl}/products/getProductsByCategory`;
+  public getProductByNameUrl = `${baseUrl}/products/getProductByName`;
+  public createProductUrl = `${baseUrl}/admin/products/createProduct`;
+  public editProductUrl = `${baseUrl}/admin/products/editProduct`;
 
   constructor(private httpClient: HttpClient) { }
 

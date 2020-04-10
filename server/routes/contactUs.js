@@ -1,3 +1,4 @@
+require('dotenv').config();
 const exprees = require('express');
 const router = exprees.Router();
 const nodemailer = require("nodemailer");
@@ -17,7 +18,7 @@ router.post('/', async (req, res, next) => {
       service: 'hotmail',
       auth: {
         user: 'my-store-app@hotmail.com', 
-        pass: 'Mystore1234' 
+        pass: process.env.PASS 
       }
     });
       

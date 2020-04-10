@@ -16,28 +16,25 @@
     
     <div class="tableContainer">
       <table mat-table [dataSource]="dataSource">                
-          <!-- Picture Column -->
+
           <ng-container matColumnDef="image">
             <th mat-header-cell *matHeaderCellDef> Picture </th>
             <td *matCellDef="let cartItem"> <img [src]="cartItem.image"> </td>
             <td mat-footer-cell *matFooterCellDef> Total </td>
           </ng-container>
   
-          <!-- Item Column -->
           <ng-container matColumnDef="item">
             <th mat-header-cell *matHeaderCellDef> Item </th>
             <td *matCellDef="let cartItem"> {{cartItem.name}} </td>
             <td mat-footer-cell *matFooterCellDef></td>
           </ng-container>
   
-          <!-- Quantity Column -->
           <ng-container matColumnDef="quantity">
             <th mat-header-cell *matHeaderCellDef> Quantity </th>
             <td *matCellDef="let cartItem"> {{cartItem.quantity | number}} </td>
             <td mat-footer-cell *matFooterCellDef></td>
           </ng-container>
         
-          <!-- Cost Column -->
           <ng-container matColumnDef="price">
             <th mat-header-cell *matHeaderCellDef> Price </th>
             <td *matCellDef="let cartItem"> {{cartItem.price | currency}} </td>

@@ -33,6 +33,7 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { CartIndicatorComponent } from './components/cart-indicator/cart-indicator.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
+import { HttpErrorInterceptor } from './interceptors/http-error/http-error.interceptor';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { ContactUsComponent } from './components/contact-us/contact-us.component
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true}
   ],
   bootstrap: [AppComponent],
   entryComponents: [DialogComponent, OrderFeedbackComponent, CartComponent, GalleryComponent]

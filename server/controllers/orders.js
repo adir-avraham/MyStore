@@ -1,12 +1,33 @@
-const exprees = require('express');
-const router = exprees.Router();
 const orders = require('../database/orders');
 
 
-router.use( async (req, res, next) => {
+exports.getNumOfOrders = async (req, res, next) => {
+    try {
+        const { getNumOfOrders } = orders;
+        const numOfOrders = await getNumOfOrders();
+        res.json({numOfOrders: numOfOrders, status: true});
+    } catch (error) {
+        res.json({error: error.message, status: false})
+    }
+};
 
+
+exports.getUnavailableDates = async (req, res, next) => {
+    try {
+        const { getUnavailableDates } = orders; 
+        const unavailableDates = await getUnavailableDates();
+        if (!unavailableDates.length) return res.json({message: "No unavailable delivery dates", status: false});
+        res.json({unavailableDates: unavailableDates, status: true});
+    } catch (error) {
+        res.json({error: error.message, status: false});
+    }
+};
+
+
+exports.validateSaveNewOrder = async (req, res, next) => {
     try {
         const { deliveryDate, creditCard } = req.body;
+        console.log(req)
         const { getUnavailableDates } = orders;
         const unavailableDates = await getUnavailableDates();
         const isUnavailable = isDateAvailable(deliveryDate, unavailableDates);
@@ -16,11 +37,10 @@ router.use( async (req, res, next) => {
     } catch (error) {
         res.json({error: error.message, status: false});
     }
-});
+};
 
 
-router.post('/', async (req, res, next) => {
-
+exports.saveNewOrder = async (req, res, next) => {
     try {
         const { _id } = req.decoded._doc;
         const { saveNewOrder } = orders;
@@ -31,10 +51,8 @@ router.post('/', async (req, res, next) => {
     } catch (error) {
         res.json({error: error.message, status: false});
     }
-});
+};
 
-
-module.exports = router;
 
 function isDateAvailable(deliveryDate, unavailableDates) {
     if (new Date(deliveryDate) < new Date) return true;

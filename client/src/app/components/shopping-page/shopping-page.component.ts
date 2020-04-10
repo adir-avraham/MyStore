@@ -112,8 +112,6 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
     this.productsService.getProductsByCategory(category).subscribe((result: ProductsResult) => {
       const { products } = result;
       this.products = products;
-      }, error => {
-        console.log(error.message);
     })
   };
   
