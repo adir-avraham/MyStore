@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoriesService } from 'src/app/services/categories/categories.service';
 import { Category, CategoriesRes } from '../navbar-categories/navbar-categories.component';
 import { ProductsService, UpdatedProductsRes } from 'src/app/services/products/products.service';
-import { Product } from '../shopping-page/shopping-page.component';
+import { Product } from '../shopping-page/shopping-page.interfaces';
 import { Subscription } from 'rxjs';
 import { GalleryService } from 'src/app/services/gallery/gallery.service';
 import { GalleryComponent } from '../gallery/gallery.component';
@@ -36,11 +36,11 @@ export class ProductFormComponent implements OnInit, OnDestroy {
   public product_id: string;
   public requiredMsg = "Field is required.";
   public arrayOfImages = [];
-  get productName() { return this.productForm.get('name').value };
   public images: Array<any> = [];
   public resultMessage: string = null;
   public openSidebar: boolean;
   public openSidebarSub: Subscription;
+  get productName() { return this.productForm.get('name').value };
   
   constructor(private formBuilder: FormBuilder, private categoriesService: CategoriesService, 
     private productsService: ProductsService, private galleryService: GalleryService, 
@@ -160,7 +160,6 @@ export class ProductFormComponent implements OnInit, OnDestroy {
       console.log(error.message)
     }); 
 
-  
   }
 
   passDataToGallery(productNameParam: string) {
@@ -181,16 +180,13 @@ export class ProductFormComponent implements OnInit, OnDestroy {
     this.productForm.reset();
   };
 
-  
   closeSideBar() {
     this.sidebarSevice.openSidebar.next(false);
   };
   
-
   ngOnDestroy() {
     this.unsubscribeSelectedProduct.unsubscribe();
     this.openSidebarSub.unsubscribe();
   };
-
 
 };

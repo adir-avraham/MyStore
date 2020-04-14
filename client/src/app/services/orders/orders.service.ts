@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { baseUrl } from '../../sharing-url/sharing.url';
-import { SavedOrderIds } from 'src/app/components/order/order.component';
+import { SavedOrderIds } from 'src/app/components/order/order.interfaces';
 
 interface NewOrder {
   deliveryCity: string;

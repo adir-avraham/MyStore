@@ -5,7 +5,7 @@ exports.addCartItem = async (req, res, next) => {
     try {
         const { addCartItem, getCart } = carts; 
         const addedCartItem = await addCartItem(req.body);
-        if (!addedCartItem) return ({message: "Add a product failed", status: false});
+        if (!addedCartItem) return res.json({message: "Add a product failed", status: false});
         const { _id } = req.decoded._doc;
         const cart = await getCart(_id);
         res.json({ cart: cart, status: true});

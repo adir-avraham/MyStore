@@ -1,29 +1,24 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { ProductsService } from 'src/app/services/products/products.service';
-import { Product } from 'src/app/components/shopping-page/shopping-page.component';
+import { Product } from 'src/app/components/shopping-page/shopping-page.interfaces';
 
-interface SearchResult {
-  product: Array<Product>;
-  status: boolean;
-}
 
 @Pipe({
   name: 'search'
 })
 
+
 export class SearchPipe implements PipeTransform {
 
-  constructor(private productsService: ProductsService) {}
+  constructor() {}
 
-  transform(items: unknown, searchText: string): unknown {
-    if (!searchText) return [];
+  transform(items: Array<Product>, searchText: string): unknown {
+    if (!searchText) return items;
     if (!Array.isArray(items)) return [];
     
-    return this.productsService.getProductByName(searchText).subscribe((result: SearchResult) =>{
-      const { product } = result;      
-      if (!Array.isArray(product)) return [];
-      return product;
+    return items.filter((product) => {
+      return product.name.toLowerCase().includes(searchText.toLocaleLowerCase())
     })
+
   }
 
 };

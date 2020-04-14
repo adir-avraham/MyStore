@@ -104,9 +104,9 @@ async function getCartItems(hasCart) {
 async function addCartItem(payload) {
 
     const { product_id, quantity, cart_id } = payload;
-    const { getProductPrice } = products;
-    if (quantity < 1) return;
-    
+    const { getProductPrice } = products;    
+    if (quantity < 1 || quantity > 100) return null;
+
     const productPrice = await getProductPrice(product_id);
     
     const updatedProductQuantity = await CartItem.findOneAndUpdate(

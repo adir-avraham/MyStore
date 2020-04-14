@@ -4,7 +4,9 @@ mat-form-field {
 
 @media only screen and (max-width: 800px) {
     mat-form-field {
-        width: 100%;
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 

@@ -8,29 +8,9 @@ import { CartService } from 'src/app/services/cart/cart.service';
 import moment from 'moment/src/moment';
 import { Subscription } from 'rxjs';
 import { getGreeting } from './utils.component';
+import { OpenCart, ShoppingDetailsRes, loginRes, UserData } from './login.interfaces';
 
-interface loginRes {
-  message: string;
-  status: boolean;  
-  userData: UserData
-}
 
-interface UserData {
-  firstName: string; 
-  role: string; 
-  _id: string;
-  token: string;
-}
-
-interface ShoppingDetailsRes {
-  shoppingDetails: any;
-  status: boolean;
-}
-
-interface OpenCart {
-  totalPrice: number;
-  created_at: Date;
-}
 
 @Component({
   selector: 'app-login',

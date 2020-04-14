@@ -5,52 +5,27 @@ import { MatDialog } from '@angular/material/dialog';
 import { OrderFeedbackComponent } from '../order-feedback/order-feedback.component';
 import { Router } from '@angular/router';
 import moment from 'moment/src/moment';
+import { AlertComponent } from '../alert/alert.component';
+import { UserDetailsRes, NewOrder, NewOrderRes } from './order.interfaces';
 
 
-interface UserDetailsRes {
-  street?: Street;
-  city?: City;
-  status: boolean;
-}
-
-interface Street {
-  street: string;
-}
-interface City {
-  city: string;
-}
-
-interface NewOrder {
-  deliveryCity: string,
-  deliveryStreet: string,
-  deliveryDate: Date,
-  creditCard: number
-}
-
-interface NewOrderRes {
-  message: string;
-  status: false;
-  savedOrderIds: SavedOrderIds;
-}
-
-export interface SavedOrderIds {
-  cartId: string;
-  orderId: string;
-}
 
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
   styleUrls: ['./order.component.css']
 })
+
+
 export class OrderComponent implements OnInit {
 
-  orderForm: FormGroup;
-  isLoading = false;
-  deliveryCities = ["London","Birmingham", "Leicester", "Southampton", "Leeds", "Manchester", "Liverpool"];
-  minDate: Date;
-  unavailableDates = [];
-  requiredMsg = "Field is required."
+  public orderForm: FormGroup;
+  public isLoading = false;
+  public deliveryCities = ["London","Birmingham", "Leicester", "Southampton", "Leeds", "Manchester", "Liverpool"];
+  public minDate: Date;
+  public unavailableDates = [];
+  public requiredMsg = "Field is required."
+  public orderSaved: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private ordersService: OrdersService, 
     private dialog: MatDialog, private router: Router) { 
@@ -106,33 +81,39 @@ export class OrderComponent implements OnInit {
 
     this.ordersService.saveNewOrder(newOrder).subscribe((newOrderRes: NewOrderRes) => {
       const { message, status, savedOrderIds } = newOrderRes;
-      
-      if (!status) return;
+      if (!status) return this.failureResponse();
+      const dialogRef = this.dialog.open(OrderFeedbackComponent, {
+        data: {
+          status: status,
+          message: message,
+          savedOrderIds: savedOrderIds
+        }
+      });
 
-        const dialogRef = this.dialog.open(OrderFeedbackComponent, {
-          data: {
-            status: status,
-            message: message,
-            savedOrderIds: savedOrderIds
-          }
-        });
-
-        dialogRef.afterClosed().subscribe(result => {
-
-          if (result) {
-            this.router.navigate(['/home'])
-          }
-        })
-
-      
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.orderSaved = true;
+          this.router.navigate(['/home'])
+        }
+      })
     }, error => {
       console.log(error.message);
     })
-  }
+  };
 
+  
   requiredValidation(field: string) {
     return this.orderForm.get(field).errors?.required;
   }
 
+  failureResponse() {
+    this.dialog.open(AlertComponent, {
+      width: '450px',
+      data: {
+      message: "Please make sure you complete the form and your cart is not empty.",
+      title: "Failure"
+    }})
+  }
 
-}
+
+};

@@ -58,13 +58,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   logout() {
     this.authService.logout();
   }
-
   
   showCart() {
     this.openSidebar = !this.openSidebar;
     this.sidebarService.openSidebar.next(this.openSidebar);
   }
-
 
   ngOnDestroy() {
     this.userSubscription.unsubscribe();

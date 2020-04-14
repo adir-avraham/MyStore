@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ProductsService } from 'src/app/services/products/products.service';
 import { debounceTime } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { SearchService } from 'src/app/services/search/search.service';
 
 
 @Component({
@@ -18,14 +18,14 @@ export class SearchProductComponent implements OnInit, OnDestroy {
   public searchFormControl: FormControl;
   public unsubscribeSearchTextChanges: Subscription;
 
-  constructor(private productsService: ProductsService) {
+  constructor(private searchService: SearchService) {
     this.searchFormControl = new FormControl();
   };
 
   ngOnInit(): void {
     this.unsubscribeSearchTextChanges = this.searchFormControl.valueChanges.pipe(debounceTime(400))
     .subscribe((newValue: string) => {
-      this.productsService.setSearchTextChanges(newValue);
+      this.searchService.setSearchTextChanges(newValue);
       this.searchText = newValue;
     });
   };

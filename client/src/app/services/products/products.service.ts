@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Category } from 'src/app/components/navbar-categories/navbar-categories.component';
-import { Product } from 'src/app/components/shopping-page/shopping-page.component';
+import { Product } from 'src/app/components/shopping-page/shopping-page.interfaces';
 import { Subject } from 'rxjs';
 import { baseUrl } from 'src/app/sharing-url/sharing.url';
 
@@ -24,10 +24,9 @@ export interface UpdatedProductsRes {
 
 export class ProductsService {
 
-  public searchTextChanges = new Subject<string>();
+  
   public products = new Subject<Array<Product>>();
   public selectedProduct = new Subject<Product>();
-  
   public getNumOfProductsUrl = `${baseUrl}/statistics/getNumOfProducts`;
   public getProductsByCategoryUrl = `${baseUrl}/products/getProductsByCategory`;
   public getProductByNameUrl = `${baseUrl}/products/getProductByName`;
@@ -50,11 +49,6 @@ export class ProductsService {
   
   getProductByName(name: string) {
     return this.httpClient.get(`${this.getProductByNameUrl}/${name}`);
-  };
-
-  
-  setSearchTextChanges(newValue: string) {
-    return this.searchTextChanges.next(newValue);
   };
 
   

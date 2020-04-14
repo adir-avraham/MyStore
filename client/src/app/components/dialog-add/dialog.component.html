@@ -8,7 +8,7 @@
     <mat-dialog-content>
         <mat-icon (click)="increment()">add_circle_outline</mat-icon>
         <mat-form-field appearance="outline">        
-            <input min="1" matInput type="number" [(ngModel)]="quantity">
+            <input min="1" matInput type="number" [(ngModel)]="quantity" readonly>
         </mat-form-field>
         <mat-icon (click)="decrement()" >remove_circle_outline</mat-icon>  
     </mat-dialog-content>

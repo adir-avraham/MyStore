@@ -13,6 +13,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { ShoppingPageComponent } from './components/shopping-page/shopping-page.component';
 import { NavbarCategoriesComponent } from './components/navbar-categories/navbar-categories.component';
 import { SearchProductComponent } from './components/search-product/search-product.component';
+import { SearchPipe } from './pipes/search/search.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material-module/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -46,6 +47,7 @@ import { HttpErrorInterceptor } from './interceptors/http-error/http-error.inter
     ShoppingPageComponent,
     NavbarCategoriesComponent,
     SearchProductComponent,
+    SearchPipe,
     CartComponent,
     DialogComponent,
     CheckoutComponent,

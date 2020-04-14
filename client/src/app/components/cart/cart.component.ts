@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { Subscription } from 'rxjs';
 import { SelectedProduct } from '../../services/cart/cart.service';
 import { Router } from '@angular/router';
 import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
+
 
 
 export interface CartResult {
@@ -63,7 +64,8 @@ export class CartComponent implements OnInit, OnDestroy {
       }
 
       this.cartService.addProductToCart(addedProduct).subscribe((cartResult: CartResult) => {
-          const { cart } = cartResult;
+          const { cart, status } = cartResult;
+          if (!status) return;
           this.cartItems = cart;
           this.cartService.totalQuantity.next(this.getTotalCartItems());
       }, error =>{
