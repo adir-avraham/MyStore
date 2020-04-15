@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Category, CategoriesRes } from '../navbar-categories/navbar-categories.component';
-import { ProductsService } from 'src/app/services/products/products.service';
+import { ProductsService, ProductsResult } from 'src/app/services/products/products.service';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog-add/dialog.component';
@@ -11,38 +11,25 @@ import { User } from 'src/app/models/user.model';
 import * as jwtDecode from 'jwt-decode'; 
 import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
 import { CategoriesService } from 'src/app/services/categories/categories.service';
+import { Product } from './shopping-page.interfaces';
+import { SearchService } from 'src/app/services/search/search.service';
+import { cardAnimation } from './animations';
 
-interface SearchResult {
-  product: Array<Product>;
-  status: boolean;
-}
 
-export interface Product {
-  _id?: string;
-  name: string;
-  price: number;
-  image: string;
-  category_id: string;
-}
-
-interface ProductsResult {
-  products: Array<Product>;
-  status: boolean;
-}
 
 @Component({
   selector: 'app-shopping-page',
   templateUrl: './shopping-page.component.html',
-  styleUrls: ['./shopping-page.component.css']
+  styleUrls: ['./shopping-page.component.css'],
+  animations: [cardAnimation]
 })
 
 
 export class ShoppingPageComponent implements OnInit, OnDestroy {
 
-  public products: Array<Product>;
+  public products: Array<Product> = [];
   public searchText: string;
   public unsubscribeSearchTextChanges: Subscription;
-  public noSearchResults: boolean = false;
   public unsubscribeProducts: Subscription;
   public sidenav: MatSidenav;
   public drawer: MatDrawer;
@@ -53,7 +40,8 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
 
   constructor(private productsService: ProductsService, private dialog: MatDialog,
     private cartService: CartService, private authService: AuthService, 
-    private sidebarService: SidebarService, private categoriesService: CategoriesService) { }
+    private sidebarService: SidebarService, private categoriesService: CategoriesService,
+    private searchService: SearchService) { }
 
 
   ngOnInit(): void {
@@ -69,29 +57,14 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
       this.products = products;
     });
     
-    this.unsubscribeSearchTextChanges = this.productsService.searchTextChanges.subscribe((newValue: string) => {
+    this.unsubscribeSearchTextChanges = this.searchService.searchTextChanges.subscribe((newValue: string) => {
       this.searchText = newValue; 
-      if (!this.searchText) return;
-      this.productsService.getProductByName(newValue).subscribe((result: SearchResult) =>{
-        const { product } = result;
-        if (!Array.isArray(product)) {
-          this.noSearchResults = true;   
-        } else {
-          this.noSearchResults = false;
-          this.products = product;
-        }
-      }, error => {
-        this.noSearchResults = false;
-        console.log(error.message);
-      }) 
     });
-
 
     this.openSidebarSub = this.sidebarService.openSidebar.subscribe((openSidebar: boolean) => {
       this.opened = openSidebar;
     });
 
-    
     this.authService.user.subscribe((user: User) => {
       if (!user) return;
       const { token } = user;

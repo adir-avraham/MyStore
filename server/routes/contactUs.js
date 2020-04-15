@@ -30,7 +30,7 @@ router.post('/', async (req, res, next) => {
       html: output 
       }, (err, info) => {
         if (err) return res.json({message: "We're sorry! your message failed..", status: false});
-        res.json({message: "Your message has been sent successfully!", status: true});
+        res.json({message: "📨 Your message has been sent successfully!", status: true});
     });
     
     } catch (error) {

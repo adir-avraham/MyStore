@@ -37,3 +37,8 @@ img {
 .my-card:hover {
   transform: translateY(-10px);
 }
+
+.result-message {
+grid-column: 1 / 5;
+color: #8bc34a;
+}

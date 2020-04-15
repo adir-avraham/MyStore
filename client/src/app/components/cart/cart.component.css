@@ -19,6 +19,13 @@ img {
 .btn-remove {
   color: gray;
   cursor: pointer;
+  transition: 0.5s;
+  opacity: 0.5;
+}
+
+.btn-remove:hover {
+  color: tomato;
+  opacity: 1;
 }
 
 .icon-close {

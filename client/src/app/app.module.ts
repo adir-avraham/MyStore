@@ -35,6 +35,7 @@ import { CartIndicatorComponent } from './components/cart-indicator/cart-indicat
 import { AlertComponent } from './components/alert/alert.component';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { HttpErrorInterceptor } from './interceptors/http-error/http-error.interceptor';
+import { ConfirmAlertComponent } from './components/confirm-alert/confirm-alert.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { HttpErrorInterceptor } from './interceptors/http-error/http-error.inter
     LoaderComponent,
     CartIndicatorComponent,
     AlertComponent,
-    ContactUsComponent
+    ContactUsComponent,
+    ConfirmAlertComponent
   ],
   imports: [
     BrowserModule,

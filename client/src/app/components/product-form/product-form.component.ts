@@ -89,7 +89,7 @@ export class ProductFormComponent implements OnInit, OnDestroy {
     this.productsService.createProduct(newProduct).subscribe((updatedProductsRes: UpdatedProductsRes)=>{
       const { products, status } = updatedProductsRes;
       if (status) {
-        const message = "Product has been saved successfully!";
+        const message = "✅ Product has been saved successfully!";
         this.successResponse(products, message);
       } else {
         this.failureResponse();
@@ -111,7 +111,7 @@ export class ProductFormComponent implements OnInit, OnDestroy {
     this.productsService.editProduct(editedProduct).subscribe((updatedProductsRes: UpdatedProductsRes)=>{
       const { products, status } = updatedProductsRes;
       if (status) {
-        const message = "Changes have been saved successfully!"
+        const message = "✅ Changes have been saved successfully!"
         this.successResponse(products, message);
       } else {
         this.failureResponse();
@@ -136,7 +136,7 @@ export class ProductFormComponent implements OnInit, OnDestroy {
     this.dialog.open(AlertComponent, {
       width: '450px',
       data: {
-      message: "We're sorry! Something went wrong. Please make sure you complete the form.",
+      message: "We're sorry! Something went wrong ☹️. Please make sure you complete the form.",
       title: "Failure"
     }})
   }
