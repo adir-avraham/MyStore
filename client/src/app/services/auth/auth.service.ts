@@ -6,34 +6,8 @@ import { User } from 'src/app/models/user.model';
 import { Router } from '@angular/router';
 import * as jwtDecode from 'jwt-decode'; 
 import { baseUrl } from 'src/app/sharing-url/sharing.url';
+import { UserData, Decoded, ResLogin, newUser } from './auth.interfaces';
 
-interface newUser {
-  id: number;
-  userName: string;
-  password: string;
-  passwordConfirm: string;
-  city?: string;
-  street?: string;
-  firstName?: string;
-  lastName?: string; 
-}
-
-interface ResLogin {
-  userData: any,
-  status: boolean
-}
-
-interface UserData {
-  firstName: string;
-  _token: string;
-  _tokenExpirationDate: string;
-}
-
-export interface Decoded {
-  exp: any;
-  iat: any;
-  _doc: any;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -51,7 +25,6 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient, private router: Router) { }
 
-  
   autoLogin() {
     const userData: UserData = JSON.parse(localStorage.getItem('userData'));
     if (!userData) return;

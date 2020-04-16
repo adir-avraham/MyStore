@@ -1,11 +1,6 @@
 const Product = require('../models/Product');
 
 
-async function getProductByName(name) {
-    const product = await Product.find({name: new RegExp(name, 'i')});
-    return product;
-};
-
 
 async function getProductsByCategory(category_id) {
     const products = await Product.find({ category_id: category_id });
@@ -59,5 +54,5 @@ async function editProduct(payload) {
 };
 
 
-module.exports = { getProductByName, getProductsByCategory, getProductPrice, getNumOfProducts, 
+module.exports = { getProductsByCategory, getProductPrice, getNumOfProducts, 
     createProduct, editProduct };

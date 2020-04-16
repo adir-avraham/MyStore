@@ -6,11 +6,9 @@ tr.mat-footer-row {
   font-weight: bold;
 }
 
-
 .cart {
     width: 440px;
 }
-
 
 @media only screen and (max-width: 800px) {
     .cart {

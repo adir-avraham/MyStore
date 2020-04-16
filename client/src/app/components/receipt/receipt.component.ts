@@ -1,14 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CartItem } from '../cart/cart.component';
+import { Component, OnInit } from '@angular/core';
+import { CartItem } from '../cart/cart.interfaces';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { Subscription } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
-
-interface Result {
-  cart: Array<CartItem>;
-  status: boolean;
-}
-
+import { Result } from './receipt.interfaces';
 
 
 @Component({
@@ -16,12 +11,14 @@ interface Result {
   templateUrl: './receipt.component.html',
   styleUrls: ['./receipt.component.css']
 })
+
+
 export class ReceiptComponent implements OnInit {
 
-  displayedColumns: string[] = ['image', 'item', 'quantity', 'price'];
-  dataSource = new MatTableDataSource<CartItem>();
+  public displayedColumns: string[] = ['image', 'item', 'quantity', 'price'];
+  public dataSource = new MatTableDataSource<CartItem>();
+  public cartItemsSub: Subscription;
 
-  cartItemsSub: Subscription;
   constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
@@ -32,19 +29,15 @@ export class ReceiptComponent implements OnInit {
       console.log(error.message);
     });
   
-  }
-
+  };
 
   getTotalCost() {
     return this.dataSource.data.map(item => item.price).reduce((acc, value) => acc + value, 0);
-  }
+  };
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();   
-  }
+  };
 
-
-  
-
-}
+};

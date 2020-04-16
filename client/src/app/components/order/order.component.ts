@@ -10,7 +10,6 @@ import { UserDetailsRes, NewOrder, NewOrderRes } from './order.interfaces';
 
 
 
-
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
@@ -36,7 +35,7 @@ export class OrderComponent implements OnInit {
       deliveryDate: [null, Validators.required],
       creditCard: [null, [Validators.required, Validators.min(1000000000000000), Validators.max(9999999999999999)]]
     })
-  }
+  };
 
   ngOnInit(): void {
     this.minDate = new Date();
@@ -44,14 +43,14 @@ export class OrderComponent implements OnInit {
     this.ordersService.getUnavailableDates().subscribe((unavailableDatesRes: any)=>{
       this.unavailableDates = unavailableDatesRes.unavailableDates;
     })
-  }
+  };
 
   myFilter = (d: Date | null): boolean => {
    const time = moment(d).format('YYYY-MM-DD');
    if (!this.unavailableDates) return true;
    return !this.unavailableDates.find(date => {
     return moment(date._id.deliveryDate).format("YYYY-MM-DD") === time})    
-  }
+  };
 
   getUserCity() {
     this.ordersService.getUserCity().subscribe((userDetailsRes: UserDetailsRes) => {
@@ -71,14 +70,13 @@ export class OrderComponent implements OnInit {
     })  
   };
 
-  
   saveNewOrder() {
     const newOrder: NewOrder = {
       deliveryCity: this.orderForm.get('deliveryCity').value,
       deliveryStreet: this.orderForm.get('deliveryStreet').value,
       deliveryDate: moment(this.orderForm.get('deliveryDate').value).format("YYYY-MM-DD"),
       creditCard: this.orderForm.get('creditCard').value
-    }
+    };
 
     this.ordersService.saveNewOrder(newOrder).subscribe((newOrderRes: NewOrderRes) => {
       const { message, status, savedOrderIds } = newOrderRes;
@@ -94,6 +92,7 @@ export class OrderComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
           this.orderSaved = true;
+          this.ordersService.isOrderSaved.next(true);
           this.router.navigate(['/home'])
         }
       })
@@ -102,11 +101,6 @@ export class OrderComponent implements OnInit {
     })
   };
 
-  
-  requiredValidation(field: string) {
-    return this.orderForm.get(field).errors?.required;
-  }
-
   failureResponse() {
     this.dialog.open(AlertComponent, {
       width: '450px',
@@ -114,7 +108,10 @@ export class OrderComponent implements OnInit {
       message: "Please make sure you complete the form and your cart is not empty.",
       title: "Failure"
     }})
-  }
-
+  };
+  
+  requiredValidation(field: string) {
+    return this.orderForm.get(field).errors?.required;
+  };
 
 };

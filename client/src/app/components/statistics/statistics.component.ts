@@ -1,23 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from 'src/app/services/products/products.service';
 import { OrdersService } from 'src/app/services/orders/orders.service';
-
-interface StatisticsRes {
-  numOfProducts?: number;
-  numOfOrders?: number;
-  status: boolean;
-}
-
+import { StatisticsRes } from './statistics.interfaces';
 
 @Component({
   selector: 'app-statistics',
   templateUrl: './statistics.component.html',
   styleUrls: ['./statistics.component.css']
 })
+
 export class StatisticsComponent implements OnInit {
 
-  numOfProducts: number;
-  numOfOrders: number;
+  public numOfProducts: number;
+  public numOfOrders: number;
   
   constructor(private productsService: ProductsService, private ordersService: OrdersService) { }
 
@@ -36,7 +31,6 @@ export class StatisticsComponent implements OnInit {
     }, error => {
       console.log(error.message);
     });
-
 
   };
 

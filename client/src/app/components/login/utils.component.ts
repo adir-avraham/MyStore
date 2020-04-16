@@ -23,4 +23,4 @@ export function getGreeting() {
     if (afternoon.isBetween(beforeTime2, afterTime2)) return "Good afternoon";
     if (evening.isBetween(beforeTime3, afterTime3)) return "Good evening";
     if (night.isBetween(beforeTime4, afterTime4)) return "Good night";
-  }
+}

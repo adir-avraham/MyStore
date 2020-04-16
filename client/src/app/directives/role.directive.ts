@@ -8,11 +8,12 @@ import { Subscription } from 'rxjs';
   selector: '[appRole]'
 })
 
+
 export class RoleDirective implements OnInit, OnDestroy {
 
   @Input() appRole: string;
   private isVisible = false;
-  unsubscribeUser: Subscription;
+  public unsubscribeUser: Subscription;
 
   constructor(
     private viewContainerRef: ViewContainerRef,
@@ -20,9 +21,7 @@ export class RoleDirective implements OnInit, OnDestroy {
     private authService: AuthService
   ) {}
 
-  
   ngOnInit() {
-
     this.unsubscribeUser = this.authService.user.pipe(take(1)).subscribe((user: any) => {
       if (!user) { 
         this.viewContainerRef.clear();
@@ -42,6 +41,6 @@ export class RoleDirective implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.unsubscribeUser.unsubscribe();
-  }
+  };
 
-}
+};

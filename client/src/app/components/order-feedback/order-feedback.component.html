@@ -1,18 +1,15 @@
 <h2 mat-dialog-title>
     {{passedData.status ? "Thank You For Ordering With Us!" : "We're Sorry! something went wrong"}}
 </h2>
-
 <mat-dialog-content fxLayoutAlign="center center" *ngIf="!passedData.status">
     {{passedData.message}}
 </mat-dialog-content>
-
 <mat-dialog-content  fxLayoutAlign="center center" *ngIf="passedData.status">
     Click 
     <span type="button" (click)="downloadReceipt(passedData.savedOrderIds)">&nbsp;here&nbsp;</span>
     to download your receipt
 </mat-dialog-content>
 
- 
 <mat-dialog-actions fxLayoutAlign="center center">
     <button mat-button [mat-dialog-close]="true" *ngIf="passedData.status">OK</button>
     <button mat-button [mat-dialog-close]="false" *ngIf="!passedData.status">Close</button>

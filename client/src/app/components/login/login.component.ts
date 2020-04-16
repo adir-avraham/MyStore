@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { AuthService, Decoded } from 'src/app/services/auth/auth.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import * as jwtDecode from 'jwt-decode'; 
@@ -9,7 +9,7 @@ import moment from 'moment/src/moment';
 import { Subscription } from 'rxjs';
 import { getGreeting } from './utils.component';
 import { OpenCart, ShoppingDetailsRes, loginRes, UserData } from './login.interfaces';
-
+import { Decoded } from 'src/app/services/auth/auth.interfaces';
 
 
 @Component({
@@ -17,6 +17,7 @@ import { OpenCart, ShoppingDetailsRes, loginRes, UserData } from './login.interf
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 
 export class LoginComponent implements OnInit, OnDestroy {
 
@@ -38,7 +39,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       password: null 
     })
   };
-
 
   ngOnInit(): void {
     this.userSubscription = this.authService.user.subscribe((user: User) => {
@@ -73,15 +73,19 @@ export class LoginComponent implements OnInit, OnDestroy {
             }
           })}      
         } else {
-        this.isAuthenticated = false;
-        this.isUserConnected = false;
-        this.isAdminConnected = false;
-        this.userName = null;
-        this.welcomeMessage = null;
-        this.openCart = null;
+        this.userIsNotAuthenticated();
       }
     });
   };
+
+  userIsNotAuthenticated() {
+    this.isAuthenticated = false;
+    this.isUserConnected = false;
+    this.isAdminConnected = false;
+    this.userName = null;
+    this.welcomeMessage = null;
+    this.openCart = null;
+  }
 
   login() {
     const userName = this.loginForm.get('userName').value;
@@ -113,13 +117,11 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.isUserConnected = true;
       this.isAuthenticated = true;
     }
-  }
-
+  };
 
   goToShoppingPage() {
     this.router.navigate(['/shopping-page']);
   };
-
 
   ngOnDestroy(): void {
     this.userSubscription.unsubscribe();

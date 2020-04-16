@@ -16,4 +16,4 @@ export class ConfirmAlertComponent implements OnInit {
   ngOnInit(): void {
   }
 
-}
+};

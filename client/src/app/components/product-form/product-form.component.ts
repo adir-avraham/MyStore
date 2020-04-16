@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoriesService } from 'src/app/services/categories/categories.service';
-import { Category, CategoriesRes } from '../navbar-categories/navbar-categories.component';
-import { ProductsService, UpdatedProductsRes } from 'src/app/services/products/products.service';
+import { Category, CategoriesRes } from '../navbar-categories/categories.interfaces';
+import { ProductsService } from 'src/app/services/products/products.service';
 import { Product } from '../shopping-page/shopping-page.interfaces';
 import { Subscription } from 'rxjs';
 import { GalleryService } from 'src/app/services/gallery/gallery.service';
@@ -10,21 +10,15 @@ import { GalleryComponent } from '../gallery/gallery.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertComponent } from '../alert/alert.component';
 import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
+import { UpdatedProduct, UpdatedProductsRes } from './product-form.interfaces';
 
-
-interface UpdatedProduct {
-  product_id: string;
-  name: string;
-  price: number;
-  image: string;
-  category_id: string;
-}
 
 @Component({
   selector: 'app-product-form',
   templateUrl: './product-form.component.html',
   styleUrls: ['./product-form.component.css']
 })
+
 
 export class ProductFormComponent implements OnInit, OnDestroy {
 
@@ -53,6 +47,7 @@ export class ProductFormComponent implements OnInit, OnDestroy {
     })
   };
 
+  
   ngOnInit(): void {
     this.categoriesService.getCategories().subscribe((categoriesRes: CategoriesRes) => {
       const { categories } = categoriesRes;
@@ -78,6 +73,7 @@ export class ProductFormComponent implements OnInit, OnDestroy {
 
   };
 
+  
   createProduct() {  
     const newProduct: Product = {
       name: this.productForm.get('name').value,
@@ -89,16 +85,17 @@ export class ProductFormComponent implements OnInit, OnDestroy {
     this.productsService.createProduct(newProduct).subscribe((updatedProductsRes: UpdatedProductsRes)=>{
       const { products, status } = updatedProductsRes;
       if (status) {
-        const message = "✅ Product has been saved successfully!";
+        const message = "Product has been saved successfully!";
         this.successResponse(products, message);
       } else {
         this.failureResponse();
       }
     }, error => {
       console.log(error.message);
-    });
-  }
+    })
+  };
 
+  
   editProduct() {
     const editedProduct: UpdatedProduct = {
       name: this.productForm.get('name').value,
@@ -111,7 +108,7 @@ export class ProductFormComponent implements OnInit, OnDestroy {
     this.productsService.editProduct(editedProduct).subscribe((updatedProductsRes: UpdatedProductsRes)=>{
       const { products, status } = updatedProductsRes;
       if (status) {
-        const message = "✅ Changes have been saved successfully!"
+        const message = "Changes have been saved successfully!"
         this.successResponse(products, message);
       } else {
         this.failureResponse();
@@ -119,7 +116,7 @@ export class ProductFormComponent implements OnInit, OnDestroy {
     }, error => {
       console.log(error.message);
     });
-  }
+  };
 
   successResponse(products: Array<Product>, message: string) {
     this.productsService.products.next(products);
@@ -128,18 +125,19 @@ export class ProductFormComponent implements OnInit, OnDestroy {
       width: '450px',
       data: {
       message: message,
-      title: "Success"
+      title: "✅ Success"
     }})
-  }
+  };
 
   failureResponse() {
     this.dialog.open(AlertComponent, {
       width: '450px',
       data: {
       message: "We're sorry! Something went wrong ☹️. Please make sure you complete the form.",
-      title: "Failure"
+      title: "❌ Failure"
     }})
-  }
+  };
+  
   
   openGallery() {
     const productNameParam = this.productForm.get('name').value;
@@ -160,8 +158,9 @@ export class ProductFormComponent implements OnInit, OnDestroy {
       console.log(error.message)
     }); 
 
-  }
+  };
 
+  
   passDataToGallery(productNameParam: string) {
     const dialogRef = this.dialog.open(GalleryComponent, {data: {
       productNameParam: productNameParam,
@@ -172,9 +171,8 @@ export class ProductFormComponent implements OnInit, OnDestroy {
       if (!imageUrl) return;
       this.productForm.get('image').setValue(imageUrl);
     })
-  }
+  };
   
-
   createMode() {
     this.editMode = false;
     this.productForm.reset();

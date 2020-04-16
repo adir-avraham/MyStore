@@ -3,27 +3,22 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { OrdersService } from 'src/app/services/orders/orders.service';
 import saveAs from 'file-saver';
+import { OrderResult } from './order.interface';
 
-
-
-interface OrderResult {
-  message: string;
-  status: boolean;
-  savedOrderIds: any;
-}
 
 @Component({
   selector: 'app-order-feedback',
   templateUrl: './order-feedback.component.html',
   styleUrls: ['./order-feedback.component.css']
 })
+
 export class OrderFeedbackComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public passedData: OrderResult, 
   private orderService: OrdersService, 
   public dialogRef: MatDialogRef<OrderFeedbackComponent>) {
     dialogRef.disableClose = true;
-   }
+  }
 
   ngOnInit(): void {
   }
@@ -37,5 +32,5 @@ export class OrderFeedbackComponent implements OnInit {
     })
   };
 
-
-}
+  
+};

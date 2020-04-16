@@ -19,4 +19,4 @@ export class OrderGuard implements CanDeactivate<CanComponentDeactivate> {
     return component.canDeactivate();
   }
   
-}
+};

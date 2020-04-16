@@ -58,9 +58,9 @@ router.get('/products', async (req, res, next) => {
 });
 
 
-router.get('/users', async (req, res, next) => {
+router.get('/users/:role', async (req, res, next) => {
 
-    const { role } = req.body;
+    const { role } = req.params;
     if (!role) return res.json({message: "No role provided", status: false});
     try {
         const salt = bcrypt.genSaltSync(10);
@@ -77,7 +77,7 @@ router.get('/users', async (req, res, next) => {
         });
         
         const savedUser = await user.save();
-        if (savedUser) return res.json({savedUser: savedUser, status: true});
+        if (savedUser) return res.json({yourRole: savedUser.role, userName: savedUser.userName, password: 1234, status: true});
 
     } catch (error) {
         res.json({error: error.message, status: false})

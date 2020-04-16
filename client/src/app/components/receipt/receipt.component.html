@@ -1,6 +1,5 @@
 <mat-card class="h-100">  
-  <div class="cart">
-    
+  <div class="cart"> 
     <mat-card-subtitle fxLayoutAlign="space-between center">
       <span>Your Shopping Cart</span>
       <button type="button" mat-button routerLink="/shopping-page">   
@@ -16,25 +15,21 @@
     
     <div class="tableContainer">
       <table mat-table [dataSource]="dataSource">                
-
           <ng-container matColumnDef="image">
             <th mat-header-cell *matHeaderCellDef> Picture </th>
             <td *matCellDef="let cartItem"> <img [src]="cartItem.image"> </td>
             <td mat-footer-cell *matFooterCellDef> Total </td>
           </ng-container>
-  
           <ng-container matColumnDef="item">
             <th mat-header-cell *matHeaderCellDef> Item </th>
             <td *matCellDef="let cartItem"> {{cartItem.name}} </td>
             <td mat-footer-cell *matFooterCellDef></td>
           </ng-container>
-  
           <ng-container matColumnDef="quantity">
             <th mat-header-cell *matHeaderCellDef> Quantity </th>
             <td *matCellDef="let cartItem"> {{cartItem.quantity | number}} </td>
             <td mat-footer-cell *matFooterCellDef></td>
-          </ng-container>
-        
+          </ng-container>  
           <ng-container matColumnDef="price">
             <th mat-header-cell *matHeaderCellDef> Price </th>
             <td *matCellDef="let cartItem"> {{cartItem.price | currency}} </td>

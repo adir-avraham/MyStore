@@ -1,33 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { Subscription } from 'rxjs';
-import { SelectedProduct } from '../../services/cart/cart.service';
+import { SelectedProduct } from './cart.interfaces';
 import { Router } from '@angular/router';
 import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
+import { CartItem, CartResult, AddedProduct } from './cart.interfaces';
 
-
-
-export interface CartResult {
-  cart: Array<CartItem>;
-  status: boolean;
-}
-
-
-export interface CartItem {
-  _id?: string;
-  name?: string;
-  quantity?: number;
-  price?: number;
-  cart_id: string;
-  product_id?: string;
-  image?: string;
-}
-
-export interface AddedProduct {
-  product_id: string;
-  quantity: number;
-  cart_id: string;
-}
 
 @Component({
   selector: 'app-cart',
@@ -35,14 +13,15 @@ export interface AddedProduct {
   styleUrls: ['./cart.component.css']
 })
 
+
 export class CartComponent implements OnInit, OnDestroy {
   
-  displayedColumns: string[] = ['image', 'item', 'quantity', 'price', 'remove'];
-  panelOpenState = false;
-  cartItems: Array<CartItem> = [];
-  selectedProductSub: Subscription;
-  constructor(private cartService: CartService, private router: Router, private sidebarService: SidebarService) { }
+  public displayedColumns: string[] = ['image', 'item', 'quantity', 'price', 'remove'];
+  public panelOpenState = false;
+  public cartItems: Array<CartItem> = [];
+  public selectedProductSub: Subscription;
 
+  constructor(private cartService: CartService, private router: Router, private sidebarService: SidebarService) { }
 
   ngOnInit(): void {
     
@@ -76,52 +55,50 @@ export class CartComponent implements OnInit, OnDestroy {
       console.log(error.message);
     });
 
-  }
+  };
 
   
   getTotalCost() {
     return this.cartItems.map(item => item.price).reduce((acc, value) => acc + value, 0);
-  }
+  };
 
   getTotalCartItems() {
     return this.cartItems.map(item => item.quantity).reduce((acc, value) => acc + value, 0);
-  }
+  };
 
   deleteCartItem(item_id: string) {
-
     this.cartService.deleteCartItem(item_id).subscribe((cartResult: CartResult) => {
       const { cart, status } = cartResult;
       if (!status) return;
       this.cartItems = cart;
       this.cartService.totalQuantity.next(this.getTotalCartItems());
-  }, error =>{
+    }, error =>{
     console.log(error.message);
-  });
-    
-}
+    });  
+  };
 
-emptyCart(cart_id: string) {
-  this.cartService.emptyCart(cart_id).subscribe((cartResult: CartResult) =>{
-    const { cart, status} = cartResult;
-    if (!status) return;
-    this.cartItems = cart;
-    this.cartService.totalQuantity.next(this.getTotalCartItems());
-  }, error =>{
-    console.log(error.message);
-  })
-}
+  emptyCart(cart_id: string) {
+    this.cartService.emptyCart(cart_id).subscribe((cartResult: CartResult) =>{
+      const { cart, status} = cartResult;
+      if (!status) return;
+      this.cartItems = cart;
+      this.cartService.totalQuantity.next(this.getTotalCartItems());
+      }, error =>{
+      console.log(error.message);
+    })
+  };
 
-checkout() {
-  this.router.navigate(['/checkout']);
-}
+  checkout() {
+    this.router.navigate(['/checkout']);
+  };
 
-closeSideBar() {
-  this.sidebarService.openSidebar.next(false);
+  closeSideBar() {
+    this.sidebarService.openSidebar.next(false);
+  };
+
+  ngOnDestroy() {
+    this.selectedProductSub.unsubscribe();
+  };
+
+
 };
-
-ngOnDestroy() {
-  this.selectedProductSub.unsubscribe();
-}
-
-
-}

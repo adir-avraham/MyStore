@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AuthService, Decoded } from 'src/app/services/auth/auth.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { CartService } from 'src/app/services/cart/cart.service';
 import * as jwtDecode from 'jwt-decode'; 
 import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
+import { Decoded } from 'src/app/services/auth/auth.interfaces';
 
 @Component({
   selector: 'app-header',
@@ -41,11 +42,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
       if (role === 'admin') {
         this.adminConnected = 'Admin';
       }
-    })
+    });
 
     this.showCartIndicatorSub = this.cartService.showCartIndicator.subscribe((showCartIndicator: boolean) => {
       this.showCartIndicator = showCartIndicator;
-    })
+    });
 
     this.openSidebarSub = this.sidebarService.openSidebar.subscribe((openSidebar: boolean) => {
       this.openSidebar = openSidebar;
@@ -57,17 +58,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
   
   logout() {
     this.authService.logout();
-  }
+  };
   
   showCart() {
     this.openSidebar = !this.openSidebar;
     this.sidebarService.openSidebar.next(this.openSidebar);
-  }
+  };
 
   ngOnDestroy() {
     this.userSubscription.unsubscribe();
     this.showCartIndicatorSub.unsubscribe();
     this.openSidebarSub.unsubscribe();
-  }
+  };
 
 };

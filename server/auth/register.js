@@ -37,7 +37,7 @@ router.post('/secondStep', async (req, res) => {
     try{    
         const { saveUser } = users;    
         const savedUser = await saveUser(req.body);
-        if (savedUser) return res.json({message: "Registration completed!", savedUser: savedUser, status: true });
+        if (savedUser) return res.json({message: "Registration completed!", status: true });
         res.json({message: "Register error!", status: false});
     } catch (error) {
         res.json({error: error.message , status: false});

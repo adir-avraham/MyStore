@@ -3,12 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Router } from '@angular/router';
 import { passwordValidator, UniqueUsernameValidator } from './custom-validators';
+import { RegisterResponse } from './register.interfaces';
 
-
-interface Response {
-  status?: boolean;
-  message?: string;
-}
 
 @Component({
   selector: 'app-register',
@@ -60,7 +56,7 @@ export class RegisterComponent implements OnInit {
       lastName: this.registerForm2.get('lastName').value
     }
 
-    this.authService.register(newUser).subscribe((response: Response) => {
+    this.authService.register(newUser).subscribe((response: RegisterResponse) => {
       const { status } = response;
       if (status) {
         const { userName, password } = newUser;

@@ -15,8 +15,8 @@ router.get('/', async (req, res, next) => {
         const { writeToTxtFile } = utils;
         const cartItemsList = await getCartItemsList(cartId);
         const totalPrice = await getTotalPriceOrder(orderId);  
-        writeToTxtFile(`receipts-files/receipt - ${orderId}.txt`, cartItemsList, totalPrice);   
-        const receiptFile = `receipts-files/receipt - ${orderId}.txt`;
+        writeToTxtFile(`${__dirname}/receipts-files/receipt - ${orderId}.txt`, cartItemsList, totalPrice);   
+        const receiptFile = `${__dirname}/receipts-files/receipt - ${orderId}.txt`;
         res.download(receiptFile);
     } catch (error) {
         res.json({error: error.message, status: false});

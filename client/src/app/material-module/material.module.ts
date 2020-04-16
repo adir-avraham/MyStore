@@ -5,9 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
-import { MatTabsModule } from '@angular/material/tabs';
 import { MatStepperModule } from '@angular/material/stepper';
-import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
@@ -17,7 +15,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from	'@angular/material/core';
 import { MAT_DATE_LOCALE } from '@angular/material/core'
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -33,9 +30,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
         MatInputModule,
         MatToolbarModule,
         MatCardModule,
-        MatTabsModule,
         MatStepperModule,
-        MatExpansionModule,
         MatDialogModule,
         MatTableModule,
         MatSelectModule,
@@ -44,12 +39,9 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
         MatDatepickerModule,
         MatNativeDateModule,
         MatSidenavModule,
-        MatCheckboxModule,
         MatMenuModule,
         MatBadgeModule,
         MatButtonToggleModule
-
-
     ],
     exports: [
         MatButtonModule,
@@ -58,9 +50,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
         MatInputModule,
         MatToolbarModule,
         MatCardModule,
-        MatTabsModule,
         MatStepperModule,
-        MatExpansionModule,
         MatDialogModule,
         MatTableModule,
         MatSelectModule,
@@ -69,11 +59,9 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
         MatDatepickerModule,
         MatNativeDateModule,
         MatSidenavModule,
-        MatCheckboxModule,
         MatMenuModule,
         MatBadgeModule,
         MatButtonToggleModule
-        
         ]
 })
 export class MaterialModule {

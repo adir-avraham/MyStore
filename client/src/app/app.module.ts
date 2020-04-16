@@ -83,6 +83,12 @@ import { ConfirmAlertComponent } from './components/confirm-alert/confirm-alert.
     {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true}
   ],
   bootstrap: [AppComponent],
-  entryComponents: [DialogComponent, OrderFeedbackComponent, CartComponent, GalleryComponent]
+  entryComponents: [
+    DialogComponent,
+    OrderFeedbackComponent,
+    CartComponent, 
+    GalleryComponent,
+    AlertComponent, 
+    ConfirmAlertComponent]
 })
 export class AppModule { }

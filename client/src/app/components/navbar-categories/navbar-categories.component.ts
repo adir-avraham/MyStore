@@ -1,16 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { CategoriesService } from 'src/app/services/categories/categories.service';
+import { Category, CategoriesRes } from './categories.interfaces';
 
-
-export interface Category {
-  _id: string;
-  category: string;
-}
-
-export interface CategoriesRes {
-  categories: Array<Category>;
-  stauts: boolean;
-}
 
 @Component({
   selector: 'app-navbar-categories',
@@ -28,20 +19,17 @@ export class NavbarCategoriesComponent implements OnInit {
 
   constructor(private categoriesService: CategoriesService) { }
 
-  ngOnInit() {
-     
+  ngOnInit() {     
     this.categoriesService.getCategories().subscribe((result: CategoriesRes) => {
-      const { categories } = result
+      const { categories } = result;
       this.categories = categories; 
     }, error =>{
       console.log(error.message);
     })
-
   };
 
   getProductsByCategory(category: Category) {
     this.productsByCategory.emit(category);
-  }
+  };
 
-
-}
+};

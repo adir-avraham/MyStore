@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const products_controller = require('../controllers/products');
 
-const { getNumOfProducts, getProductByName, getProductsByCategory,
+const { getNumOfProducts, getProductsByCategory,
     editProduct, createProduct 
 } = products_controller;
 
@@ -10,8 +10,6 @@ const { getNumOfProducts, getProductByName, getProductsByCategory,
 router.get('/getNumOfProducts', getNumOfProducts); 
 
 router.get('/getProductsByCategory/:_id', getProductsByCategory); 
-
-router.get('/getProductByName/:name', getProductByName);
 
 router.put('/editProduct', editProduct);
 

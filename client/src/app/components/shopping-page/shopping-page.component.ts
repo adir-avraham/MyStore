@@ -1,20 +1,20 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Category, CategoriesRes } from '../navbar-categories/navbar-categories.component';
-import { ProductsService, ProductsResult } from 'src/app/services/products/products.service';
+import { Category, CategoriesRes } from '../navbar-categories/categories.interfaces';
+import { ProductsService } from 'src/app/services/products/products.service';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog-add/dialog.component';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { MatSidenav, MatDrawer } from '@angular/material/sidenav';
-import { AuthService, Decoded } from 'src/app/services/auth/auth.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { User } from 'src/app/models/user.model';
 import * as jwtDecode from 'jwt-decode'; 
 import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
 import { CategoriesService } from 'src/app/services/categories/categories.service';
-import { Product } from './shopping-page.interfaces';
+import { Product, ProductsResult } from './shopping-page.interfaces';
 import { SearchService } from 'src/app/services/search/search.service';
 import { cardAnimation } from './animations';
-
+import { Decoded } from 'src/app/services/auth/auth.interfaces';
 
 
 @Component({
@@ -23,7 +23,6 @@ import { cardAnimation } from './animations';
   styleUrls: ['./shopping-page.component.css'],
   animations: [cardAnimation]
 })
-
 
 export class ShoppingPageComponent implements OnInit, OnDestroy {
 
@@ -41,9 +40,10 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
   constructor(private productsService: ProductsService, private dialog: MatDialog,
     private cartService: CartService, private authService: AuthService, 
     private sidebarService: SidebarService, private categoriesService: CategoriesService,
-    private searchService: SearchService) { }
+    private searchService: SearchService
+  ) { }
 
-
+  
   ngOnInit(): void {
     
     this.categoriesService.getCategories().subscribe((result: CategoriesRes) => {
@@ -88,7 +88,6 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
     })
   };
   
-  
   addProductToCart(product: Product) {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '500px',
@@ -102,18 +101,15 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
     })
   };
 
-
   editProduct(product: Product) {
     this.productsService.selectedProduct.next(product);
     this.sidebarService.openSidebar.next(true);
   };
 
-  
   ngOnDestroy() {
     this.unsubscribeSearchTextChanges.unsubscribe();
     this.unsubscribeProducts.unsubscribe();
     this.openSidebarSub.unsubscribe();
   };
-
 
 };
