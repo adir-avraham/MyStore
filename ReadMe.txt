@@ -7,17 +7,23 @@ Node.js + Angular + MongoDB Project
 ------------------------------------
 
 DEPLOYMENT: 
-----------------------
+-----------------------
 
-1) You can find the project online on url => https://my-store-adir.herokuapp.com 
+1) You can find the project online on url => https://mystore-adir.herokuapp.com 
 
 
 INSTALLATION
 ----------------------
 
 1) Download project from Git =>  git clone https://github.com/adir-avraham/MyStore.git
+
 2) In the main folder Run the yml file => docker-compose up 
-3) Done!
+
+[This stage might take approximately 8-10 min]
+
+3) Open the browser on => http://localhost:4000
+
+4) Done!
 
 Login credentials (local and deployment)
 -----------------------------------------
@@ -28,6 +34,7 @@ Login credentials (local and deployment)
 Docker hub (optional)
 -----------------------
 1) run ==> docker pull -all-tags adiravraham/my-store
+
 
 API Doc
 -----------------------
