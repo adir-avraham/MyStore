@@ -21,7 +21,7 @@ INSTALLATION
 **Make sure ports are available
 **This stage might take approximately 8-10 min
 
-3) Open the browser on => http://localhost:4000
+3) Open the browser on => http://localhost:80 OR http://localhost:4200 
 
 4) Done!
 
