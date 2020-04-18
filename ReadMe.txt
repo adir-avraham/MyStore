@@ -18,8 +18,8 @@ INSTALLATION
 1) Download project from Git =>  git clone https://github.com/adir-avraham/MyStore.git
 
 2) In the main folder Run the yml file => docker-compose up 
-
-[This stage might take approximately 8-10 min]
+**Make sure ports are available
+**This stage might take approximately 8-10 min
 
 3) Open the browser on => http://localhost:4000
 
