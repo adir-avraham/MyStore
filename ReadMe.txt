@@ -27,8 +27,8 @@ INSTALLATION
 
 Login credentials (local and deployment)
 -----------------------------------------
-1) Login user credentials => user name: user@gmail.com, password: 1234
-2) Login admin credentials => user name: admin@gmail.com, password: 1234
+1) Login user credentials => email: adir@gmail.com, password: 1234
+2) Login admin credentials => email: admin@gmail.com, password: 1234
 
 
 Docker hub (optional)

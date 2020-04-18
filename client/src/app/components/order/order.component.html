@@ -29,7 +29,7 @@
           <mat-icon matSuffix class="material-icons-outlined clickable">home</mat-icon>
         </mat-form-field>
 
-        <mat-form-field>
+        <mat-form-field (click)="picker.open()">
           <mat-label>Delivery Date</mat-label>
           <input matInput [matDatepicker]="picker" formControlName="deliveryDate" 
           [min]="minDate" [matDatepickerFilter]="myFilter">
@@ -46,10 +46,10 @@
               {{ requiredMsg }}
             </mat-error>
             <mat-error *ngIf="orderForm.get('creditCard').errors?.min">
-              Credit card must be 16 digits long.
+              {{ creditCard.length }} out of 16 digits. Credit card must be 16 digits long.
             </mat-error>
             <mat-error *ngIf="orderForm.get('creditCard').errors?.max">
-              Credit card must be 16 digits long.
+              {{ creditCard.length }} out of 16 digits. Credit card must be 16 digits long.
             </mat-error>
             <mat-icon matSuffix class="credit-icon">credit_card</mat-icon>
         </mat-form-field>

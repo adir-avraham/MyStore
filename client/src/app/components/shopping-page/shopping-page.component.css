@@ -42,3 +42,13 @@ img {
 grid-column: 1 / 5;
 color: #8bc34a;
 }
+
+@media only screen and (max-width: 981px) {
+  .my-card {
+    transition: transform 1s;
+    display: grid;
+  }
+  .my-card:hover {
+    transform: translateY(0px);
+  }
+}

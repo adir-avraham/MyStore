@@ -36,6 +36,7 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
   public showCartIndicator: boolean = false;
   public showCartIndicatorSub: Subscription;
   public openSidebarSub: Subscription;
+  public isLoading: boolean = true;
 
   constructor(private productsService: ProductsService, private dialog: MatDialog,
     private cartService: CartService, private authService: AuthService, 
@@ -51,6 +52,7 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
       this.getProductsByCategory(categories[0]);
     }, error =>{
       console.log(error.message);
+      this.isLoading = false;
     })
 
     this.unsubscribeProducts = this.productsService.products.subscribe((products: Array<Product>) => {
@@ -85,6 +87,9 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
     this.productsService.getProductsByCategory(category).subscribe((result: ProductsResult) => {
       const { products } = result;
       this.products = products;
+      this.isLoading = false;
+    }, error => {
+      this.isLoading = false;
     })
   };
   

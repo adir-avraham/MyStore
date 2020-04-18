@@ -27,11 +27,13 @@ export class OrderComponent implements OnInit {
   public requiredMsg = "Field is required."
   public orderSaved: boolean = false;
 
+  get creditCard() { return this.orderForm.get('creditCard').value };
+
   constructor(private formBuilder: FormBuilder, private ordersService: OrdersService, 
     private dialog: MatDialog, private router: Router) { 
     this.orderForm = this.formBuilder.group({
-      deliveryCity: [null, Validators.required],
-      deliveryStreet: [null, Validators.required],
+      deliveryCity: [this.getUserCity(), Validators.required],
+      deliveryStreet: [this.getUserStreet(), Validators.required],
       deliveryDate: [null, Validators.required],
       creditCard: [null, [Validators.required, Validators.min(1000000000000000), Validators.max(9999999999999999)]]
     })

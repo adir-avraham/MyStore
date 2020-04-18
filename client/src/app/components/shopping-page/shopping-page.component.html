@@ -26,7 +26,7 @@
             </button>
           </mat-card-actions>
         </mat-card>  
-        <h3 class="result-message" *ngIf="result.length === 0" fxLayoutAlign="center center">Sorry! No products found...☹️</h3>    
+        <h3 class="result-message" *ngIf="result.length === 0 && !isLoading" fxLayoutAlign="center center">Sorry! No products found...☹️</h3>    
       </ng-container>
     </div>
 

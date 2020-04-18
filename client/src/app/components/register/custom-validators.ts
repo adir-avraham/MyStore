@@ -8,7 +8,7 @@ import { map, catchError } from 'rxjs/operators'
 export const passwordValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
   const password = control.get('password');
   const passwordConfirm = control.get('passwordConfirm');
-  return password.value !== passwordConfirm.value ? { 'misMatch' : true } : null;
+  return passwordConfirm.value && (password.value !== passwordConfirm.value) ? { 'misMatch' : true } : null;
 };
 
 
