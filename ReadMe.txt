@@ -12,14 +12,14 @@ DEPLOYMENT:
 1) You can find the project online on url => https://mystore-adir.herokuapp.com 
 
 
-INSTALLATION
+INSTALLATION - 8min
 ----------------------
 
 1) Download project from Git =>  git clone https://github.com/adir-avraham/MyStore.git
 
 2) In the main folder Run the yml file => docker-compose up 
 **Make sure ports are available
-**This stage might take approximately 8-10 min
+
 
 3) Open the browser on => http://localhost:80 OR http://localhost:4200 
 
