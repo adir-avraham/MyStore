@@ -6,7 +6,7 @@ MY STORE - READ ME!
 Node.js + Angular + MongoDB Project
 ------------------------------------
 This project is about shooping online. As a user you can browse grocery products and make orders online.
-As an admin, you are in charge of adding nnew products. Also, you can edit products as you wish.
+As an admin, you are in charge of adding new products. Also, you can edit products as you wish.
 
 DEPLOYMENT: 
 -----------------------
@@ -20,7 +20,7 @@ INSTALLATION - 8min
 1) Download project from Git =>  git clone https://github.com/adir-avraham/MyStore.git
 
 2) In the main folder Run the yml file => docker-compose up 
-**Make sure ports are available
+**Make sure ports are available**
 
 3) Open the browser on => http://localhost:80 OR http://localhost:4200 
 
