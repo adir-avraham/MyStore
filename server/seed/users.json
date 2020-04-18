@@ -1,3 +1,3 @@
-[{"role":"admin","firstName":"admin","lastName":"admin","userName":"admin@gmail.com","password":"$2a$10$efU6f0cYNrEIq7cE3R8/L.RPYjJpkyjZlheCnjYgRbQpD4RC.KbAO","salt":"$2a$10$efU6f0cYNrEIq7cE3R8/L.","id":123456,"city":"London","street":"Somewhere 15"},
+[{"role":"admin","firstName":"admin","lastName":"admin","userName":"admin@gmail.com","password":"$2a$10$efU6f0cYNrEIq7cE3R8/L.RPYjJpkyjZlheCnjYgRbQpD4RC.KbAO","salt":"$2a$10$efU6f0cYNrEIq7cE3R8/L.","id":123456,"city":"London","street":"Oxford 10"},
 
-{"role":"user","firstName":"user","lastName":"user","userName":"user@gmail.com","password":"$2a$10$amfwvTKBWjpehmiWD3DdYuo9Hwbt0HA8Aj9mwXlXMX5m6da2wDMCi","salt":"$2a$10$amfwvTKBWjpehmiWD3DdYu","id":123456,"city":"London","street":"Somewhere 15"}]
+{"role":"user","firstName":"user","lastName":"user","userName":"adir@gmail.com","password":"$2a$10$amfwvTKBWjpehmiWD3DdYuo9Hwbt0HA8Aj9mwXlXMX5m6da2wDMCi","salt":"$2a$10$amfwvTKBWjpehmiWD3DdYu","id":123456,"city":"London","street":"Oxford 10"}]
